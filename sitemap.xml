@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  
+  <!-- Home Page -->
+  <url>
+    <loc>https://www.krishnayajurvedachidambaram.org/</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://www.krishnayajurvedachidambaram.org/assets/images/nataraja_hero.jpg</image:loc>
+      <image:title>Lord Thillai Nataraja Ananda Tandavam Chidambaram</image:title>
+      <image:caption>Sri Krishna Yajur Veda Parayana Trust Chidambaram</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Speciality of Chidambaram Temple -->
+  <url>
+    <loc>https://www.krishnayajurvedachidambaram.org/temple.html</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://www.krishnayajurvedachidambaram.org/assets/images/golden_roof.jpg</image:loc>
+      <image:title>Chidambaram Kanaka Sabha Golden Roof and Akasa Lingam</image:title>
+    </image:image>
+  </url>
+
+  <!-- Function Days & Festivals -->
+  <url>
+    <loc>https://www.krishnayajurvedachidambaram.org/function-days.html</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://www.krishnayajurvedachidambaram.org/assets/images/natyanjali.jpg</image:loc>
+      <image:title>Chidambaram Function Days, Arudhra Darisanam and Natyanjali</image:title>
+    </image:image>
+  </url>
+
+  <!-- Veda Parayana & Sevas -->
+  <url>
+    <loc>https://www.krishnayajurvedachidambaram.org/veda-parayana.html</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://www.krishnayajurvedachidambaram.org/assets/images/veda_parayana.jpg</image:loc>
+      <image:title>Krishna Yajur Veda Parayana Pundits at Chidambaram</image:title>
+    </image:image>
+  </url>
+
+  <!-- About Trust -->
+  <url>
+    <loc>https://www.krishnayajurvedachidambaram.org/about-trust.html</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://www.krishnayajurvedachidambaram.org/assets/images/trust_logo.jpg</image:loc>
+      <image:title>Sri Krishna Yajur Veda Parayana Trust Official Logo</image:title>
+    </image:image>
+  </url>
+
+  <!-- Photo Gallery -->
+  <url>
+    <loc>https://www.krishnayajurvedachidambaram.org/gallery.html</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://www.krishnayajurvedachidambaram.org/assets/images/chidambaram_gopuram.jpg</image:loc>
+      <image:title>Chidambaram Temple Raja Gopuram and Sivaganga Tank</image:title>
+    </image:image>
+  </url>
+
+  <!-- Online Seva Booking & Donations -->
+  <url>
+    <loc>https://www.krishnayajurvedachidambaram.org/donate.html</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <!-- Contact & Travel Guide -->
+  <url>
+    <loc>https://www.krishnayajurvedachidambaram.org/contact.html</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+
+</urlset>

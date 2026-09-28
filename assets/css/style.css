@@ -1,0 +1,1617 @@
+/* ==========================================================================
+   SRI KRISHNA YAJUR VEDA PARAYANA TRUST - CHIDAMBARAM
+   Official Temple Portal Design System (TTD Style)
+   ========================================================================== */
+
+:root {
+  --primary-gold: #c59b27;
+  --gold-gradient: linear-gradient(135deg, #f7d070 0%, #d4af37 50%, #aa771c 100%);
+  --gold-glow: 0 0 20px rgba(212, 175, 55, 0.45);
+  
+  --crimson-dark: #4a0711;
+  --crimson-main: #7b1122;
+  --crimson-light: #9e1930;
+  
+  --saffron-bright: #ff6f00;
+  --saffron-warm: #f57c00;
+  --saffron-soft: #fff3e0;
+  
+  --stone-dark: #1b1614;
+  --stone-surface: #261f1c;
+  --stone-card: #332a26;
+  
+  --bg-cream: #fffdf8;
+  --bg-ivory: #faf4e8;
+  --bg-card: #ffffff;
+  
+  --text-primary: #211c19;
+  --text-secondary: #5e544d;
+  --text-gold: #c59b27;
+  --text-light: #f7f3ea;
+  
+  --border-gold: rgba(212, 175, 55, 0.4);
+  --border-subtle: rgba(123, 17, 34, 0.12);
+  
+  --font-heading: 'Cinzel', serif;
+  --font-subheading: 'Marcellus', serif;
+  --font-body: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+  
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 6px 20px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 15px 35px rgba(0, 0, 0, 0.18);
+  --shadow-gold: 0 8px 25px rgba(197, 155, 39, 0.35);
+  
+  --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+}
+
+/* Base Styles & Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-cream);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* Devotional Background Pattern */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(rgba(197, 155, 39, 0.05) 1px, transparent 1px);
+  background-size: 24px 24px;
+  pointer-events: none;
+  z-index: -1;
+}
+
+a {
+  color: var(--crimson-main);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+a:hover {
+  color: var(--primary-gold);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+ul {
+  list-style: none;
+}
+
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ==========================================================================
+   TOP UTILITY BAR (TTD Style)
+   ========================================================================== */
+.top-bar {
+  background: var(--crimson-dark);
+  color: var(--text-light);
+  font-size: 0.82rem;
+  padding: 6px 0;
+  border-bottom: 2px solid var(--primary-gold);
+}
+
+.top-bar .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.top-bar-left, .top-bar-right {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.chant-mantra {
+  font-family: var(--font-subheading);
+  color: #f7d070;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.panchang-today {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #e0d0be;
+}
+
+.top-utility-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  color: #fff;
+  padding: 2px 10px;
+  border-radius: 4px;
+  font-size: 0.78rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: var(--transition);
+}
+
+.top-utility-btn:hover {
+  background: var(--primary-gold);
+  color: var(--crimson-dark);
+}
+
+.audio-toggle.playing {
+  background: var(--saffron-bright);
+  color: #fff;
+  animation: pulseGlow 1.5s infinite;
+}
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 5px rgba(255, 111, 0, 0.5); }
+  50% { box-shadow: 0 0 15px rgba(255, 111, 0, 0.9); }
+}
+
+/* ==========================================================================
+   MAIN HEADER & LOGO BRANDING (TTD Grand Style)
+   ========================================================================== */
+.main-header {
+  background: linear-gradient(to bottom, #ffffff, #fffdf8);
+  padding: 16px 0;
+  border-bottom: 3px double var(--primary-gold);
+  position: relative;
+  box-shadow: var(--shadow-sm);
+}
+
+.main-header-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.brand-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  text-decoration: none;
+}
+
+.trust-logo-img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  border: 3px solid var(--primary-gold);
+  box-shadow: 0 4px 15px rgba(197, 155, 39, 0.3);
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.brand-wrapper:hover .trust-logo-img {
+  transform: rotate(5deg) scale(1.03);
+}
+
+.brand-text h1 {
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+  color: var(--crimson-dark);
+  letter-spacing: 0.5px;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.brand-sub-tamil {
+  font-size: 0.95rem;
+  color: var(--crimson-main);
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+.brand-sub-location {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 3px;
+}
+
+.header-right-emblem {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  text-align: right;
+}
+
+.motto-box {
+  background: var(--bg-ivory);
+  border: 1px solid var(--border-gold);
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  border-left: 4px solid var(--crimson-main);
+}
+
+.motto-sanskrit {
+  font-family: var(--font-subheading);
+  font-size: 0.95rem;
+  font-weight: bold;
+  color: var(--crimson-dark);
+}
+
+.motto-translation {
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+/* ==========================================================================
+   NAVIGATION BAR (TTD Iconic Gold & Crimson Navbar)
+   ========================================================================== */
+.nav-bar {
+  background: linear-gradient(180deg, var(--crimson-main) 0%, var(--crimson-dark) 100%);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+  border-top: 1px solid rgba(255, 215, 0, 0.4);
+  border-bottom: 2px solid var(--primary-gold);
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.main-nav {
+  display: flex;
+  align-items: center;
+}
+
+.nav-link {
+  color: #fff3e0;
+  font-family: var(--font-subheading);
+  font-size: 0.92rem;
+  font-weight: 500;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  letter-spacing: 0.3px;
+  position: relative;
+  transition: var(--transition);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.nav-link:hover, .nav-link.active {
+  background: rgba(197, 155, 39, 0.25);
+  color: #f7d070;
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--gold-gradient);
+}
+
+.nav-btn-donate {
+  background: var(--gold-gradient);
+  color: var(--crimson-dark) !important;
+  font-weight: 700 !important;
+  border-radius: var(--radius-sm);
+  padding: 9px 18px !important;
+  margin: 6px 0;
+  box-shadow: 0 2px 10px rgba(212, 175, 55, 0.4);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-btn-donate:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.6);
+}
+
+.mobile-menu-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 1.5rem;
+  padding: 10px;
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   FLASH NEWS / ANNOUNCEMENT TICKER (TTD Style)
+   ========================================================================== */
+.flash-news-bar {
+  background: #fdf6e6;
+  border-bottom: 1px solid var(--border-gold);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  height: 42px;
+}
+
+.flash-label {
+  background: var(--crimson-main);
+  color: #fff;
+  font-family: var(--font-subheading);
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 0 20px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  clip-path: polygon(0 0, 92% 0, 100% 100%, 0 100%);
+  z-index: 2;
+}
+
+.flash-ticker-wrap {
+  flex: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  padding-left: 20px;
+}
+
+.flash-ticker {
+  display: inline-block;
+  white-space: nowrap;
+  animation: ticker 32s linear infinite;
+  font-size: 0.88rem;
+  color: var(--crimson-dark);
+}
+
+.flash-ticker:hover {
+  animation-play-state: paused;
+}
+
+.ticker-item {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 45px;
+}
+
+.ticker-item i {
+  color: var(--saffron-warm);
+  margin-right: 8px;
+}
+
+@keyframes ticker {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+/* ==========================================================================
+   HERO BANNER & SLIDER
+   ========================================================================== */
+.hero-slider-section {
+  position: relative;
+  background: var(--stone-dark);
+  min-height: 540px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.hero-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 1s ease-in-out, transform 1.2s ease-out;
+  transform: scale(1.04);
+}
+
+.hero-slide.active {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+}
+
+.hero-slide-bg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.65) contrast(1.1);
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(20, 10, 5, 0.4) 0%, rgba(74, 7, 17, 0.55) 70%, rgba(20, 10, 5, 0.95) 100%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 10;
+  color: #fff;
+  max-width: 850px;
+  padding: 60px 0;
+}
+
+.hero-tagline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(197, 155, 39, 0.3);
+  border: 1px solid var(--primary-gold);
+  color: #fce8a6;
+  font-family: var(--font-subheading);
+  font-size: 0.9rem;
+  padding: 6px 16px;
+  border-radius: 50px;
+  backdrop-filter: blur(4px);
+  margin-bottom: 18px;
+  letter-spacing: 0.5px;
+}
+
+.hero-title {
+  font-family: var(--font-heading);
+  font-size: 2.8rem;
+  line-height: 1.15;
+  color: #ffffff;
+  text-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
+  margin-bottom: 14px;
+}
+
+.hero-title span {
+  background: var(--gold-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-desc {
+  font-size: 1.1rem;
+  color: #f0e6d6;
+  max-width: 680px;
+  line-height: 1.6;
+  margin-bottom: 28px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  background: var(--gold-gradient);
+  color: var(--crimson-dark);
+  font-family: var(--font-subheading);
+  font-weight: 700;
+  padding: 13px 28px;
+  border-radius: var(--radius-sm);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.98rem;
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+  border: none;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(212, 175, 55, 0.6);
+  color: var(--crimson-dark);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: #ffffff;
+  font-family: var(--font-subheading);
+  font-weight: 600;
+  padding: 13px 26px;
+  border-radius: var(--radius-sm);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.98rem;
+  backdrop-filter: blur(6px);
+  transition: var(--transition);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+  border-color: #ffffff;
+  transform: translateY(-2px);
+}
+
+/* Slider Controls */
+.slider-dots {
+  position: absolute;
+  bottom: 30px;
+  right: 50px;
+  z-index: 20;
+  display: flex;
+  gap: 10px;
+}
+
+.slider-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.slider-dot.active {
+  background: var(--primary-gold);
+  border-color: #fff;
+  transform: scale(1.2);
+}
+
+/* ==========================================================================
+   TTD SIGNATURE FLOATING SERVICES GRID
+   ========================================================================= */
+.floating-services-section {
+  position: relative;
+  margin-top: -60px;
+  z-index: 30;
+  padding-bottom: 40px;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+}
+
+.service-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-md);
+  padding: 24px 18px;
+  text-align: center;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-gold);
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: var(--gold-gradient);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--primary-gold);
+}
+
+.service-card:hover::before {
+  transform: scaleX(1);
+}
+
+.service-icon-box {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--bg-ivory);
+  border: 2px solid var(--primary-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+  color: var(--crimson-main);
+  font-size: 1.5rem;
+  transition: var(--transition);
+}
+
+.service-card:hover .service-icon-box {
+  background: var(--crimson-main);
+  color: #f7d070;
+  transform: scale(1.1);
+}
+
+.service-title {
+  font-family: var(--font-subheading);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--crimson-dark);
+  margin-bottom: 6px;
+}
+
+.service-subtitle {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  line-height: 1.3;
+}
+
+/* ==========================================================================
+   TODAY AT CHIDAMBARAM & PANCHANGAM BAR
+   ========================================================================== */
+.panchang-bar-section {
+  background: linear-gradient(135deg, #fdf8ed 0%, #faecd4 100%);
+  border-top: 1px solid var(--border-gold);
+  border-bottom: 1px solid var(--border-gold);
+  padding: 24px 0;
+  margin-bottom: 50px;
+}
+
+.panchang-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.panchang-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.panchang-badge {
+  background: var(--crimson-main);
+  color: #f7d070;
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.panchang-items {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 22px;
+}
+
+.panchang-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.panchang-item .label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  color: var(--crimson-main);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.panchang-item .value {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.panchang-cta {
+  background: var(--crimson-main);
+  color: #fff;
+  padding: 7px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: var(--transition);
+}
+
+.panchang-cta:hover {
+  background: var(--crimson-dark);
+  color: #f7d070;
+}
+
+/* ==========================================================================
+   SECTION COMMON STYLES
+   ========================================================================== */
+.section {
+  padding: 60px 0;
+}
+
+.section-title-wrap {
+  text-align: center;
+  margin-bottom: 45px;
+  position: relative;
+}
+
+.section-subtitle {
+  font-family: var(--font-subheading);
+  color: var(--saffron-warm);
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.section-title {
+  font-family: var(--font-heading);
+  font-size: 2.2rem;
+  color: var(--crimson-dark);
+  margin-bottom: 12px;
+  position: relative;
+  display: inline-block;
+}
+
+.title-ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: var(--primary-gold);
+  margin-top: 8px;
+}
+
+.title-ornament::before,
+.title-ornament::after {
+  content: '';
+  width: 60px;
+  height: 2px;
+  background: var(--gold-gradient);
+}
+
+.section-desc {
+  max-width: 720px;
+  margin: 12px auto 0;
+  color: var(--text-secondary);
+  font-size: 0.98rem;
+}
+
+/* ==========================================================================
+   SPECIALITY OF CHIDAMBARAM TEMPLE (Pancha Bhoota & Rahasyam)
+   ========================================================================== */
+.speciality-section {
+  background: var(--bg-cream);
+}
+
+.speciality-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 28px;
+}
+
+.feature-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-gold);
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+}
+
+.feature-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+}
+
+.feature-card-img-wrap {
+  position: relative;
+  height: 220px;
+  overflow: hidden;
+}
+
+.feature-card-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.feature-card:hover .feature-card-img-wrap img {
+  transform: scale(1.08);
+}
+
+.feature-tag {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  background: var(--crimson-main);
+  color: #f7d070;
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.feature-body {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.feature-title {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  color: var(--crimson-dark);
+  margin-bottom: 10px;
+}
+
+.feature-text {
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+  line-height: 1.6;
+  flex: 1;
+}
+
+.feature-list {
+  margin-bottom: 20px;
+}
+
+.feature-list li {
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.feature-list li i {
+  color: var(--primary-gold);
+  font-size: 0.8rem;
+}
+
+.feature-link {
+  font-family: var(--font-subheading);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--crimson-main);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.feature-link:hover {
+  color: var(--primary-gold);
+  transform: translateX(4px);
+}
+
+/* ==========================================================================
+   KRISHNA YAJUR VEDA PARAYANA TRUST FOCUS SECTION
+   ========================================================================== */
+.veda-trust-section {
+  background: linear-gradient(rgba(27, 22, 20, 0.94), rgba(43, 27, 23, 0.96)), url('../images/veda_parayana.jpg') center/cover fixed;
+  color: #fff;
+  padding: 80px 0;
+  position: relative;
+}
+
+.veda-trust-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  align-items: center;
+}
+
+.veda-trust-content h3 {
+  font-family: var(--font-subheading);
+  color: #f7d070;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.veda-trust-content h2 {
+  font-family: var(--font-heading);
+  font-size: 2.3rem;
+  color: #ffffff;
+  line-height: 1.25;
+  margin-bottom: 18px;
+}
+
+.veda-trust-content p {
+  color: #e5ded6;
+  font-size: 0.98rem;
+  line-height: 1.7;
+  margin-bottom: 24px;
+}
+
+.veda-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 30px;
+}
+
+.veda-stat-card {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border-gold);
+  padding: 16px;
+  border-radius: var(--radius-sm);
+  text-align: center;
+  backdrop-filter: blur(4px);
+}
+
+.veda-stat-number {
+  font-family: var(--font-heading);
+  font-size: 1.8rem;
+  color: #f7d070;
+  font-weight: 700;
+}
+
+.veda-stat-label {
+  font-size: 0.78rem;
+  color: #d1c7bc;
+  text-transform: uppercase;
+}
+
+.veda-highlight-box {
+  background: rgba(197, 155, 39, 0.15);
+  border-left: 4px solid var(--primary-gold);
+  padding: 24px;
+  border-radius: var(--radius-sm);
+}
+
+.veda-quote {
+  font-family: var(--font-subheading);
+  font-size: 1.15rem;
+  color: #f7d070;
+  font-style: italic;
+  margin-bottom: 12px;
+}
+
+/* ==========================================================================
+   CHIDAMBARAM FESTIVALS & FUNCTION DAYS CALENDAR
+   ========================================================================== */
+.festivals-section {
+  background: var(--bg-ivory);
+}
+
+.festival-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 35px;
+  flex-wrap: wrap;
+}
+
+.festival-tab-btn {
+  background: var(--bg-card);
+  border: 1px solid var(--border-gold);
+  color: var(--crimson-dark);
+  font-family: var(--font-subheading);
+  font-weight: 600;
+  padding: 10px 22px;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.festival-tab-btn.active, .festival-tab-btn:hover {
+  background: var(--crimson-main);
+  color: #f7d070;
+  border-color: var(--crimson-main);
+  box-shadow: 0 4px 12px rgba(123, 17, 34, 0.25);
+}
+
+.festivals-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 24px;
+}
+
+.festival-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-gold);
+  transition: var(--transition);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.festival-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--primary-gold);
+}
+
+.festival-date-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--saffron-soft);
+  color: var(--saffron-warm);
+  font-weight: 700;
+  font-size: 0.82rem;
+  padding: 6px 12px;
+  border-radius: 20px;
+  margin-bottom: 14px;
+  align-self: flex-start;
+}
+
+.festival-name {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  color: var(--crimson-dark);
+  margin-bottom: 8px;
+}
+
+.festival-tamil {
+  font-size: 0.9rem;
+  color: var(--crimson-light);
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.festival-desc {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 18px;
+  flex: 1;
+}
+
+.festival-footer {
+  border-top: 1px dashed rgba(123, 17, 34, 0.15);
+  padding-top: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.festival-tag-small {
+  font-size: 0.76rem;
+  color: var(--primary-gold);
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   DAILY POOJA TIMINGS (Aru Kaala Pooja at Chidambaram)
+   ========================================================================== */
+.pooja-timings-table-wrap {
+  background: var(--bg-card);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-gold);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+.pooja-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.pooja-table th {
+  background: var(--crimson-main);
+  color: #f7d070;
+  font-family: var(--font-subheading);
+  padding: 16px 20px;
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+}
+
+.pooja-table td {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border-subtle);
+  font-size: 0.9rem;
+}
+
+.pooja-table tr:nth-child(even) {
+  background: var(--bg-ivory);
+}
+
+.pooja-table tr:hover {
+  background: rgba(197, 155, 39, 0.08);
+}
+
+/* ==========================================================================
+   ONLINE SEVA BOOKING & E-HUNDI SECTION (Interactive Demo)
+   ========================================================================== */
+.donation-interactive-section {
+  background: var(--bg-cream);
+  padding: 70px 0;
+}
+
+.donation-grid-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 36px;
+}
+
+.donation-form-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-md);
+  padding: 32px;
+  border: 1px solid var(--border-gold);
+  box-shadow: var(--shadow-md);
+}
+
+.form-header {
+  margin-bottom: 24px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid var(--bg-ivory);
+}
+
+.form-header h3 {
+  font-family: var(--font-heading);
+  color: var(--crimson-dark);
+  font-size: 1.4rem;
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--crimson-dark);
+  margin-bottom: 6px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1px solid #dcd1c4;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  transition: var(--transition);
+  background: #fff;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--primary-gold);
+  box-shadow: 0 0 0 3px rgba(197, 155, 39, 0.2);
+}
+
+.seva-options-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.seva-option-btn {
+  background: var(--bg-ivory);
+  border: 1px solid var(--border-gold);
+  padding: 10px;
+  border-radius: var(--radius-sm);
+  text-align: left;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.seva-option-btn.selected, .seva-option-btn:hover {
+  background: var(--crimson-main);
+  color: #f7d070;
+  border-color: var(--crimson-main);
+}
+
+.seva-option-name {
+  font-weight: 700;
+  font-size: 0.85rem;
+  display: block;
+}
+
+.seva-option-price {
+  font-size: 0.78rem;
+  opacity: 0.85;
+}
+
+/* Receipt Preview Modal */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 2000;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal-overlay.active {
+  display: flex;
+}
+
+.receipt-modal-content {
+  background: #ffffff;
+  border-radius: var(--radius-md);
+  max-width: 580px;
+  width: 100%;
+  padding: 30px;
+  border: 3px double var(--primary-gold);
+  position: relative;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.receipt-close-btn {
+  position: absolute;
+  top: 15px;
+  right: 18px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--crimson-dark);
+  cursor: pointer;
+}
+
+.receipt-header {
+  text-align: center;
+  padding-bottom: 18px;
+  border-bottom: 2px dashed var(--primary-gold);
+  margin-bottom: 18px;
+}
+
+.receipt-body-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #f0eae1;
+  font-size: 0.9rem;
+}
+
+.receipt-body-row.total {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: var(--crimson-main);
+  border-bottom: 2px solid var(--crimson-main);
+  padding-top: 12px;
+}
+
+/* ==========================================================================
+   PHOTO & VIDEO GALLERY (High-Res Devotional Visuals)
+   ========================================================================== */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.gallery-item {
+  position: relative;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-gold);
+  height: 240px;
+  cursor: pointer;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.1);
+}
+
+.gallery-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px 16px;
+  background: linear-gradient(transparent, rgba(74, 7, 17, 0.9));
+  color: #fff;
+  transform: translateY(10px);
+  opacity: 0.9;
+  transition: var(--transition);
+}
+
+.gallery-item:hover .gallery-overlay {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.gallery-title {
+  font-family: var(--font-subheading);
+  font-size: 1rem;
+  color: #f7d070;
+}
+
+/* ==========================================================================
+   FOOTER (Grand TTD Style Comprehensive Footer)
+   ========================================================================== */
+.main-footer {
+  background: linear-gradient(180deg, #2b1b17 0%, #150d0b 100%);
+  color: #d8cec4;
+  border-top: 4px solid var(--primary-gold);
+  padding: 60px 0 20px;
+  position: relative;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1.5fr;
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.footer-col h4 {
+  font-family: var(--font-heading);
+  color: #f7d070;
+  font-size: 1.15rem;
+  margin-bottom: 20px;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.footer-col h4::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  height: 2px;
+  background: var(--gold-gradient);
+}
+
+.footer-about p {
+  font-size: 0.88rem;
+  line-height: 1.7;
+  margin-bottom: 18px;
+}
+
+.footer-links li {
+  margin-bottom: 10px;
+}
+
+.footer-links a {
+  color: #c4b9ad;
+  font-size: 0.88rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: var(--transition);
+}
+
+.footer-links a:hover {
+  color: #f7d070;
+  transform: translateX(4px);
+}
+
+.footer-contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 0.88rem;
+  margin-bottom: 14px;
+}
+
+.footer-contact-item i {
+  color: var(--primary-gold);
+  margin-top: 4px;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255, 215, 0, 0.2);
+  padding-top: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  font-size: 0.82rem;
+}
+
+.visitor-counter {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border-gold);
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-family: monospace;
+  color: #f7d070;
+  font-size: 0.95rem;
+}
+
+/* ==========================================================================
+   AUDIO PLAYER FLOATING BAR
+   ========================================================================== */
+.devotional-audio-bar {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 1500;
+  background: var(--crimson-dark);
+  border: 2px solid var(--primary-gold);
+  border-radius: 50px;
+  padding: 8px 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: var(--shadow-lg);
+  color: #fff;
+  transition: var(--transition);
+}
+
+.devotional-audio-bar:hover {
+  transform: scale(1.03);
+}
+
+.audio-icon-pulse {
+  color: #f7d070;
+  font-size: 1.2rem;
+  animation: pulseGlow 2s infinite;
+}
+
+.audio-track-info {
+  font-size: 0.8rem;
+  font-family: var(--font-subheading);
+}
+
+.audio-track-info .title {
+  color: #f7d070;
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   BREADCRUMBS & INNER PAGE HEADERS
+   ========================================================================== */
+.page-banner {
+  background: linear-gradient(rgba(43, 27, 23, 0.88), rgba(74, 7, 17, 0.92)), url('../images/golden_roof.jpg') center/cover;
+  color: #fff;
+  padding: 60px 0;
+  text-align: center;
+  border-bottom: 3px solid var(--primary-gold);
+}
+
+.page-banner h1 {
+  font-family: var(--font-heading);
+  font-size: 2.6rem;
+  color: #ffffff;
+  margin-bottom: 10px;
+}
+
+.breadcrumbs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.88rem;
+  color: #e0d0be;
+}
+
+.breadcrumbs a {
+  color: #f7d070;
+}
+
+.breadcrumbs i {
+  font-size: 0.7rem;
+}
+
+/* ==========================================================================
+   RESPONSIVE MEDIA QUERIES
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .veda-trust-inner {
+    grid-template-columns: 1fr;
+  }
+  .donation-grid-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .mobile-menu-toggle {
+    display: block;
+  }
+  
+  .main-nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: var(--crimson-dark);
+    flex-direction: column;
+    padding: 10px 0;
+    border-bottom: 3px solid var(--primary-gold);
+    box-shadow: var(--shadow-lg);
+  }
+  
+  .main-nav.show {
+    display: flex;
+  }
+  
+  .nav-link {
+    width: 100%;
+    padding: 12px 24px;
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  
+  .hero-title {
+    font-size: 2rem;
+  }
+  
+  .brand-text h1 {
+    font-size: 1.15rem;
+  }
+  
+  .trust-logo-img {
+    width: 65px;
+    height: 65px;
+  }
+  
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .top-bar-left, .top-bar-right {
+    width: 100%;
+    justify-content: space-between;
+  }
+}

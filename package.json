@@ -1,0 +1,8 @@
+{
+  "name": "sri-krishna-yajur-veda-parayana-trust",
+  "version": "1.0.0",
+  "description": "Official Website of Sri Krishna Yajur Veda Parayana Trust, Chidambaram",
+  "scripts": {
+    "deploy": "vercel --prod"
+  }
+}
