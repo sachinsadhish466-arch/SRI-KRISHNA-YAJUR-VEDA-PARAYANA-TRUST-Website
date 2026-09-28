@@ -4,5 +4,8 @@
   "description": "Official Website of Sri Krishna Yajur Veda Parayana Trust, Chidambaram",
   "scripts": {
     "deploy": "vercel --prod"
+  },
+  "devDependencies": {
+    "vercel": "^60.1.3"
   }
 }

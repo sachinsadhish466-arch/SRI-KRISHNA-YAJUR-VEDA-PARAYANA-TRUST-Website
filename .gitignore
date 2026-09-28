@@ -4,3 +4,5 @@ Thumbs.db
 *.zip
 .vercel
 .netlify
+
+.vercel
