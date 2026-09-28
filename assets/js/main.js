@@ -4,6 +4,7 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+  initTempleVideoLoader();
   initHeroSlider();
   initMobileMenu();
   initDevotionalAudio();
@@ -79,6 +80,18 @@ function initMobileMenu() {
         icon.classList.remove('fa-times');
       }
     }
+  });
+
+  // Close when clicking any nav link (critical for smooth mobile navigation)
+  nav.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      nav.classList.remove('show');
+      const icon = toggleBtn.querySelector('i');
+      if (icon) {
+        icon.classList.add('fa-bars');
+        icon.classList.remove('fa-times');
+      }
+    });
   });
 }
 
@@ -368,4 +381,137 @@ function initVisitorCounter() {
   } catch(e) {}
   
   counterEl.textContent = baseCount.toLocaleString('en-IN');
+}
+
+/* ==========================================================================
+   10-SECOND SACRED VIDEO LOADING SCREEN
+   Temple Sanctum Cinematic Video Experience (10 Seconds)
+   ========================================================================== */
+function initTempleVideoLoader() {
+  const loader = document.getElementById('templeVideoLoader');
+  if (!loader) return;
+
+  const video = document.getElementById('loaderVideo');
+  const skipBtn = document.getElementById('loaderSkipBtn');
+  const soundBtn = document.getElementById('loaderSoundBtn');
+  const soundIcon = document.getElementById('loaderSoundIcon');
+  const soundText = document.getElementById('loaderSoundText');
+  const progressFill = document.getElementById('loaderProgressFill');
+  const countdownPill = document.getElementById('loaderCountdown');
+  const currentSecEl = document.getElementById('loaderCurrentSec');
+  const statusMsg = document.getElementById('loaderStatusMsg');
+
+  const TOTAL_DURATION_MS = 10000; // Exactly 10 seconds
+  let startTime = null;
+  let animFrameId = null;
+  let isDone = false;
+
+  // Lock body scroll while video loading screen is active
+  document.body.classList.add('loading-active');
+
+  // Attempt automatic video playback
+  if (video) {
+    video.muted = true; // Browser policy permits autoplay when muted
+    const playPromise = video.play();
+    if (playPromise !== undefined) {
+      playPromise.catch((err) => {
+        console.warn('Autoplay waiting for user gesture:', err);
+      });
+    }
+
+    // Toggle Sound control
+    if (soundBtn) {
+      soundBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (video.muted) {
+          video.muted = false;
+          if (soundIcon) soundIcon.className = 'fas fa-volume-up';
+          if (soundText) soundText.textContent = 'Mute';
+          soundBtn.classList.add('sound-active');
+        } else {
+          video.muted = true;
+          if (soundIcon) soundIcon.className = 'fas fa-volume-mute';
+          if (soundText) soundText.textContent = 'Sound';
+          soundBtn.classList.remove('sound-active');
+        }
+      });
+    }
+
+    // When video naturally ends, transition out
+    video.addEventListener('ended', () => {
+      finishLoader();
+    });
+  }
+
+  // Smooth 60fps progress bar and 10s countdown animation
+  function updateProgress(timestamp) {
+    if (!startTime) startTime = timestamp;
+    const elapsed = timestamp - startTime;
+    const progress = Math.min((elapsed / TOTAL_DURATION_MS) * 100, 100);
+
+    if (progressFill) {
+      progressFill.style.width = progress + '%';
+    }
+
+    const remainingSec = Math.max(0, Math.ceil((TOTAL_DURATION_MS - elapsed) / 1000));
+    const currentSec = Math.min(10, Math.floor(elapsed / 1000));
+
+    if (countdownPill) {
+      countdownPill.textContent = remainingSec + 's';
+    }
+    if (currentSecEl) {
+      currentSecEl.textContent = currentSec;
+    }
+
+    // Dynamic devotional status captions
+    if (statusMsg) {
+      if (elapsed > 7200) {
+        statusMsg.textContent = 'Sanctum Sanctorum Revealed • Welcome to Sacred Kshetram';
+      } else if (elapsed > 3800) {
+        statusMsg.textContent = 'Sri Krishna Yajur Veda Parayana Trust • Chidambara Mahatmyam';
+      }
+    }
+
+    if (elapsed < TOTAL_DURATION_MS && !isDone) {
+      animFrameId = requestAnimationFrame(updateProgress);
+    } else if (!isDone) {
+      finishLoader();
+    }
+  }
+
+  animFrameId = requestAnimationFrame(updateProgress);
+
+  function finishLoader() {
+    if (isDone) return;
+    isDone = true;
+
+    if (animFrameId) {
+      cancelAnimationFrame(animFrameId);
+    }
+
+    if (progressFill) progressFill.style.width = '100%';
+    if (countdownPill) countdownPill.textContent = '0s';
+    if (currentSecEl) currentSecEl.textContent = '10';
+
+    loader.classList.add('loader-finished');
+    document.body.classList.remove('loading-active');
+
+    if (video) {
+      try {
+        video.pause();
+      } catch (e) {}
+    }
+
+    setTimeout(() => {
+      loader.style.display = 'none';
+    }, 850);
+  }
+
+  // Skip Intro button for immediate entrance
+  if (skipBtn) {
+    skipBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      finishLoader();
+    });
+  }
 }

@@ -1129,7 +1129,8 @@ ul {
   background: var(--bg-card);
   border-radius: var(--radius-md);
   border: 1px solid var(--border-gold);
-  overflow: hidden;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   box-shadow: var(--shadow-md);
 }
 
@@ -1550,23 +1551,571 @@ ul {
 }
 
 /* ==========================================================================
-   RESPONSIVE MEDIA QUERIES
+   DEVOTIONAL COPYRIGHT & CREDITS STYLES
    ========================================================================== */
-@media (max-width: 1024px) {
-  .footer-grid {
-    grid-template-columns: 1fr 1fr;
+.footer-copyright-text {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  color: #c4b9ad;
+  line-height: 1.6;
+}
+
+.footer-copyright-text strong {
+  color: #f7d070;
+}
+
+.credit-sep {
+  color: var(--primary-gold);
+  opacity: 0.7;
+}
+
+.devotional-credit {
+  color: #fce8a6;
+  font-family: var(--font-subheading);
+  letter-spacing: 0.3px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.devotional-credit strong {
+  color: #ffffff;
+  background: var(--gold-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 700;
+}
+
+.footer-visitor-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ==========================================================================
+   10-SECOND SACRED VIDEO LOADING SCREEN
+   Temple Sanctum Sanctorum Cinematic Entrance Video
+   ========================================================================== */
+body.loading-active {
+  overflow: hidden !important;
+  height: 100vh !important;
+  touch-action: none;
+}
+
+.temple-video-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 999999;
+  background: #090103;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+              visibility 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+              filter 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.temple-video-loader.loader-finished {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: scale(1.04);
+  filter: blur(6px);
+}
+
+/* Fullscreen Background Video Wrapper */
+.loader-video-wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  overflow: hidden;
+  background: #000;
+}
+
+.loader-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  filter: saturate(1.06) contrast(1.03);
+}
+
+/* Cinematic Dark Warm Vignette */
+.loader-video-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(10, 1, 3, 0.15) 30%,
+    rgba(12, 2, 4, 0.55) 75%,
+    rgba(6, 1, 2, 0.92) 100%
+  );
+  pointer-events: none;
+}
+
+/* Atmospheric Top and Bottom Subtle Shadow Drapes */
+.loader-ambient-glow {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(12, 2, 4, 0.85) 0%,
+    transparent 22%,
+    transparent 75%,
+    rgba(8, 1, 2, 0.9) 100%
+  );
+  pointer-events: none;
+}
+
+/* Top Sacred Branding & Action Bar */
+.loader-top-bar {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 36px;
+  gap: 16px;
+}
+
+.loader-branding {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.loader-om-badge {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.35) 0%, rgba(123, 17, 34, 0.85) 100%);
+  border: 1.5px solid var(--primary-gold);
+  color: #ffd700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+  animation: pulseOmBadge 2.4s ease-in-out infinite alternate;
+}
+
+@keyframes pulseOmBadge {
+  0% { transform: scale(0.96); box-shadow: 0 0 12px rgba(212, 175, 55, 0.4); }
+  100% { transform: scale(1.06); box-shadow: 0 0 24px rgba(212, 175, 55, 0.8); }
+}
+
+.loader-trust-names {
+  display: flex;
+  flex-direction: column;
+}
+
+.loader-mantra {
+  font-family: var(--font-heading);
+  font-size: 0.78rem;
+  letter-spacing: 2px;
+  color: #f7d070;
+  text-shadow: 0 0 8px rgba(247, 208, 112, 0.6);
+}
+
+.loader-trust-title {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  background: linear-gradient(135deg, #fff2b8 0%, #ffd700 50%, #d4af37 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.85);
+}
+
+.loader-temple-tag {
+  font-family: var(--font-subheading);
+  font-size: 0.75rem;
+  letter-spacing: 1.2px;
+  color: #e6c88b;
+  opacity: 0.9;
+}
+
+/* Controls: Sound & Skip */
+.loader-top-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.loader-ctrl-btn {
+  background: rgba(22, 4, 8, 0.8);
+  border: 1px solid var(--primary-gold);
+  color: #fff2b8;
+  padding: 8px 18px;
+  border-radius: 30px;
+  font-family: var(--font-subheading);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.loader-ctrl-btn:hover {
+  background: var(--gold-gradient);
+  color: #4a0711;
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.7);
+  transform: translateY(-2px);
+}
+
+.loader-ctrl-btn.sound-active {
+  background: var(--gold-gradient);
+  color: #4a0711;
+  box-shadow: 0 0 18px rgba(255, 215, 0, 0.6);
+}
+
+.loader-time-pill {
+  background: rgba(212, 175, 55, 0.25);
+  border: 1px solid rgba(255, 215, 0, 0.5);
+  padding: 2px 7px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  color: #ffd700;
+}
+
+/* Subtle Center Aura Ring */
+.loader-center-element {
+  position: relative;
+  z-index: 2;
+  pointer-events: none;
+  align-self: center;
+}
+
+.center-aura-ring {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  border: 1px dashed rgba(212, 175, 55, 0.25);
+  animation: rotateCenterAura 24s linear infinite;
+  box-shadow: 0 0 45px rgba(255, 215, 0, 0.08);
+}
+
+@keyframes rotateCenterAura {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Bottom Status & 10-Second Golden Progress Timeline */
+.loader-bottom-bar {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 36px 28px;
+  gap: 14px;
+}
+
+.loader-bottom-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.loader-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(30, 5, 10, 0.85);
+  border: 1px solid rgba(212, 175, 55, 0.5);
+  padding: 8px 20px;
+  border-radius: 30px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+}
+
+.status-pulse-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #f7d070;
+  box-shadow: 0 0 8px #f7d070;
+  animation: pulseDot 1.2s infinite ease-in-out;
+}
+
+.status-msg {
+  font-family: var(--font-subheading);
+  color: #fff2b8;
+  font-size: 0.88rem;
+  letter-spacing: 0.5px;
+}
+
+.loader-timer-badge {
+  font-family: var(--font-subheading);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #ffd700;
+  background: rgba(22, 4, 8, 0.8);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  padding: 6px 16px;
+  border-radius: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
+
+/* 10-Second Progress Bar */
+.loader-progress-track {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+.loader-progress-fill {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #b8860b 0%, #ffd700 50%, #fff7cc 100%);
+  border-radius: 6px;
+  box-shadow: 0 0 14px rgba(255, 215, 0, 0.9);
+  transition: width 0.08s linear;
+  position: relative;
+}
+
+.loader-progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 22px;
+  height: 100%;
+  background: #ffffff;
+  opacity: 0.75;
+  filter: blur(3px);
+}
+
+@keyframes pulseDot {
+  0%, 100% { transform: scale(0.8); opacity: 0.6; }
+  50% { transform: scale(1.3); opacity: 1; }
+}
+
+/* Mobile & Tablet Responsiveness for Video Loader */
+@media (max-width: 768px) {
+  .loader-top-bar {
+    padding: 16px 18px;
+    flex-wrap: wrap;
   }
-  .veda-trust-inner {
-    grid-template-columns: 1fr;
+  .loader-trust-title {
+    font-size: 0.92rem;
   }
-  .donation-grid-layout {
-    grid-template-columns: 1fr;
+  .loader-temple-tag {
+    font-size: 0.68rem;
+  }
+  .loader-om-badge {
+    width: 38px;
+    height: 38px;
+    font-size: 1.1rem;
+  }
+  .loader-ctrl-btn {
+    padding: 6px 12px;
+    font-size: 0.78rem;
+  }
+  .loader-bottom-bar {
+    padding: 14px 18px 20px;
+  }
+  .loader-status-pill {
+    padding: 6px 12px;
+  }
+  .status-msg {
+    font-size: 0.75rem;
+  }
+  .loader-timer-badge {
+    font-size: 0.75rem;
+    padding: 4px 10px;
   }
 }
 
+
+/* ==========================================================================
+   COMPREHENSIVE MOBILE RESPONSIVE ENGINE & GLITCH FIXES
+   Optimized for All Phone Screens (iPhone, Android, Foldables & Tablets)
+   ========================================================================== */
+
+/* Universal Responsive Base Rules */
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Auto-collapse inline 2-column grids on mobile */
 @media (max-width: 768px) {
+  [style*="grid-template-columns: 1.2fr 1fr"],
+  [style*="grid-template-columns: 1.1fr 1fr"],
+  [style*="grid-template-columns: 1fr 1fr"],
+  .responsive-grid-2col {
+    grid-template-columns: 1fr !important;
+    gap: 28px !important;
+  }
+}
+
+/* Large Tablets & Small Laptops (<= 1024px) */
+@media (max-width: 1024px) {
+  .container {
+    padding: 0 20px;
+  }
+  
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+  }
+  
+  .veda-trust-inner {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  
+  .donation-grid-layout {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  
+  .brand-text h1 {
+    font-size: 1.35rem;
+  }
+}
+
+/* Tablets & Mobile Devices (<= 768px) */
+@media (max-width: 768px) {
+  .section {
+    padding: 45px 0;
+  }
+  
+  .section-title {
+    font-size: 1.75rem;
+  }
+  
+  /* Top Bar Mobile Optimization */
+  .top-bar {
+    padding: 8px 0;
+  }
+  
+  .top-bar .container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+  }
+  
+  .top-bar-left, .top-bar-right {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  
+  .chant-mantra {
+    font-size: 0.82rem;
+  }
+  
+  .panchang-today {
+    font-size: 0.78rem;
+  }
+  
+  .top-utility-btn {
+    padding: 4px 10px;
+    font-size: 0.75rem;
+  }
+  
+  /* Main Header Branding Mobile Optimization */
+  .main-header {
+    padding: 12px 0;
+  }
+  
+  .main-header-inner {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .brand-wrapper {
+    gap: 12px;
+    flex: 1;
+  }
+  
+  .trust-logo-img {
+    width: 60px;
+    height: 60px;
+    border-width: 2px;
+    flex-shrink: 0;
+  }
+  
+  .brand-text h1 {
+    font-size: 1.12rem;
+    line-height: 1.2;
+    letter-spacing: 0.2px;
+  }
+  
+  .brand-sub-tamil {
+    font-size: 0.82rem;
+  }
+  
+  .brand-sub-location {
+    font-size: 0.72rem;
+    line-height: 1.3;
+  }
+  
+  .header-right-emblem {
+    display: none; /* Prevents crowding on mobile phones */
+  }
+  
+  /* Navigation Bar & Mobile Menu */
+  .nav-bar {
+    padding: 4px 0;
+  }
+  
+  .nav-container {
+    position: relative;
+  }
+  
   .mobile-menu-toggle {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    font-size: 1.4rem;
+    color: #f7d070;
+    border-radius: var(--radius-sm);
+  }
+  
+  .nav-btn-donate {
+    padding: 6px 14px !important;
+    font-size: 0.82rem !important;
+    margin: 0;
   }
   
   .main-nav {
@@ -1575,11 +2124,15 @@ ul {
     top: 100%;
     left: 0;
     width: 100%;
-    background: var(--crimson-dark);
+    background: linear-gradient(180deg, var(--crimson-dark) 0%, #200407 100%);
     flex-direction: column;
-    padding: 10px 0;
+    padding: 8px 0;
     border-bottom: 3px solid var(--primary-gold);
-    box-shadow: var(--shadow-lg);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
+    max-height: calc(100vh - 65px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    z-index: 1005;
   }
   
   .main-nav.show {
@@ -1588,30 +2141,323 @@ ul {
   
   .nav-link {
     width: 100%;
-    padding: 12px 24px;
+    padding: 13px 20px;
+    font-size: 0.95rem;
     border-right: none;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   }
   
+  /* Hero Slider & Actions */
+  .hero-slider-section {
+    min-height: 460px;
+  }
+  
+  .hero-content {
+    padding: 45px 0 60px;
+    text-align: center;
+  }
+  
+  .hero-tagline {
+    font-size: 0.8rem;
+    padding: 5px 14px;
+    margin-bottom: 14px;
+  }
+  
   .hero-title {
-    font-size: 2rem;
+    font-size: 1.85rem;
+    line-height: 1.25;
+    margin-bottom: 12px;
   }
   
-  .brand-text h1 {
-    font-size: 1.15rem;
+  .hero-desc {
+    font-size: 0.95rem;
+    line-height: 1.55;
+    margin: 0 auto 22px;
   }
   
-  .trust-logo-img {
-    width: 65px;
-    height: 65px;
+  .hero-actions {
+    justify-content: center;
+    gap: 12px;
   }
   
+  .btn-primary, .btn-secondary {
+    width: 100%;
+    max-width: 290px;
+    justify-content: center;
+    padding: 12px 20px;
+    font-size: 0.92rem;
+  }
+  
+  .slider-dots {
+    right: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 20px;
+  }
+  
+  /* Floating Services Grid Fix (Fixes overlap glitch!) */
+  .floating-services-section {
+    margin-top: 15px; /* Removed negative margin glitch on mobile */
+    padding-bottom: 25px;
+  }
+  
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  
+  .service-card {
+    padding: 16px 10px;
+  }
+  
+  .service-icon-box {
+    width: 48px;
+    height: 48px;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+  
+  .service-title {
+    font-size: 0.88rem;
+  }
+  
+  .service-subtitle {
+    font-size: 0.72rem;
+  }
+  
+  /* Panchangam Bar Mobile */
+  .panchang-bar-section {
+    padding: 18px 0;
+    margin-bottom: 35px;
+  }
+  
+  .panchang-box {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+  }
+  
+  .panchang-title-wrap {
+    justify-content: center;
+  }
+  
+  .panchang-items {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  
+  .panchang-cta {
+    text-align: center;
+    width: 100%;
+    padding: 9px;
+  }
+  
+  /* Speciality & Festivals Grid */
+  .speciality-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .festivals-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  
+  .festival-tabs {
+    gap: 8px;
+  }
+  
+  .festival-tab-btn {
+    padding: 8px 16px;
+    font-size: 0.82rem;
+  }
+  
+  /* Veda Parayana Section */
+  .veda-trust-section {
+    padding: 50px 0;
+  }
+  
+  .veda-trust-content h2 {
+    font-size: 1.7rem;
+  }
+  
+  .veda-stats-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  
+  .veda-stat-card {
+    padding: 10px 6px;
+  }
+  
+  .veda-stat-number {
+    font-size: 1.35rem;
+  }
+  
+  .veda-stat-label {
+    font-size: 0.68rem;
+  }
+  
+  /* Forms & Donation on Mobile */
+  .donation-form-card {
+    padding: 20px 16px;
+  }
+  
+  .form-header h3 {
+    font-size: 1.2rem;
+  }
+  
+  .form-control {
+    font-size: 16px; /* Prevents auto-zoom glitch in iOS Safari */
+    padding: 10px 12px;
+  }
+  
+  .donation-form-card [style*="grid-template-columns: 1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+    gap: 0 !important;
+  }
+  
+  .seva-options-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  
+  /* Floating Devotional Audio Player */
+  .devotional-audio-bar {
+    bottom: 12px;
+    left: 12px;
+    right: auto;
+    padding: 7px 14px;
+    font-size: 0.8rem;
+    max-width: calc(100vw - 24px);
+    border-width: 1.5px;
+  }
+  
+  .devotional-audio-bar .audio-track-info {
+    display: none; /* Keep compact on mobile */
+  }
+  
+  /* Receipt Modal Mobile */
+  .receipt-modal-content {
+    padding: 20px 14px;
+    margin: 10px;
+  }
+  
+  /* Footer Mobile */
   .footer-grid {
     grid-template-columns: 1fr;
+    gap: 28px;
   }
   
-  .top-bar-left, .top-bar-right {
-    width: 100%;
-    justify-content: space-between;
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+    gap: 14px;
+  }
+  
+  .footer-copyright-text {
+    justify-content: center;
+    text-align: center;
+  }
+  
+  .footer-visitor-wrap {
+    justify-content: center;
+  }
+  
+  /* Temple Door Loader Mobile Adaptations */
+  .temple-portal-stage {
+    width: 95%;
+    height: 84vh;
+  }
+  
+  .temple-archway {
+    padding: 16px 14px 10px;
+    border-radius: 80px 80px 0 0;
+  }
+  
+  .arch-kirtimukha {
+    width: 34px;
+    height: 34px;
+    margin: -6px auto 4px;
+  }
+  
+  .arch-temple-name {
+    font-size: 0.88rem;
+  }
+  
+  .arch-sanskrit {
+    font-size: 0.82rem;
+  }
+  
+  .arch-tamil {
+    font-size: 0.72rem;
+  }
+  
+  .temple-hanging-bell {
+    top: 10px;
+  }
+  .bell-left { left: 14px; }
+  .bell-right { right: 14px; }
+  .bell-body { font-size: 1.1rem; }
+  
+  .temple-doors-container {
+    height: 48vh;
+    min-height: 240px;
+  }
+  
+  .temple-lamp {
+    display: none; /* Hide side lamps on narrow mobile to keep doors large */
+  }
+  
+  .loader-status-text {
+    padding: 6px 14px;
+    margin-top: 14px;
+  }
+  
+  .status-msg {
+    font-size: 0.78rem;
+  }
+  
+  .loader-skip-btn {
+    top: 16px;
+    right: 16px;
+    padding: 6px 12px;
+    font-size: 0.75rem;
   }
 }
+
+/* Small Smart Phones (<= 480px) */
+@media (max-width: 480px) {
+  .brand-text h1 {
+    font-size: 1rem;
+  }
+  
+  .brand-sub-location {
+    display: none; /* Clean look on extra small screens */
+  }
+  
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+  
+  .service-card {
+    padding: 14px 6px;
+  }
+  
+  .service-title {
+    font-size: 0.82rem;
+  }
+  
+  .veda-stats-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  
+  .panchang-items {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+}
+

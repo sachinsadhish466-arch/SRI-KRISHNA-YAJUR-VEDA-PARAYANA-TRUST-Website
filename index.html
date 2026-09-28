@@ -87,6 +87,69 @@
 <body>
 
   <!-- ==========================================================================
+       10-SECOND SACRED VIDEO LOADING SCREEN
+       Temple Sanctum Sanctorum Cinematic Entrance Video (10 Seconds)
+       ========================================================================== -->
+  <div id="templeVideoLoader" class="temple-video-loader" role="dialog" aria-modal="true" aria-label="Welcome to Sri Krishna Yajur Veda Parayana Trust">
+    <!-- Cinematic Fullscreen Video Wrapper -->
+    <div class="loader-video-wrap">
+      <video id="loaderVideo" class="loader-video" playsinline autoplay muted preload="auto">
+        <source src="assets/videos/loading-video.mp4" type="video/mp4">
+        Your browser does not support HTML5 video.
+      </video>
+      <!-- Atmospheric Vignette & Divine Golden Glow -->
+      <div class="loader-video-overlay"></div>
+      <div class="loader-ambient-glow"></div>
+    </div>
+
+    <!-- Sacred Top Bar -->
+    <div class="loader-top-bar">
+      <div class="loader-branding">
+        <span class="loader-om-badge"><i class="fas fa-om"></i></span>
+        <div class="loader-trust-names">
+          <span class="loader-mantra">॥ ॐ नमः शिवाय ॥</span>
+          <h1 class="loader-trust-title">SRI KRISHNA YAJUR VEDA PARAYANA TRUST</h1>
+          <span class="loader-temple-tag">THILLAI NATARAJA TEMPLE • CHIDAMBARAM</span>
+        </div>
+      </div>
+      <div class="loader-top-controls">
+        <button type="button" class="loader-ctrl-btn loader-audio-btn" id="loaderSoundBtn" aria-label="Toggle Audio">
+          <i class="fas fa-volume-mute" id="loaderSoundIcon"></i>
+          <span id="loaderSoundText">Sound</span>
+        </button>
+        <button type="button" class="loader-ctrl-btn loader-skip-btn" id="loaderSkipBtn" aria-label="Skip to website">
+          <span>Skip Intro</span>
+          <span class="loader-time-pill" id="loaderCountdown">10s</span>
+          <i class="fas fa-forward"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Sacred Center Watermark/Ornament (Subtle) -->
+    <div class="loader-center-element" aria-hidden="true">
+      <div class="center-aura-ring"></div>
+    </div>
+
+    <!-- Bottom Status & 10-Second Golden Progress Timeline -->
+    <div class="loader-bottom-bar">
+      <div class="loader-bottom-info">
+        <div class="loader-status-pill">
+          <span class="status-pulse-dot"></span>
+          <span class="status-msg" id="loaderStatusMsg">Entering Sacred Kshetram • Sanctum Sanctorum Darisanam</span>
+        </div>
+        <div class="loader-timer-badge">
+          <i class="far fa-clock"></i> <span id="loaderCurrentSec">0</span>s / 10s
+        </div>
+      </div>
+
+      <!-- 10-Second Progress Bar -->
+      <div class="loader-progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <div class="loader-progress-fill" id="loaderProgressFill"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
        TOP UTILITY BAR (TTD Style with Vedic Chant & Panchangam)
        ========================================================================== -->
   <div class="top-bar">
@@ -1020,10 +1083,12 @@
       </div>
 
       <div class="footer-bottom">
-        <div>
+        <div class="footer-copyright-text">
           &copy; 2026 <strong>Sri Krishna Yajur Veda Parayana Trust, Chidambaram</strong>. All Rights Reserved.
+          <span class="credit-sep">|</span>
+          <span class="devotional-credit">With devotional made by <strong>SB Business Solutions</strong></span>
         </div>
-        <div style="display: flex; align-items: center; gap: 15px;">
+        <div class="footer-visitor-wrap">
           <span>Official Portal Visitors:</span>
           <span class="visitor-counter" id="visitorCounterVal">842,192</span>
         </div>
