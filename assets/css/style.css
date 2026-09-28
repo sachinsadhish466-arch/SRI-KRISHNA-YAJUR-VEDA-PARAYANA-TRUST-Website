@@ -2461,3 +2461,178 @@ img {
   }
 }
 
+/* ==========================================================================
+   TAMIL TRANSLATION & TRUSTEE CONTACT STYLES
+   ========================================================================== */
+.lang-toggle-btn {
+  background: rgba(255, 215, 0, 0.22) !important;
+  border: 1px solid var(--primary-gold) !important;
+  color: #ffd700 !important;
+  font-weight: 700 !important;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  font-size: 0.85rem;
+}
+
+.lang-toggle-btn:hover {
+  background: var(--gold-gradient) !important;
+  color: #4a0711 !important;
+  box-shadow: 0 0 12px rgba(255, 215, 0, 0.7);
+  transform: translateY(-1px);
+}
+
+.lang-toggle-btn.lang-active {
+  background: var(--gold-gradient) !important;
+  color: #4a0711 !important;
+  border-color: #ffd700 !important;
+}
+
+/* WhatsApp Utility Button in Top Bar */
+.top-utility-btn.whatsapp-btn {
+  background: #25D366 !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  border: none !important;
+}
+
+.top-utility-btn.whatsapp-btn:hover {
+  background: #1eb954 !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 10px rgba(37, 211, 102, 0.6);
+}
+
+/* Dedicated Trustee Office Card */
+.trustee-office-card {
+  background: linear-gradient(135deg, rgba(74, 7, 17, 0.95) 0%, rgba(42, 7, 14, 0.98) 100%);
+  border: 2px solid var(--primary-gold);
+  border-radius: var(--radius-md);
+  padding: 24px 28px;
+  margin: 30px 0;
+  box-shadow: var(--shadow-lg);
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+.trustee-office-card::after {
+  content: 'ॐ';
+  position: absolute;
+  right: 20px;
+  bottom: -20px;
+  font-size: 8rem;
+  opacity: 0.06;
+  color: var(--primary-gold);
+  pointer-events: none;
+}
+
+.trustee-name-title {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  color: #ffd700;
+  margin-bottom: 4px;
+  letter-spacing: 0.8px;
+}
+
+.trustee-parentage {
+  color: #f7d070;
+  font-size: 0.92rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.trustee-designation {
+  display: inline-block;
+  background: rgba(212, 175, 55, 0.25);
+  border: 1px solid var(--primary-gold);
+  color: #fff2b8;
+  padding: 3px 12px;
+  border-radius: 20px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.trustee-address-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+  border-top: 1px solid rgba(255, 215, 0, 0.3);
+  padding-top: 16px;
+  margin-top: 8px;
+}
+
+.trustee-info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.trustee-info-item i {
+  color: var(--primary-gold);
+  font-size: 1.15rem;
+  margin-top: 3px;
+}
+
+.trustee-contact-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.contact-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  border-radius: 25px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.contact-pill-btn.pill-whatsapp {
+  background: #25D366;
+  color: #fff;
+}
+
+.contact-pill-btn.pill-gpay {
+  background: linear-gradient(135deg, #1a73e8 0%, #4285f4 100%);
+  color: #fff;
+  border: 1px solid #70a7f9;
+}
+
+.contact-pill-btn.pill-phone {
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffd700;
+  border: 1px solid var(--primary-gold);
+}
+
+.contact-pill-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+}
+
+/* Hide Google Translate top banner & tooltip to keep design clean */
+.goog-te-banner-frame.skiptranslate,
+.goog-te-banner-frame {
+  display: none !important;
+}
+body {
+  top: 0px !important;
+}
+#goog-gt-tt, .goog-te-balloon-frame {
+  display: none !important;
+}
+.goog-text-highlight {
+  background: none !important;
+  box-shadow: none !important;
+}
+
+
