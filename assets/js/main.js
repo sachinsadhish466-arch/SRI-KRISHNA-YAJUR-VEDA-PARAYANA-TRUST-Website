@@ -96,31 +96,51 @@ function initMobileMenu() {
 }
 
 /* ==========================================================================
-   DEVOTIONAL VEDIC & TEMPLE AUDIO (Web Audio Synthesizer)
-   Produces a soothing, authentic 136.1 Hz Cosmic Om & Temple Bell chime!
+   DEVOTIONAL AUDIO PLAYER (Sri Nataraja Sahasranamam)
+   Authentic sacred audio chant player
    ========================================================================== */
-let audioContext = null;
+let devotionalAudio = null;
 let isAudioPlaying = false;
-let audioNodes = [];
 
 function initDevotionalAudio() {
   const playButtons = document.querySelectorAll('.audio-toggle, #globalAudioBtn');
   const statusLabel = document.getElementById('audioStatusLabel');
 
-  playButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      if (!isAudioPlaying) {
-        startVedicHarmonics();
-        isAudioPlaying = true;
-        btn.classList.add('playing');
-        if (statusLabel) statusLabel.textContent = "Chanting: OM NAMAH SHIVAYA";
-        updateAllAudioButtons(true);
-      } else {
-        stopVedicHarmonics();
+  if (!devotionalAudio) {
+    devotionalAudio = new Audio('assets/audio/sri-nataraja-sahasranamam.mp3');
+    devotionalAudio.preload = 'metadata';
+
+    devotionalAudio.addEventListener('ended', () => {
+      isAudioPlaying = false;
+      updateAllAudioButtons(false);
+      if (statusLabel) statusLabel.textContent = "Sri Nataraja Sahasranamam";
+    });
+
+    devotionalAudio.addEventListener('pause', () => {
+      if (isAudioPlaying) {
         isAudioPlaying = false;
-        btn.classList.remove('playing');
-        if (statusLabel) statusLabel.textContent = "Click to Listen Divine Chants";
         updateAllAudioButtons(false);
+        if (statusLabel) statusLabel.textContent = "Sri Nataraja Sahasranamam";
+      }
+    });
+  }
+
+  playButtons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (!isAudioPlaying) {
+        devotionalAudio.play().then(() => {
+          isAudioPlaying = true;
+          updateAllAudioButtons(true);
+          if (statusLabel) statusLabel.textContent = "Playing: Sri Nataraja Sahasranamam";
+        }).catch(err => {
+          console.warn("Audio playback gesture required or failed:", err);
+        });
+      } else {
+        devotionalAudio.pause();
+        isAudioPlaying = false;
+        updateAllAudioButtons(false);
+        if (statusLabel) statusLabel.textContent = "Sri Nataraja Sahasranamam";
       }
     });
   });
@@ -128,117 +148,27 @@ function initDevotionalAudio() {
 
 function updateAllAudioButtons(playing) {
   document.querySelectorAll('.audio-toggle, #globalAudioBtn').forEach(btn => {
-    const icon = btn.querySelector('i');
+    const isFloatingBarBtn = btn.closest('.devotional-audio-bar');
     if (playing) {
       btn.classList.add('playing');
-      if (icon) icon.className = "fas fa-volume-up";
+      if (isFloatingBarBtn) {
+        btn.innerHTML = '<i class="fas fa-pause"></i> Pause';
+      } else {
+        const icon = btn.querySelector('i');
+        if (icon) icon.className = "fas fa-volume-up";
+      }
     } else {
       btn.classList.remove('playing');
-      if (icon) icon.className = "fas fa-volume-mute";
+      if (isFloatingBarBtn) {
+        btn.innerHTML = '<i class="fas fa-play"></i> Play';
+      } else {
+        const icon = btn.querySelector('i');
+        if (icon) icon.className = "fas fa-volume-mute";
+      }
     }
   });
 }
 
-function startVedicHarmonics() {
-  try {
-    const AudioCtx = window.AudioContext || window.webkitAudioContext;
-    if (!AudioCtx) return;
-    audioContext = new AudioCtx();
-
-    // 136.1 Hz is the sacred primordial Om frequency (Earth year tone / Anahata chakra)
-    const baseFreq = 136.1;
-    const osc1 = audioContext.createOscillator();
-    const osc2 = audioContext.createOscillator();
-    const osc3 = audioContext.createOscillator();
-    const gainNode = audioContext.createGain();
-
-    osc1.type = 'sine';
-    osc1.frequency.setValueAtTime(baseFreq, audioContext.currentTime);
-
-    // Harmonic overtone for temple resonance
-    osc2.type = 'sine';
-    osc2.frequency.setValueAtTime(baseFreq * 2.00, audioContext.currentTime);
-
-    // Fifth harmonic for divine tanpura feel
-    osc3.type = 'triangle';
-    osc3.frequency.setValueAtTime(baseFreq * 1.5, audioContext.currentTime);
-
-    const gain1 = audioContext.createGain();
-    const gain2 = audioContext.createGain();
-    const gain3 = audioContext.createGain();
-
-    gain1.gain.setValueAtTime(0.12, audioContext.currentTime);
-    gain2.gain.setValueAtTime(0.06, audioContext.currentTime);
-    gain3.gain.setValueAtTime(0.04, audioContext.currentTime);
-
-    osc1.connect(gain1);
-    osc2.connect(gain2);
-    osc3.connect(gain3);
-
-    gain1.connect(gainNode);
-    gain2.connect(gainNode);
-    gain3.connect(gainNode);
-
-    gainNode.gain.setValueAtTime(0.01, audioContext.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.2, audioContext.currentTime + 3);
-
-    gainNode.connect(audioContext.destination);
-
-    osc1.start();
-    osc2.start();
-    osc3.start();
-
-    // Periodic gentle temple bell chime every 7 seconds
-    const bellInterval = setInterval(() => {
-      if (!isAudioPlaying || !audioContext) {
-        clearInterval(bellInterval);
-        return;
-      }
-      playTempleChime(audioContext, baseFreq * 4);
-    }, 7000);
-
-    audioNodes = [osc1, osc2, osc3, gainNode, bellInterval];
-  } catch (err) {
-    console.error("Devotional audio not allowed or failed:", err);
-  }
-}
-
-function playTempleChime(ctx, freq) {
-  try {
-    const chimeOsc = ctx.createOscillator();
-    const chimeGain = ctx.createGain();
-
-    chimeOsc.type = 'sine';
-    chimeOsc.frequency.setValueAtTime(freq, ctx.currentTime);
-
-    chimeGain.gain.setValueAtTime(0.12, ctx.currentTime);
-    chimeGain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 3.5);
-
-    chimeOsc.connect(chimeGain);
-    chimeGain.connect(ctx.destination);
-
-    chimeOsc.start();
-    chimeOsc.stop(ctx.currentTime + 3.6);
-  } catch (e) {
-    // Ignore audio errors
-  }
-}
-
-function stopVedicHarmonics() {
-  if (audioNodes && audioNodes.length) {
-    try {
-      if (audioNodes[4]) clearInterval(audioNodes[4]);
-      if (audioNodes[0]) audioNodes[0].stop();
-      if (audioNodes[1]) audioNodes[1].stop();
-      if (audioNodes[2]) audioNodes[2].stop();
-    } catch(e) {}
-    audioNodes = [];
-  }
-  if (audioContext && audioContext.state !== 'closed') {
-    audioContext.close();
-    audioContext = null;
-  }
-}
 
 /* ==========================================================================
    FESTIVAL FILTER TABS
