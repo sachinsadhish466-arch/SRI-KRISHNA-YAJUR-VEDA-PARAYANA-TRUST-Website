@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="assets/css/style.css">
   <style>
     .admin-container {
-      max-width: 1200px;
+      max-width: 1240px;
       margin: 30px auto;
       padding: 0 20px;
     }
@@ -83,6 +83,7 @@
       padding: 14px 16px;
       border-bottom: 1px solid #f0e6d2;
       color: var(--text-primary);
+      vertical-align: middle;
     }
     .admin-table tr:hover {
       background: #fffcf4;
@@ -93,6 +94,286 @@
       border-radius: var(--radius-md);
       padding: 24px;
       margin-top: 35px;
+    }
+
+    /* Modal Backdrop & Container */
+    .admin-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(20, 4, 8, 0.78);
+      backdrop-filter: blur(4px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 99999;
+      padding: 20px;
+      overflow-y: auto;
+    }
+    .admin-modal-overlay.active {
+      display: flex;
+    }
+    .admin-modal-box {
+      background: #fff;
+      border-radius: 12px;
+      max-width: 680px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 16px 50px rgba(0, 0, 0, 0.35);
+      border: 2px solid var(--border-gold);
+      animation: modalSlideUp 0.25s ease-out;
+    }
+    @keyframes modalSlideUp {
+      from { opacity: 0; transform: translateY(20px) scale(0.97); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .admin-modal-header {
+      background: linear-gradient(135deg, var(--crimson-dark), #4a0515);
+      color: #ffd700;
+      padding: 18px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--border-gold);
+    }
+    .admin-modal-title {
+      font-family: var(--font-heading);
+      font-size: 1.15rem;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #fff;
+    }
+    .admin-modal-close {
+      background: transparent;
+      border: none;
+      color: #ffd700;
+      font-size: 1.3rem;
+      cursor: pointer;
+      line-height: 1;
+      padding: 4px 8px;
+      border-radius: 4px;
+      transition: all 0.2s;
+    }
+    .admin-modal-close:hover {
+      background: rgba(255,255,255,0.15);
+      color: #fff;
+    }
+    .admin-modal-body {
+      padding: 24px;
+    }
+
+    /* Form Styles */
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    .form-group {
+      margin-bottom: 16px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: var(--crimson-dark);
+      margin-bottom: 6px;
+    }
+    .form-group input, 
+    .form-group select, 
+    .form-group textarea {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid #d4c39e;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-family: inherit;
+      background: #fdfcf9;
+      box-sizing: border-box;
+      transition: border 0.2s;
+    }
+    .form-group input:focus, 
+    .form-group select:focus, 
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--crimson-main);
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(128, 0, 32, 0.1);
+    }
+
+    /* Official Printable Receipt Styling */
+    .receipt-paper {
+      background: #fffefb;
+      border: 3px double #b45309;
+      padding: 30px;
+      position: relative;
+      border-radius: 8px;
+      box-shadow: 0 6px 30px rgba(0,0,0,0.06);
+      font-family: 'Poppins', sans-serif;
+      color: #2b1810;
+    }
+    .receipt-inner-frame {
+      border: 1px solid rgba(180, 83, 9, 0.35);
+      padding: 20px;
+      border-radius: 4px;
+    }
+    .receipt-top-mantra {
+      text-align: center;
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      color: #b45309;
+      font-size: 0.88rem;
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+    }
+    .receipt-header-table {
+      width: 100%;
+      border-bottom: 2px solid #b45309;
+      padding-bottom: 14px;
+      margin-bottom: 16px;
+    }
+    .receipt-trust-name {
+      font-family: 'Cinzel', serif;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #6b0f24;
+      line-height: 1.25;
+      margin: 0 0 4px;
+    }
+    .receipt-trust-sub {
+      font-size: 0.78rem;
+      color: #555;
+      line-height: 1.4;
+    }
+    .receipt-pan-tag {
+      display: inline-block;
+      background: #fef3c7;
+      color: #92400e;
+      border: 1px solid #f59e0b;
+      font-weight: 700;
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-top: 4px;
+    }
+    .receipt-meta-bar {
+      display: flex;
+      justify-content: space-between;
+      background: #fbf5e8;
+      border: 1px solid #e5d5b5;
+      padding: 10px 14px;
+      border-radius: 6px;
+      font-size: 0.84rem;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .receipt-data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.86rem;
+      margin-bottom: 16px;
+    }
+    .receipt-data-table th, 
+    .receipt-data-table td {
+      padding: 9px 12px;
+      border: 1px solid #e8dbbe;
+    }
+    .receipt-data-table th {
+      background: #f5eedc;
+      color: #4a0515;
+      text-align: left;
+      font-weight: 600;
+      width: 32%;
+    }
+    .receipt-amount-card {
+      background: linear-gradient(135deg, #fdf6e7, #fff9ee);
+      border: 2px solid #d4af37;
+      border-radius: 6px;
+      padding: 12px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .receipt-amount-number {
+      font-family: 'Cinzel', serif;
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: #800020;
+    }
+    .receipt-sign-grid {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-top: 25px;
+      padding-top: 15px;
+      border-top: 1px dashed #d4c39e;
+    }
+    .receipt-seal-box {
+      border: 2px dashed #b45309;
+      border-radius: 8px;
+      padding: 8px 14px;
+      text-align: center;
+      font-size: 0.74rem;
+      color: #78350f;
+      background: #fffdf5;
+      max-width: 220px;
+      line-height: 1.4;
+    }
+    .receipt-sign-name {
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      color: #6b0f24;
+      font-size: 0.95rem;
+      margin-bottom: 2px;
+    }
+    .receipt-blessing {
+      text-align: center;
+      margin-top: 16px;
+      padding-top: 12px;
+      font-size: 0.8rem;
+      color: #78350f;
+      border-top: 1px solid #f0e2c8;
+      font-style: italic;
+    }
+
+    /* Print Styles */
+    @media print {
+      body * {
+        visibility: hidden !important;
+      }
+      #receiptViewModal, #receiptViewModal * {
+        visibility: visible !important;
+      }
+      #receiptViewModal {
+        position: absolute !important;
+        left: 0 !important;
+        top: 0 !important;
+        width: 100% !important;
+        height: auto !important;
+        display: block !important;
+        background: #fff !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+      .admin-modal-box {
+        box-shadow: none !important;
+        border: none !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        padding: 0 !important;
+      }
+      .admin-modal-header, .receipt-action-buttons {
+        display: none !important;
+      }
+      .receipt-paper {
+        box-shadow: none !important;
+        border: 2px solid #000 !important;
+        padding: 20px !important;
+      }
     }
   </style>
 </head>
@@ -120,7 +401,7 @@
           <div class="brand-text">
             <h1>SRI KRISHNA YAJUR VEDA PARAYANA TRUST</h1>
             <div class="brand-sub-tamil">நிர்வாக மற்றும் பக்தர் தரவு போர்ட்டல் (Admin &amp; Devotee Portal)</div>
-            <div class="brand-sub-location"><i class="fas fa-shield-alt"></i> Trustee Office, Chidambaram</div>
+            <div class="brand-sub-location"><i class="fas fa-shield-alt"></i> Trustee Office, Chidambaram | Chief Trustee: K. Sivasubramaniya Deekshithar</div>
           </div>
         </a>
       </div>
@@ -129,13 +410,20 @@
 
   <div class="admin-container">
     
-    <div style="margin-bottom: 24px;">
-      <h2 style="font-family: var(--font-heading); color: var(--crimson-dark); margin: 0 0 4px;">
-        <i class="fas fa-database" style="color: var(--primary-gold);"></i> Devotee Bookings &amp; Payment Registry
-      </h2>
-      <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0;">
-        Real-time view of customer Sankalpam registrations, selected Gopurams, and UPI payment collections.
-      </p>
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 15px; margin-bottom: 24px;">
+      <div>
+        <h2 style="font-family: var(--font-heading); color: var(--crimson-dark); margin: 0 0 4px;">
+          <i class="fas fa-database" style="color: var(--primary-gold);"></i> Devotee Bookings &amp; Payment Registry
+        </h2>
+        <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0;">
+          Real-time view of customer Sankalpam registrations, selected Gopurams, and UPI / Cash payment collections.
+        </p>
+      </div>
+
+      <!-- Prominent Manual Receipt Trigger -->
+      <button type="button" onclick="openManualReceiptModal()" class="btn-primary" style="background: linear-gradient(135deg, #b45309, #d97706); border-color: #92400e; padding: 12px 22px; font-size: 0.92rem; font-weight: 700; box-shadow: 0 4px 14px rgba(180, 83, 9, 0.35); display: inline-flex; align-items: center; gap: 8px;">
+        <i class="fas fa-plus-circle" style="font-size: 1.1rem;"></i> Generate Manual Receipt
+      </button>
     </div>
 
     <!-- Quick Stats -->
@@ -146,9 +434,9 @@
         <div style="font-size: 0.78rem; color: #2e7d32; margin-top: 4px;">Recorded in Database</div>
       </div>
       <div class="admin-stat-card">
-        <div class="admin-stat-title">Total UPI Amount Collected</div>
+        <div class="admin-stat-title">Total Amount Collected</div>
         <div class="admin-stat-value" id="statTotalAmount">₹ 0</div>
-        <div style="font-size: 0.78rem; color: #2e7d32; margin-top: 4px;">Via Trust Karur Vysya Bank UPI</div>
+        <div style="font-size: 0.78rem; color: #2e7d32; margin-top: 4px;">Via Trust Bank UPI / Cash / Cheque</div>
       </div>
       <div class="admin-stat-card">
         <div class="admin-stat-title">Moksha Deepam Sevas</div>
@@ -161,18 +449,21 @@
     <div class="admin-actions-bar">
       <div style="display: flex; gap: 10px; align-items: center; flex: 1; min-width: 260px;">
         <i class="fas fa-search" style="color: var(--saffron-warm);"></i>
-        <input type="text" id="devoteeSearchInput" class="form-control" placeholder="Search by Devotee Name, Phone, Gothram or UTR..." style="padding: 8px 12px; font-size: 0.85rem;" oninput="filterDevotees()">
+        <input type="text" id="devoteeSearchInput" class="form-control" placeholder="Search by Devotee Name, Phone, Gothram, Address or UTR..." style="padding: 8px 12px; font-size: 0.85rem;" oninput="filterDevotees()">
       </div>
 
-      <div style="display: flex; gap: 10px; align-items: center;">
-        <button type="button" onclick="exportToCsv()" class="btn-primary" style="padding: 9px 18px; font-size: 0.88rem; background: #2e7d32; border-color: #2e7d32;">
-          <i class="fas fa-file-excel"></i> Export to Excel (CSV)
+      <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+        <button type="button" onclick="openManualReceiptModal()" class="btn-primary" style="padding: 9px 16px; font-size: 0.86rem; background: #b45309; border-color: #92400e;">
+          <i class="fas fa-file-invoice"></i> + Manual Receipt
         </button>
-        <button type="button" onclick="loadDevoteesData()" class="btn-secondary" style="padding: 9px 14px; font-size: 0.88rem; background: #eee; color: #333;">
+        <button type="button" onclick="exportToCsv()" class="btn-primary" style="padding: 9px 16px; font-size: 0.86rem; background: #2e7d32; border-color: #2e7d32;">
+          <i class="fas fa-file-excel"></i> Export Excel (CSV)
+        </button>
+        <button type="button" onclick="loadDevoteesData()" class="btn-secondary" style="padding: 9px 14px; font-size: 0.86rem; background: #eee; color: #333;">
           <i class="fas fa-sync-alt"></i> Refresh
         </button>
-        <a href="https://supabase.com/dashboard" target="_blank" class="btn-primary" style="padding: 9px 16px; font-size: 0.88rem;">
-          <i class="fas fa-external-link-alt"></i> Open Supabase
+        <a href="https://supabase.com/dashboard" target="_blank" class="btn-primary" style="padding: 9px 15px; font-size: 0.86rem;">
+          <i class="fas fa-external-link-alt"></i> Supabase
         </a>
       </div>
     </div>
@@ -186,15 +477,17 @@
             <th>Date &amp; Receipt No</th>
             <th>Devotee Name &amp; Phone</th>
             <th>Gothram &amp; Nakshatram</th>
+            <th>Address</th>
             <th>Seva &amp; Gopuram Details</th>
             <th>Amount (₹)</th>
-            <th>UPI Ref (UTR)</th>
+            <th>Payment Mode / UTR</th>
             <th>Status</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody id="devoteeTableBody">
           <tr>
-            <td colspan="8" style="text-align: center; padding: 30px; color: var(--text-secondary);">
+            <td colspan="10" style="text-align: center; padding: 30px; color: var(--text-secondary);">
               <i class="fas fa-spinner fa-spin"></i> Loading devotee records...
             </td>
           </tr>
@@ -225,7 +518,7 @@
         <li>
           <strong>View &amp; Extract Data:</strong>
           <ul style="margin-top: 4px;">
-            <li>All customer names, phones, Gothrams, Nakshatrams, Sevas, Gopurams, UPI UTR numbers, and amounts are displayed row-by-row in real-time.</li>
+            <li>All customer names, phones, Gothrams, Nakshatrams, addresses, Sevas, Gopurams, UPI UTR numbers, and amounts are displayed row-by-row in real-time.</li>
             <li>To extract to Excel/CSV: Click the <strong>"Export"</strong> or <strong>"Download CSV"</strong> button located at the top-right corner of the table. Your complete customer spreadsheet will immediately download to your computer!</li>
           </ul>
         </li>
@@ -234,16 +527,288 @@
 
   </div>
 
+  <!-- ==========================================
+       MODAL 1: MANUAL RECEIPT CREATOR FOR ADMIN
+       ========================================== -->
+  <div class="admin-modal-overlay" id="manualReceiptModal">
+    <div class="admin-modal-box">
+      <div class="admin-modal-header">
+        <h3 class="admin-modal-title">
+          <i class="fas fa-file-invoice-dollar" style="color: #ffd700;"></i> Create Manual Devotee Receipt
+        </h3>
+        <button type="button" class="admin-modal-close" onclick="closeManualReceiptModal()">&times;</button>
+      </div>
+      <div class="admin-modal-body">
+        <p style="font-size: 0.85rem; color: #666; margin-top: 0; margin-bottom: 18px;">
+          Use this admin tool if a devotee booked via phone call, paid through direct cash, or if their browser encountered an error during online registration.
+        </p>
+
+        <form id="manualReceiptForm" onsubmit="handleManualReceiptSubmit(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="mDevoteeName"><i class="fas fa-user"></i> Devotee Full Name *</label>
+              <input type="text" id="mDevoteeName" required placeholder="e.g. S. Ramaswamy">
+            </div>
+            <div class="form-group">
+              <label for="mDevoteePhone"><i class="fas fa-phone-alt"></i> WhatsApp / Mobile No *</label>
+              <input type="tel" id="mDevoteePhone" required placeholder="e.g. 9444012345">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="mDevoteeGothram"><i class="fas fa-om"></i> Gothram</label>
+              <input type="text" id="mDevoteeGothram" placeholder="e.g. Bharadwaja, Koundinya...">
+            </div>
+            <div class="form-group">
+              <label for="mDevoteeNakshatram"><i class="fas fa-star"></i> Nakshatram &amp; Rasi</label>
+              <input type="text" id="mDevoteeNakshatram" placeholder="e.g. Thiruvathirai, Mithunam">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="mDevoteeAddress"><i class="fas fa-map-marker-alt"></i> Devotee Postal Address (For Prasadam Dispatch)</label>
+            <textarea id="mDevoteeAddress" rows="2" placeholder="Door No, Street Name, City/Town, State & PIN Code"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="mSevaSelect"><i class="fas fa-hands-helping"></i> Select Seva Category *</label>
+            <select id="mSevaSelect" required onchange="onManualSevaChange()">
+              <option value="Nitya Krishna Yajur Veda Parayanam" data-amount="1008">Nitya Krishna Yajur Veda Parayanam (₹ 1,008 / Month)</option>
+              <option value="Sri Rudra Ekadasini Maha Yagyam & Parayanam" data-amount="2500">Sri Rudra Ekadasini Maha Yagyam &amp; Parayanam (₹ 2,500)</option>
+              <option value="Chidambaram Gopura Moksha Deepam" data-amount="500">Chidambaram Gopura Moksha Deepam (₹ 500 per Gopuram)</option>
+              <option value="All 4 Gopurams Maha Moksha Deepam" data-amount="2000">All 4 Rajagopurams Maha Moksha Deepam (₹ 2,000)</option>
+              <option value="Dhanur Masa Margazhi Veda Parayanam" data-amount="1500">Dhanur Masa Margazhi Veda Parayanam (₹ 1,500)</option>
+              <option value="Chaturmasya Veda Parayanam" data-amount="5001">Chaturmasya Veda Parayanam (₹ 5,001)</option>
+              <option value="Veda Patashala Vidhyarthi Annadhanam" data-amount="5000">Veda Patashala Vidhyarthi Annadhanam &amp; Patron (₹ 5,000)</option>
+              <option value="General Veda Samrakshana Trust Donation" data-amount="1000">General Veda Samrakshana Trust Donation (Custom)</option>
+            </select>
+          </div>
+
+          <!-- Gopuram Selection (Auto-toggled or selectable) -->
+          <div class="form-group" id="mGopuramContainer" style="background: #fff8e7; padding: 12px 14px; border: 1px solid #d4af37; border-radius: 6px;">
+            <label style="margin-bottom: 8px; color: #800020; font-weight: 700;">
+              <i class="fas fa-gopuram"></i> Gopuram Offering (For Moksha Deepam):
+            </label>
+            <div style="display: flex; gap: 15px; flex-wrap: wrap; font-size: 0.85rem;">
+              <label style="display: inline-flex; align-items: center; gap: 5px; cursor: pointer;">
+                <input type="checkbox" name="mGopuram" value="East (Kizhakku) Gopuram"> East (Kizhakku)
+              </label>
+              <label style="display: inline-flex; align-items: center; gap: 5px; cursor: pointer;">
+                <input type="checkbox" name="mGopuram" value="West (Merkku) Gopuram"> West (Merkku)
+              </label>
+              <label style="display: inline-flex; align-items: center; gap: 5px; cursor: pointer;">
+                <input type="checkbox" name="mGopuram" value="South (Therkku) Gopuram"> South (Therkku)
+              </label>
+              <label style="display: inline-flex; align-items: center; gap: 5px; cursor: pointer;">
+                <input type="checkbox" name="mGopuram" value="North (Vadakku) Gopuram"> North (Vadakku)
+              </label>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="mAmount"><i class="fas fa-rupee-sign"></i> Donation Amount (₹) *</label>
+              <input type="number" id="mAmount" required min="1" value="1008">
+            </div>
+            <div class="form-group">
+              <label for="mPaymentMethod"><i class="fas fa-credit-card"></i> Payment Mode *</label>
+              <select id="mPaymentMethod" required>
+                <option value="UPI (GPay / PhonePe / Paytm)">UPI (GPay / PhonePe / Paytm)</option>
+                <option value="Cash Offering">Cash Offering (Office Direct)</option>
+                <option value="Direct Bank Transfer (NEFT / IMPS)">Direct Bank Transfer (NEFT / IMPS)</option>
+                <option value="Cheque / Demand Draft">Cheque / Demand Draft</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="mUpiRef"><i class="fas fa-receipt"></i> UPI UTR / Reference / Cash Memo No.</label>
+              <input type="text" id="mUpiRef" placeholder="e.g. 427189104823 or CASH-REC-01">
+            </div>
+            <div class="form-group">
+              <label for="mReceiptDate"><i class="fas fa-calendar-alt"></i> Receipt Date</label>
+              <input type="date" id="mReceiptDate">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="mAdminRemarks"><i class="fas fa-comment-dots"></i> Special Remarks / Sankalpam Prayer Notes</label>
+            <input type="text" id="mAdminRemarks" placeholder="e.g. Family welfare, Birthday, Marriage anniversary, Moksha prarthana...">
+          </div>
+
+          <div style="display: flex; gap: 12px; justify-content: flex-end; margin-top: 24px; padding-top: 15px; border-top: 1px solid #eee;">
+            <button type="button" class="btn-secondary" onclick="closeManualReceiptModal()" style="padding: 10px 18px;">
+              Cancel
+            </button>
+            <button type="submit" class="btn-primary" style="background: linear-gradient(135deg, #2e7d32, #1b5e20); border-color: #1b5e20; padding: 10px 24px; font-weight: 700;">
+              <i class="fas fa-check-circle"></i> Save &amp; Generate Official Receipt
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ==========================================
+       MODAL 2: OFFICIAL TEMPLE TRUST RECEIPT
+       ========================================== -->
+  <div class="admin-modal-overlay" id="receiptViewModal">
+    <div class="admin-modal-box" style="max-width: 720px;">
+      <div class="admin-modal-header">
+        <h3 class="admin-modal-title">
+          <i class="fas fa-receipt" style="color: #ffd700;"></i> Official Trust Receipt
+        </h3>
+        <button type="button" class="admin-modal-close" onclick="closeReceiptViewModal()">&times;</button>
+      </div>
+
+      <div class="admin-modal-body" style="padding: 20px;">
+        
+        <!-- Printable Area -->
+        <div class="receipt-paper" id="printableReceiptArea">
+          <div class="receipt-inner-frame">
+            
+            <div class="receipt-top-mantra">
+              ॥ ॐ नमः शिवाय ॥ &nbsp;&nbsp;|&nbsp;&nbsp; ॥ श्री गुरुभ्यो नमः ॥
+            </div>
+
+            <!-- Header -->
+            <table class="receipt-header-table">
+              <tr>
+                <td style="width: 70px; vertical-align: middle; padding-right: 12px;">
+                  <img src="assets/images/trust_logo.jpg" alt="Trust Logo" style="width: 65px; height: 65px; object-fit: contain; border-radius: 50%; border: 2px solid #b45309;">
+                </td>
+                <td style="vertical-align: middle;">
+                  <div class="receipt-trust-name">SRI KRISHNA YAJUR VEDA PARAYANA TRUST</div>
+                  <div class="receipt-trust-sub">
+                    <strong>ஸ்ரீ கிருஷ்ண யஜுர் வேத பாராயண டிரஸ்ட், சிதம்பரம்</strong><br>
+                    Regd. Office: Chidambaram - 608001, Cuddalore Dist, Tamil Nadu, India<br>
+                    <strong>Managing Trustee:</strong> K. SIVASUBRAMANIYA DEEKSHITHAR | <strong>Ph:</strong> +91 8760912130
+                  </div>
+                  <div>
+                    <span class="receipt-pan-tag"><i class="fas fa-certificate"></i> TRUST PAN: AAETS7593D</span>
+                  </div>
+                </td>
+              </tr>
+            </table>
+
+            <!-- Meta Bar -->
+            <div class="receipt-meta-bar">
+              <div>
+                <strong style="color: #6b0f24;">RECEIPT NO:</strong> 
+                <span id="rcptNumber" style="font-weight: 700; color: #800020; font-family: monospace; font-size: 0.95rem;">SKYVPT-000000</span>
+              </div>
+              <div>
+                <strong style="color: #6b0f24;">DATE:</strong> 
+                <span id="rcptDate" style="font-weight: 600;">--/--/----</span>
+              </div>
+              <div>
+                <strong style="color: #6b0f24;">PAYMENT MODE:</strong> 
+                <span id="rcptMode" style="font-weight: 600; color: #2e7d32;">UPI</span>
+              </div>
+            </div>
+
+            <!-- Devotee & Seva Data -->
+            <table class="receipt-data-table">
+              <tr>
+                <th>Devotee Name</th>
+                <td><strong id="rcptDevoteeName" style="color: #6b0f24; font-size: 0.95rem;">--</strong></td>
+              </tr>
+              <tr>
+                <th>WhatsApp / Mobile</th>
+                <td id="rcptPhone">--</td>
+              </tr>
+              <tr>
+                <th>Gothram &amp; Nakshatram</th>
+                <td>
+                  <span id="rcptGothram">--</span> / <strong id="rcptNakshatram" style="color: #b45309;">--</strong>
+                </td>
+              </tr>
+              <tr id="rcptAddressRow">
+                <th>Postal Address</th>
+                <td id="rcptAddress" style="font-size: 0.82rem; color: #444;">--</td>
+              </tr>
+              <tr>
+                <th>Seva Opted</th>
+                <td>
+                  <strong id="rcptSevaName" style="color: #6b0f24;">--</strong>
+                  <div id="rcptGopurams" style="color: #b45309; font-size: 0.8rem; font-weight: 600; margin-top: 3px;"></div>
+                </td>
+              </tr>
+              <tr>
+                <th>Bank / UPI Reference</th>
+                <td><code id="rcptUpiRef" style="background: #f7eedb; padding: 2px 6px; border-radius: 4px; font-size: 0.82rem; color: #3b0512;">--</code></td>
+              </tr>
+            </table>
+
+            <!-- Amount Box -->
+            <div class="receipt-amount-card">
+              <div>
+                <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: #78350f; font-weight: 700;">Contribution Amount</div>
+                <div id="rcptAmountWords" style="font-size: 0.82rem; color: #555; font-style: italic; margin-top: 2px;">Rupees ... Only</div>
+              </div>
+              <div class="receipt-amount-number" id="rcptAmountVal">
+                ₹ 0.00
+              </div>
+            </div>
+
+            <!-- Signatory & Seal -->
+            <div class="receipt-sign-grid">
+              <div class="receipt-seal-box">
+                <i class="fas fa-om" style="font-size: 1.1rem; color: #b45309; margin-bottom: 2px;"></i><br>
+                <strong>SRI KRISHNA YAJUR VEDA PARAYANA TRUST</strong><br>
+                Official Seal / Authorized Receipt
+              </div>
+              <div style="text-align: right;">
+                <div style="height: 38px; display: flex; align-items: flex-end; justify-content: flex-end; font-family: 'Cinzel', serif; font-style: italic; color: #6b0f24; font-size: 0.95rem;">
+                  K. Sivasubramaniya Deekshithar
+                </div>
+                <div class="receipt-sign-name">K. SIVASUBRAMANIYA DEEKSHITHAR</div>
+                <div style="font-size: 0.76rem; color: #666;">Chief Managing Trustee / Chief Deekshithar</div>
+                <div style="font-size: 0.74rem; color: #b45309;">Chidambaram Sri Sabhanayagar Temple</div>
+              </div>
+            </div>
+
+            <!-- Sacred Blessing -->
+            <div class="receipt-blessing">
+              "ஆனந்த நடராஜ மூர்த்தி மற்றும் சிவகாம சுந்தரி சமேத ஸ்ரீ நடராஜப் பெருமானின் அருள் கடாட்சம் தங்களுக்குப் பூரணமாகக் கிடைக்கப் பிரார்த்திக்கிறோம்."<br>
+              <small style="color: #666;">May the supreme grace of Lord Thillai Nataraja bless you and your family with peace, health, prosperity and longevity.</small>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Action Buttons (Hidden when printing) -->
+        <div class="receipt-action-buttons" style="display: flex; gap: 12px; justify-content: flex-end; margin-top: 18px; flex-wrap: wrap;">
+          <button type="button" class="btn-secondary" onclick="closeReceiptViewModal()" style="padding: 10px 18px;">
+            <i class="fas fa-times"></i> Close
+          </button>
+          <button type="button" class="btn-primary" onclick="shareReceiptWhatsApp()" style="background: #25D366; border-color: #20ba5a; padding: 10px 20px; font-weight: 600;">
+            <i class="fab fa-whatsapp"></i> Send to Devotee WhatsApp
+          </button>
+          <button type="button" class="btn-primary" onclick="printReceiptDoc()" style="background: #6b0f24; border-color: #500816; padding: 10px 24px; font-weight: 700;">
+            <i class="fas fa-print"></i> Print / Save as PDF
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="assets/js/supabase-config.js"></script>
 
   <script>
     let allRecords = [];
+    let currentViewingRecord = null;
 
+    // Load Data
     async function loadDevoteesData() {
       const tbody = document.getElementById('devoteeTableBody');
-      tbody.innerHTML = '<tr><td colspan="8" style="text-align: center; padding: 30px;"><i class="fas fa-spinner fa-spin"></i> Fetching records from database...</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="10" style="text-align: center; padding: 30px;"><i class="fas fa-spinner fa-spin"></i> Fetching records from database...</td></tr>';
 
       try {
         if (window.getDevoteeDonations) {
@@ -262,11 +827,13 @@
               devotee_phone: '+91 9444012345',
               devotee_gothram: 'Bharadwaja',
               devotee_nakshatram: 'Thiruvathirai',
+              devotee_address: '12, Sannadhi Street, Chidambaram - 608001',
               seva_name: 'Nitya Krishna Yajur Veda Parayanam',
               gopuram_selection: '',
               amount: 1008,
               upi_reference: '427189104823',
-              payment_status: 'COMPLETED'
+              payment_status: 'COMPLETED',
+              payment_method: 'UPI'
             }
           ];
         }
@@ -276,46 +843,56 @@
 
       } catch (err) {
         console.error('Error loading donations:', err);
-        tbody.innerHTML = '<tr><td colspan="8" style="text-align: center; color: red; padding: 20px;">Failed to load data. Please refresh.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="10" style="text-align: center; color: red; padding: 20px;">Failed to load data. Please refresh.</td></tr>';
       }
     }
 
+    // Render Devotee Table
     function renderTable(records) {
       const tbody = document.getElementById('devoteeTableBody');
-      if (!records.length) {
-        tbody.innerHTML = '<tr><td colspan="8" style="text-align: center; padding: 30px; color: #888;">No devotee records found matching your search.</td></tr>';
+      if (!records || !records.length) {
+        tbody.innerHTML = '<tr><td colspan="10" style="text-align: center; padding: 30px; color: #888;">No devotee records found matching your search.</td></tr>';
         return;
       }
 
       let html = '';
       records.forEach((r, idx) => {
         const dateStr = r.created_at ? new Date(r.created_at).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }) : 'Recent';
-        const sevaDetail = r.seva_name + (r.gopuram_selection ? `<br><small style="color: var(--saffron-warm); font-weight: 600;">Gopurams: ${r.gopuram_selection}</small>` : '');
-        
+        const sevaDetail = (r.seva_name || 'Veda Parayanam') + (r.gopuram_selection ? `<br><small style="color: var(--saffron-warm); font-weight: 600;">Gopurams: ${r.gopuram_selection}</small>` : '');
+        const addressSnippet = r.devotee_address ? `<small style="color: #666; font-size: 0.78rem; display: block; max-width: 170px; word-break: break-word;">${r.devotee_address}</small>` : '<span style="color:#aaa;">—</span>';
+        const pMethod = r.payment_method || 'UPI';
+
         html += `
           <tr>
             <td><strong>${idx + 1}</strong></td>
             <td>
-              <span style="font-weight: 600; color: var(--crimson-dark);">${r.receipt_number || 'N/A'}</span><br>
+              <span style="font-weight: 700; color: var(--crimson-dark);">${r.receipt_number || 'N/A'}</span><br>
               <small style="color: var(--text-secondary);">${dateStr}</small>
             </td>
             <td>
               <strong>${r.devotee_name || 'Devotee'}</strong><br>
-              <a href="tel:${r.devotee_phone}" style="color: var(--text-secondary); font-size: 0.8rem;">${r.devotee_phone || 'N/A'}</a>
+              <a href="tel:${r.devotee_phone}" style="color: var(--text-secondary); font-size: 0.8rem;"><i class="fas fa-phone-alt" style="font-size: 0.75rem;"></i> ${r.devotee_phone || 'N/A'}</a>
             </td>
             <td>
               <span>${r.devotee_gothram || '—'}</span> / <br>
               <small style="color: var(--saffron-warm); font-weight: bold;">${r.devotee_nakshatram || '—'}</small>
             </td>
+            <td>${addressSnippet}</td>
             <td>${sevaDetail}</td>
             <td><strong style="color: var(--crimson-main); font-size: 0.95rem;">₹ ${Number(r.amount || 0).toLocaleString('en-IN')}</strong></td>
             <td>
-              <code style="background: #f7eedb; padding: 2px 6px; border-radius: 4px; font-size: 0.8rem; color: #3b0512;">${r.upi_reference || 'N/A'}</code>
+              <span style="font-size: 0.75rem; font-weight: 600; color: #555; display: block;">${pMethod}</span>
+              <code style="background: #f7eedb; padding: 2px 5px; border-radius: 4px; font-size: 0.78rem; color: #3b0512;">${r.upi_reference || 'N/A'}</code>
             </td>
             <td>
-              <span style="background: #e8f5e9; color: #2e7d32; padding: 3px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: bold;">
+              <span style="background: #e8f5e9; color: #2e7d32; padding: 3px 8px; border-radius: 12px; font-size: 0.74rem; font-weight: bold; white-space: nowrap;">
                 <i class="fas fa-check-circle"></i> ${r.payment_status || 'PAID'}
               </span>
+            </td>
+            <td style="white-space: nowrap;">
+              <button type="button" onclick="viewReceipt('${r.receipt_number}')" style="background: #fff8e1; border: 1px solid #d4af37; color: #800020; padding: 5px 11px; border-radius: 4px; font-size: 0.78rem; font-weight: 600; cursor: pointer; transition: all 0.2s;" title="Print or view official receipt">
+                <i class="fas fa-file-invoice"></i> Receipt
+              </button>
             </td>
           </tr>
         `;
@@ -324,6 +901,7 @@
       tbody.innerHTML = html;
     }
 
+    // Update Stats Summary
     function updateStats(records) {
       document.getElementById('statTotalDevotees').textContent = records.length.toLocaleString('en-IN');
       const totalAmount = records.reduce((acc, r) => acc + (parseFloat(r.amount) || 0), 0);
@@ -333,6 +911,7 @@
       document.getElementById('statMokshaDeepam').textContent = mokshaCount;
     }
 
+    // Filter Devotees
     function filterDevotees() {
       const q = document.getElementById('devoteeSearchInput').value.toLowerCase().trim();
       if (!q) {
@@ -345,6 +924,7 @@
         (r.devotee_phone || '').toLowerCase().includes(q) ||
         (r.devotee_gothram || '').toLowerCase().includes(q) ||
         (r.devotee_nakshatram || '').toLowerCase().includes(q) ||
+        (r.devotee_address || '').toLowerCase().includes(q) ||
         (r.seva_name || '').toLowerCase().includes(q) ||
         (r.upi_reference || '').toLowerCase().includes(q) ||
         (r.receipt_number || '').toLowerCase().includes(q)
@@ -353,25 +933,27 @@
       renderTable(filtered);
     }
 
+    // Export to Excel / CSV
     function exportToCsv() {
       if (!allRecords.length) {
         alert('No records available to export.');
         return;
       }
 
-      const headers = ['Receipt No', 'Date', 'Devotee Name', 'WhatsApp Phone', 'Gothram', 'Nakshatram', 'Address', 'Seva Name', 'Gopurams', 'Amount (INR)', 'UPI Reference (UTR)', 'Status'];
+      const headers = ['Receipt No', 'Date', 'Devotee Name', 'WhatsApp Phone', 'Gothram', 'Nakshatram', 'Address', 'Seva Name', 'Gopurams', 'Amount (INR)', 'Payment Mode', 'Reference (UTR)', 'Status'];
       const rows = allRecords.map(r => [
         `"${r.receipt_number || ''}"`,
         `"${r.created_at || ''}"`,
-        `"${r.devotee_name || ''}"`,
-        `"${r.devotee_phone || ''}"`,
-        `"${r.devotee_gothram || ''}"`,
-        `"${r.devotee_nakshatram || ''}"`,
-        `"${r.devotee_address || ''}"`,
-        `"${r.seva_name || ''}"`,
-        `"${r.gopuram_selection || ''}"`,
+        `"${(r.devotee_name || '').replace(/"/g, '""')}"`,
+        `"${(r.devotee_phone || '').replace(/"/g, '""')}"`,
+        `"${(r.devotee_gothram || '').replace(/"/g, '""')}"`,
+        `"${(r.devotee_nakshatram || '').replace(/"/g, '""')}"`,
+        `"${(r.devotee_address || '').replace(/"/g, '""')}"`,
+        `"${(r.seva_name || '').replace(/"/g, '""')}"`,
+        `"${(r.gopuram_selection || '').replace(/"/g, '""')}"`,
         r.amount || 0,
-        `"${r.upi_reference || ''}"`,
+        `"${r.payment_method || 'UPI'}"`,
+        `"${(r.upi_reference || '').replace(/"/g, '""')}"`,
         `"${r.payment_status || 'COMPLETED'}"`
       ]);
 
@@ -383,6 +965,209 @@
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
+    }
+
+    // ========================================================
+    // MANUAL RECEIPT CREATOR FUNCTIONS
+    // ========================================================
+
+    function openManualReceiptModal() {
+      document.getElementById('mReceiptDate').value = new Date().toISOString().slice(0, 10);
+      document.getElementById('manualReceiptModal').classList.add('active');
+      document.getElementById('mDevoteeName').focus();
+    }
+
+    function closeManualReceiptModal() {
+      document.getElementById('manualReceiptModal').classList.remove('active');
+      document.getElementById('manualReceiptForm').reset();
+    }
+
+    function onManualSevaChange() {
+      const select = document.getElementById('mSevaSelect');
+      const opt = select.options[select.selectedIndex];
+      const defaultAmt = opt.getAttribute('data-amount');
+      if (defaultAmt) {
+        document.getElementById('mAmount').value = defaultAmt;
+      }
+    }
+
+    async function handleManualReceiptSubmit(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('mDevoteeName').value.trim();
+      const phone = document.getElementById('mDevoteePhone').value.trim();
+      const gothram = document.getElementById('mDevoteeGothram').value.trim();
+      const nakshatram = document.getElementById('mDevoteeNakshatram').value.trim();
+      const address = document.getElementById('mDevoteeAddress').value.trim();
+      const sevaName = document.getElementById('mSevaSelect').value;
+      const amount = parseFloat(document.getElementById('mAmount').value) || 0;
+      const paymentMethod = document.getElementById('mPaymentMethod').value;
+      const upiRef = document.getElementById('mUpiRef').value.trim() || ('MANUAL-' + Date.now().toString().slice(-6));
+      const receiptDate = document.getElementById('mReceiptDate').value;
+      const remarks = document.getElementById('mAdminRemarks').value.trim();
+
+      // Collect Gopurams
+      const gopuramChecks = document.querySelectorAll('input[name="mGopuram"]:checked');
+      const selectedGopurams = Array.from(gopuramChecks).map(c => c.value).join(', ');
+
+      const receiptNo = 'SKYVPT-' + Math.floor(100000 + Math.random() * 900000);
+      const createdAt = receiptDate ? new Date(receiptDate).toISOString() : new Date().toISOString();
+
+      const newRecord = {
+        receipt_number: receiptNo,
+        created_at: createdAt,
+        devotee_name: name,
+        devotee_phone: phone,
+        devotee_gothram: gothram,
+        devotee_nakshatram: nakshatram,
+        devotee_address: address,
+        seva_name: sevaName,
+        gopuram_selection: selectedGopurams,
+        amount: amount,
+        upi_reference: upiRef,
+        payment_status: 'COMPLETED',
+        payment_method: paymentMethod,
+        remarks: remarks
+      };
+
+      // Save to Supabase / LocalStorage
+      if (window.saveDevoteeDonation) {
+        await window.saveDevoteeDonation({
+          name: name,
+          phone: phone,
+          gothram: gothram,
+          nakshatram: nakshatram,
+          address: address,
+          sevaName: sevaName,
+          gopurams: selectedGopurams,
+          amount: amount,
+          upiRef: upiRef,
+          receiptNo: receiptNo,
+          paymentMethod: paymentMethod
+        });
+      }
+
+      // Add to current in-memory records
+      allRecords.unshift(newRecord);
+      renderTable(allRecords);
+      updateStats(allRecords);
+
+      // Close create modal
+      closeManualReceiptModal();
+
+      // Immediately display official receipt for printing / sharing
+      viewReceipt(receiptNo);
+    }
+
+    // ========================================================
+    // OFFICIAL PRINTABLE RECEIPT VIEWER & WHATSAPP SHARING
+    // ========================================================
+
+    function viewReceipt(receiptNo) {
+      const record = allRecords.find(r => r.receipt_number === receiptNo);
+      if (!record) {
+        alert('Receipt not found: ' + receiptNo);
+        return;
+      }
+
+      currentViewingRecord = record;
+
+      const dateStr = record.created_at ? new Date(record.created_at).toLocaleDateString('en-IN', {
+        day: '2-digit', month: 'short', year: 'numeric'
+      }) : new Date().toLocaleDateString('en-IN');
+
+      document.getElementById('rcptNumber').textContent = record.receipt_number;
+      document.getElementById('rcptDate').textContent = dateStr;
+      document.getElementById('rcptMode').textContent = record.payment_method || 'UPI';
+      document.getElementById('rcptDevoteeName').textContent = record.devotee_name || 'Devotee';
+      document.getElementById('rcptPhone').textContent = record.devotee_phone || 'N/A';
+      document.getElementById('rcptGothram').textContent = record.devotee_gothram || '—';
+      document.getElementById('rcptNakshatram').textContent = record.devotee_nakshatram || '—';
+
+      const addrRow = document.getElementById('rcptAddressRow');
+      if (record.devotee_address) {
+        addrRow.style.display = '';
+        document.getElementById('rcptAddress').textContent = record.devotee_address;
+      } else {
+        addrRow.style.display = 'none';
+      }
+
+      document.getElementById('rcptSevaName').textContent = record.seva_name || 'Veda Parayana Seva';
+      
+      const gopuramEl = document.getElementById('rcptGopurams');
+      if (record.gopuram_selection) {
+        gopuramEl.style.display = 'block';
+        gopuramEl.textContent = 'Gopurams: ' + record.gopuram_selection;
+      } else {
+        gopuramEl.style.display = 'none';
+      }
+
+      document.getElementById('rcptUpiRef').textContent = record.upi_reference || 'MANUAL';
+      document.getElementById('rcptAmountVal').textContent = '₹ ' + Number(record.amount || 0).toLocaleString('en-IN') + '.00';
+      document.getElementById('rcptAmountWords').textContent = numberToWordsINR(record.amount || 0);
+
+      document.getElementById('receiptViewModal').classList.add('active');
+    }
+
+    function closeReceiptViewModal() {
+      document.getElementById('receiptViewModal').classList.remove('active');
+      currentViewingRecord = null;
+    }
+
+    function printReceiptDoc() {
+      window.print();
+    }
+
+    function shareReceiptWhatsApp() {
+      if (!currentViewingRecord) return;
+      const r = currentViewingRecord;
+      const cleanPhone = (r.devotee_phone || '').replace(/[^0-9]/g, '');
+
+      const text = `॥ ॐ நமஃ சிவாய ॥%0A%0A` +
+        `*SRI KRISHNA YAJUR VEDA PARAYANA TRUST, CHIDAMBARAM*%0A` +
+        `*Managing Trustee: K. Sivasubramaniya Deekshithar*%0A` +
+        `*Official Seva Contribution Receipt*%0A` +
+        `-----------------------------------------%0A` +
+        `*Receipt No:* ${r.receipt_number}%0A` +
+        `*Devotee Name:* ${r.devotee_name}%0A` +
+        `*Gothram:* ${r.devotee_gothram || '—'} | *Nakshatram:* ${r.devotee_nakshatram || '—'}%0A` +
+        `*Seva:* ${r.seva_name}%0A` +
+        (r.gopuram_selection ? `*Gopuram Offering:* ${r.gopuram_selection}%0A` : '') +
+        `*Amount:* ₹ ${Number(r.amount).toLocaleString('en-IN')}%0A` +
+        `*Payment Mode / UTR:* ${r.payment_method || 'UPI'} (${r.upi_reference || 'N/A'})%0A` +
+        `*Trust PAN:* AAETS7593D%0A` +
+        `-----------------------------------------%0A` +
+        `ஆனந்த நடராஜ மூர்த்தி மற்றும் சிவகாம சுந்தரி சமேத ஸ்ரீ நடராஜப் பெருமானின் அருள் கடாட்சம் தங்களுக்குப் பூரணமாகக் கிடைக்கப் பிரார்த்திக்கிறோம்.%0A` +
+        `*Trust Office Contact:* +91 8760912130`;
+
+      const waUrl = cleanPhone.length >= 10 
+        ? `https://wa.me/${cleanPhone.length === 10 ? '91' + cleanPhone : cleanPhone}?text=${text}`
+        : `https://wa.me/?text=${text}`;
+
+      window.open(waUrl, '_blank');
+    }
+
+    // Number to Indian Currency Words Helper
+    function numberToWordsINR(amount) {
+      const num = Math.floor(amount);
+      if (num === 0) return 'Rupees Zero Only';
+      const a = ['', 'One ', 'Two ', 'Three ', 'Four ', 'Five ', 'Six ', 'Seven ', 'Eight ', 'Nine ', 'Ten ', 'Eleven ', 'Twelve ', 'Thirteen ', 'Fourteen ', 'Fifteen ', 'Sixteen ', 'Seventeen ', 'Eighteen ', 'Nineteen '];
+      const b = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+
+      function inWords(n) {
+        if ((n = n.toString()).length > 9) return 'overflow';
+        let nArray = ('000000000' + n).substr(-9).match(/^(\d{2})(\d{2})(\d{2})(\d{1})(\d{2})$/);
+        if (!nArray) return ''; 
+        let str = '';
+        str += (nArray[1] != 0) ? (a[Number(nArray[1])] || b[nArray[1][0]] + ' ' + a[nArray[1][1]]) + 'Crore ' : '';
+        str += (nArray[2] != 0) ? (a[Number(nArray[2])] || b[nArray[2][0]] + ' ' + a[nArray[2][1]]) + 'Lakh ' : '';
+        str += (nArray[3] != 0) ? (a[Number(nArray[3])] || b[nArray[3][0]] + ' ' + a[nArray[3][1]]) + 'Thousand ' : '';
+        str += (nArray[4] != 0) ? (a[Number(nArray[4])] || b[nArray[4][0]] + ' ' + a[nArray[4][1]]) + 'Hundred ' : '';
+        str += (nArray[5] != 0) ? ((str != '') ? 'and ' : '') + (a[Number(nArray[5])] || b[nArray[5][0]] + ' ' + a[nArray[5][1]]) : '';
+        return str.trim();
+      }
+
+      return 'Rupees ' + inWords(num) + ' Only';
     }
 
     document.addEventListener('DOMContentLoaded', loadDevoteesData);
