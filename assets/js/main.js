@@ -382,25 +382,11 @@ const SEVA_DETAILS_DICTIONARY = {
     elaborated: "Sacred continuous daily recitation of the Krishna Yajur Veda (Taittiriya Samhita, Padam, Krama, and Ghana chanting) by learned Vedic scholars at the Kanaka Sabha before Lord Nataraja. Morning Sankalpam is performed in your family's Gothram and Janma Nakshatram for Ayush, Arogya, and Aiswaryam."
   },
   "Nitya Krishna Yajur Veda Parayanam": {
-    name: "Nitya Krishna Yajur Veda Parayanam",
-    shortName: "Nitya Veda Parayanam",
+    name: "Book Veda Parayana Seva (Nitya Krishna Yajur Veda)",
+    shortName: "Book Veda Parayana Seva",
     baseAmount: 1008,
     rateLabel: "₹ 1,008 / day",
     elaborated: "Sacred continuous daily recitation of the Krishna Yajur Veda (Taittiriya Samhita, Padam, Krama, and Ghana chanting) by learned Vedic scholars at the Kanaka Sabha before Lord Nataraja. Morning Sankalpam is performed in your family's Gothram and Janma Nakshatram for Ayush, Arogya, and Aiswaryam."
-  },
-  "Annadhanam Seva - Full Day Free Meals for Pilgrims": {
-    name: "Annadhanam Seva - Full Day Free Meals for Pilgrims",
-    shortName: "Annadhanam Seva",
-    baseAmount: 30000,
-    rateLabel: "Starting ₹ 30,000 / day",
-    elaborated: "Sponsor a complete day of sacred Annadhanam feeding hundreds of visiting devotees, pilgrims, sadhus, and Vedic vidyarthies at Chidambaram. Donors receive sacred Kovil Malai (temple garland), Pattu Thundu (sacred silk angavastram), and special Maha Prasatham."
-  },
-  "Annadanam Seva - Full Day Free Meals for Pilgrims": {
-    name: "Annadanam Seva - Full Day Free Meals for Pilgrims",
-    shortName: "Annadanam Seva",
-    baseAmount: 30000,
-    rateLabel: "Starting ₹ 30,000 / day",
-    elaborated: "Sponsor a complete day of sacred Annadanam feeding hundreds of visiting devotees, pilgrims, sadhus, and Vedic vidyarthies at Chidambaram. Donors receive sacred Kovil Malai (temple garland), Pattu Thundu (sacred silk angavastram), and special Maha Prasatham."
   },
   "Monthly Prasatham - Personal Sankalpam & Home Delivery": {
     name: "Monthly Prasatham - Personal Sankalpam & Home Delivery",
@@ -429,6 +415,34 @@ const SEVA_DETAILS_DICTIONARY = {
     baseAmount: 25000,
     rateLabel: "₹ 25,000",
     elaborated: "Exclusive 6-Kaala sacred Abhishekam to the legendary Sphatika (pure quartz crystal) Lingam of Lord Chandramouleeswarar consecrated by Adi Shankaracharya. Performed at the Kanaka Sabha before Lord Nataraja with milk, honey, sandalwood, and rosewater."
+  },
+  "Annadhanam Seva (Custom amount)": {
+    name: "Annadhanam Seva (Custom Contribution)",
+    shortName: "Annadhanam Seva (Custom amount)",
+    baseAmount: 500,
+    rateLabel: "Custom Amount (Min ₹ 500)",
+    elaborated: "Offer any custom donation towards sacred daily Annadhanam at Chidambaram. Wholesome sanctified meals (Maha Prasatham) are distributed daily to thousands of visiting pilgrims, sadhus, and young Vedic students. 50% 80G tax exemption receipt provided."
+  },
+  "Special Annadhanam Seva - 30,000 / day": {
+    name: "Special Annadhanam Seva (Full Day Meal Sponsor)",
+    shortName: "Special Annadhanam Seva",
+    baseAmount: 30000,
+    rateLabel: "₹ 30,000 / day",
+    elaborated: "Sponsor a full day of sacred Annadhanam feeding thousands of visiting pilgrims, sadhus, and Vedic vidyarthies at Chidambaram. Donors receive sacred Kovil Malai (temple garland), Pattu Thundu (sacred silk angavastram), and special blessed Maha Prasatham."
+  },
+  "Special Annadhanam Seva": {
+    name: "Special Annadhanam Seva (Full Day Meal Sponsor)",
+    shortName: "Special Annadhanam Seva",
+    baseAmount: 30000,
+    rateLabel: "₹ 30,000 / day",
+    elaborated: "Sponsor a full day of sacred Annadhanam feeding thousands of visiting pilgrims, sadhus, and Vedic vidyarthies at Chidambaram. Donors receive sacred Kovil Malai (temple garland), Pattu Thundu (sacred silk angavastram), and special blessed Maha Prasatham."
+  },
+  "Annadhanam Seva - Full Day Free Meals for Pilgrims": {
+    name: "Special Annadhanam Seva (Full Day Free Meals)",
+    shortName: "Annadhanam Seva",
+    baseAmount: 30000,
+    rateLabel: "Starting ₹ 30,000 / day",
+    elaborated: "Sponsor a complete day of sacred Annadhanam feeding hundreds of visiting devotees, pilgrims, sadhus, and Vedic vidyarthies at Chidambaram. Donors receive sacred Kovil Malai (temple garland), Pattu Thundu (sacred silk angavastram), and special Maha Prasatham."
   }
 };
 
@@ -443,6 +457,14 @@ function initDonationModal() {
   const liveDescTitle = document.getElementById('liveDescTitle');
   const liveDescText = document.getElementById('liveDescText');
   const minAmountDisplay = document.getElementById('minAmountDisplay');
+  const btnPayAmount = document.getElementById('btnPayAmount');
+
+  // Category Tabs
+  const categoryTabs = document.querySelectorAll('.seva-category-tab');
+  const vedaSevaGrid = document.getElementById('vedaSevaGrid');
+  const annadhanamSevaGrid = document.getElementById('annadhanamSevaGrid');
+  const selectedCategoryInput = document.getElementById('selectedCategory');
+  const sevaOfferingsLabel = document.getElementById('sevaOfferingsLabel');
 
   let currentMinAmount = 1008;
   let activeSelectedSeva = "Book Veda Parayana Seva";
@@ -454,6 +476,43 @@ function initDonationModal() {
       liveDescTitle.innerHTML = `<i class="fas fa-om" style="color: var(--saffron-warm);"></i> ${details.name} &mdash; ${details.rateLabel}`;
       liveDescText.textContent = details.elaborated;
     }
+  }
+
+  // Bind Category Tabs (Veda Seva & Sankalpam vs Annadhanam Seva)
+  if (categoryTabs.length) {
+    categoryTabs.forEach(tab => {
+      tab.addEventListener('click', (e) => {
+        e.preventDefault();
+        categoryTabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+
+        const cat = tab.getAttribute('data-category');
+        if (selectedCategoryInput) {
+          selectedCategoryInput.value = cat === 'annadhanam-seva' ? 'Annadhanam Seva' : 'Veda Seva & Sankalpam';
+        }
+
+        if (cat === 'annadhanam-seva') {
+          if (vedaSevaGrid) vedaSevaGrid.style.display = 'none';
+          if (annadhanamSevaGrid) annadhanamSevaGrid.style.display = 'grid';
+          if (gopuramContainer) gopuramContainer.style.display = 'none';
+          if (sevaOfferingsLabel) sevaOfferingsLabel.textContent = 'Select Annadhanam Seva Offering:';
+
+          const firstAnnadhanamBtn = annadhanamSevaGrid ? annadhanamSevaGrid.querySelector('.seva-option-btn') : null;
+          if (firstAnnadhanamBtn) {
+            firstAnnadhanamBtn.click();
+          }
+        } else {
+          if (annadhanamSevaGrid) annadhanamSevaGrid.style.display = 'none';
+          if (vedaSevaGrid) vedaSevaGrid.style.display = 'grid';
+          if (sevaOfferingsLabel) sevaOfferingsLabel.textContent = 'Select Seva / Pooja Offering:';
+
+          const firstVedaBtn = vedaSevaGrid ? vedaSevaGrid.querySelector('.seva-option-btn') : null;
+          if (firstVedaBtn) {
+            firstVedaBtn.click();
+          }
+        }
+      });
+    });
   }
 
   // Function to calculate Gopuram selection total
@@ -479,6 +538,10 @@ function initDonationModal() {
 
     if (minAmountDisplay) {
       minAmountDisplay.textContent = currentMinAmount.toLocaleString('en-IN');
+    }
+
+    if (btnPayAmount) {
+      btnPayAmount.textContent = total.toLocaleString('en-IN');
     }
 
     if (gopuramTotalDisplay) {
@@ -516,7 +579,9 @@ function initDonationModal() {
       // Click: Select Seva
       btn.addEventListener('click', (e) => {
         e.preventDefault();
-        sevaButtons.forEach(b => b.classList.remove('selected'));
+        // Remove selected from all buttons in current grid
+        const parentGrid = btn.closest('.seva-options-grid') || document;
+        parentGrid.querySelectorAll('.seva-option-btn').forEach(b => b.classList.remove('selected'));
         btn.classList.add('selected');
         
         activeSelectedSeva = sevaName;
@@ -535,19 +600,25 @@ function initDonationModal() {
           if (minAmountDisplay) {
             minAmountDisplay.textContent = currentMinAmount.toLocaleString('en-IN');
           }
+          if (btnPayAmount) {
+            btnPayAmount.textContent = baseAmount.toLocaleString('en-IN');
+          }
         }
       });
     });
 
     // Enforce Non-reducing amount rule: amount can be increased, but CANNOT go less than default minimum
     sevaAmountInput.addEventListener('input', () => {
-      const val = parseFloat(sevaAmountInput.value);
+      const val = parseFloat(sevaAmountInput.value) || 0;
       if (val < currentMinAmount) {
-        // User typed below minimum; warn and allow correction on blur
         sevaAmountInput.style.borderColor = 'red';
       } else {
         sevaAmountInput.style.borderColor = 'var(--primary-gold)';
       }
+      if (btnPayAmount) {
+        btnPayAmount.textContent = val.toLocaleString('en-IN');
+      }
+    });
     });
 
     sevaAmountInput.addEventListener('change', () => {
