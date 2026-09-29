@@ -914,7 +914,7 @@ const TAMIL_DICTIONARY = {
   "Sri Nataraja Sahasranamam": "ஸ்ரீ நடராஜர் சஹஸ்ரநாமம்",
   "Listen to Sri Nataraja Sahasranamam": "ஸ்ரீ நடராஜர் சஹஸ்ரநாமம் கேட்க",
   "Playing: Sri Nataraja Sahasranamam": "ஒலிக்கிறது: ஸ்ரீ நடராஜர் சஹஸ்ரநாமம்",
-  "Trust Helpline: 04144-222345": "அறக்கட்டளை உதவி: 9442090377",
+  "Trust Helpline: 04144-222345": "அறக்கட்டளை உதவி: 9363949441",
   "Trust Helpline:": "அறக்கட்டளை உதவி:",
   "Skip Intro": "முகப்புக்கு செல்க",
   "Play": "ஒலிக்க",
