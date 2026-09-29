@@ -619,7 +619,6 @@ function initDonationModal() {
         btnPayAmount.textContent = val.toLocaleString('en-IN');
       }
     });
-    });
 
     sevaAmountInput.addEventListener('change', () => {
       const val = parseFloat(sevaAmountInput.value);
