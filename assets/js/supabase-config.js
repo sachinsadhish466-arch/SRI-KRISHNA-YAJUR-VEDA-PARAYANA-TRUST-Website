@@ -113,9 +113,39 @@ async function saveDevoteeDonation(donationData) {
   return { success: true, fallback: true, record };
 }
 
+/**
+ * Fetch all devotee bookings and donations from Supabase or LocalStorage
+ * @returns {Promise<Array>}
+ */
+async function getDevoteeDonations() {
+  if (supabaseClient) {
+    try {
+      const { data, error } = await supabaseClient
+        .from('devotee_donations')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (!error && Array.isArray(data) && data.length > 0) {
+        return data;
+      }
+    } catch (err) {
+      console.warn('Supabase fetch error, falling back to local storage:', err);
+    }
+  }
+
+  // Fallback to local storage
+  try {
+    return JSON.parse(localStorage.getItem('skyvpt_donations') || '[]');
+  } catch (e) {
+    return [];
+  }
+}
+
 // Auto-run initialization on load
 if (typeof window !== 'undefined') {
   window.saveDevoteeDonation = saveDevoteeDonation;
+  window.getDevoteeDonations = getDevoteeDonations;
   window.initSupabase = initSupabase;
   window.addEventListener('DOMContentLoaded', initSupabase);
 }
+
