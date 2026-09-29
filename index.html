@@ -34,7 +34,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <!-- Main Stylesheet -->
-  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/style.css?v=3">
 
   <!-- Structured Data / JSON-LD for Google Rich Results -->
   <script type="application/ld+json">
@@ -458,6 +458,294 @@
   </section>
 
   <!-- ==========================================================================
+       ONLINE SEVA & E-HUNDI INTERACTIVE SECTION (Devotee Contribution)
+       ========================================================================== -->
+  <section class="donation-interactive-section section" id="donate">
+    <div class="container">
+      <div class="section-title-wrap">
+        <span class="section-subtitle">Devotee E-Services Portal</span>
+        <h2 class="section-title">Participate in Sacred Chidambaram Sevas</h2>
+        <div class="title-ornament"><i class="fas fa-hand-holding-heart"></i></div>
+        <p class="section-desc">
+          Sponsor the continuous chanting of Krishna Yajur Veda, Nitya Annadhanam, and Goshala maintenance. All contributions are 50% income tax exempt under Section 80G.
+        </p>
+      </div>
+
+      <div class="donation-grid-layout">
+        
+        <!-- Left Column: Interactive Booking Form Card -->
+        <div class="donation-form-card">
+          <div class="form-header">
+            <h3><i class="fas fa-scroll" style="color: var(--primary-gold);"></i> Book Veda Seva &amp; Sankalpam</h3>
+            <p style="font-size: 0.85rem; color: var(--text-secondary);">Enter your family Gothra, Nakshatram, and Sankalpam prayers.</p>
+          </div>
+
+          <!-- Top Category Tabs: Veda Seva & Sankalpam vs Annadhanam Seva -->
+          <div class="seva-category-tabs">
+            <button type="button" class="seva-category-tab active" id="tabVedaSeva" data-category="veda-seva">
+              <i class="fas fa-om"></i> Veda Seva &amp; Sankalpam
+            </button>
+            <button type="button" class="seva-category-tab" id="tabAnnadhanamSeva" data-category="annadhanam-seva">
+              <i class="fas fa-utensils"></i> Annadhanam Seva
+            </button>
+          </div>
+
+          <form id="onlineSevaForm">
+            <div class="form-group">
+              <label class="form-label" id="sevaOfferingsLabel">Select Seva / Pooja Offering:</label>
+              
+              <!-- Category 1: Veda Seva & Sankalpam (5 options) -->
+              <div class="seva-options-grid" id="vedaSevaGrid">
+                <!-- 1. Book Veda Parayana Seva -->
+                <button type="button" class="seva-option-btn selected" data-amount="1008" data-name="Book Veda Parayana Seva">
+                  <span class="seva-option-name">Book Veda Parayana Seva</span>
+                  <span class="seva-option-price">₹ 1,008 / day</span>
+                  <div class="seva-tooltip">
+                    <span class="seva-tooltip-title"><i class="fas fa-om"></i> Book Veda Parayana Seva</span>
+                    Sacred continuous daily recitation of Krishna Yajur Veda (Taittiriya Samhita, Padam, Krama &amp; Ghana chanting) at Kanaka Sabha. Morning Sankalpam performed with family Gothram and Nakshatram for Ayush, Arogya, and Aiswaryam.
+                  </div>
+                </button>
+
+                <!-- 2. Monthly Prasatham -->
+                <button type="button" class="seva-option-btn" data-amount="5000" data-name="Monthly Prasatham - Personal Sankalpam &amp; Home Delivery">
+                  <span class="seva-option-name">Monthly Prasatham</span>
+                  <span class="seva-option-price">₹ 5,000</span>
+                  <div class="seva-tooltip">
+                    <span class="seva-tooltip-title"><i class="fas fa-box-open"></i> Monthly Prasatham &amp; Sankalpam</span>
+                    Personal Sankalpam Archanai performed each month on your Janma Nakshatram or Pradosham at sanctum of Lord Nataraja. Blessed Thiruneeru (holy ash), Kungumam, and sacred temple Rakshai are sent directly to your home.
+                  </div>
+                </button>
+
+                <!-- 3. Moksha Deepam -->
+                <button type="button" class="seva-option-btn" data-amount="5000" data-name="Moksha Deepam - Lamp Lighting on Gopuram for Pitru Tithi">
+                  <span class="seva-option-name">Moksha Deepam</span>
+                  <span class="seva-option-price">₹ 5,000 per Gopuram</span>
+                  <div class="seva-tooltip">
+                    <span class="seva-tooltip-title"><i class="fas fa-fire"></i> Moksha Deepam (Pitru Shanti)</span>
+                    Auspicious ghee lamp lit atop temple Gopuram for ancestral peace on Pitru Tithi. Choose 1, 2, 3, or all 4 Gopurams (North, South, East, West @ ₹ 5,000 each; ₹ 20,000 for all 4).
+                  </div>
+                </button>
+
+                <!-- 4. Runavimochana Lingam -->
+                <button type="button" class="seva-option-btn" data-amount="10000" data-name="Runavimochana Lingam Abhishekam (Debt Relief)">
+                  <span class="seva-option-name">Runavimochana Lingam</span>
+                  <span class="seva-option-price">₹ 10,000</span>
+                  <div class="seva-tooltip">
+                    <span class="seva-tooltip-title"><i class="fas fa-water"></i> Runavimochana Lingam Abhishekam</span>
+                    Special 11-dravya Maha Abhishekam to Lord Runavimochana Lingeswara to dissolve financial burdens, karmic debts, ancestral obligations, and bestow financial freedom and peace of mind.
+                  </div>
+                </button>
+
+                <!-- 5. Chandramouleeswarar -->
+                <button type="button" class="seva-option-btn" data-amount="25000" data-name="Chandramouleeswarar Abhishekam (Kanaka Sabha 6-Kaala)">
+                  <span class="seva-option-name">Chandramouleeswarar</span>
+                  <span class="seva-option-price">₹ 25,000</span>
+                  <div class="seva-tooltip">
+                    <span class="seva-tooltip-title"><i class="fas fa-gem"></i> Chandramouleeswarar 6-Kaala Abhishekam</span>
+                    Exclusive 6-Kaala sacred Abhishekam to the legendary Sphatika (quartz crystal) Lingam of Lord Chandramouleeswarar at Kanaka Sabha with milk, honey, sandalwood, and rosewater.
+                  </div>
+                </button>
+              </div>
+
+              <!-- Category 2: Annadhanam Seva (2 options) -->
+              <div class="seva-options-grid" id="annadhanamSevaGrid" style="display: none;">
+                <!-- 1. Annadhanam Seva (Custom amount) -->
+                <button type="button" class="seva-option-btn" data-amount="500" data-name="Annadhanam Seva (Custom amount)">
+                  <span class="seva-option-name">Annadhanam Seva (Custom amount)</span>
+                  <span class="seva-option-price">Custom Amount (Min ₹ 500)</span>
+                  <div class="seva-tooltip">
+                    <span class="seva-tooltip-title"><i class="fas fa-utensils"></i> Annadhanam Seva (Custom Contribution)</span>
+                    Offer any custom donation towards sacred daily Annadhanam at Chidambaram. Wholesome sanctified meals provided to devotees, sadhus, and Vedic vidyarthies. 80G tax exemption receipt provided.
+                  </div>
+                </button>
+
+                <!-- 2. Special Annadhanam Seva 30000/day -->
+                <button type="button" class="seva-option-btn" data-amount="30000" data-name="Special Annadhanam Seva - 30,000 / day">
+                  <span class="seva-option-name">Special Annadhanam Seva</span>
+                  <span class="seva-option-price">₹ 30,000 / day</span>
+                  <div class="seva-tooltip">
+                    <span class="seva-tooltip-title"><i class="fas fa-crown"></i> Special Annadhanam Seva (Full Day Meal Sponsor)</span>
+                    Sponsor an entire day of free Annadhanam feeding thousands of visiting pilgrims, sadhus, and Vedic students. In return, donor receives sacred Pattu Thundu, Kovil Malai, and blessed Maha Prasatham.
+                  </div>
+                </button>
+              </div>
+
+              <input type="hidden" id="selectedSevaName" value="Book Veda Parayana Seva">
+              <input type="hidden" id="selectedCategory" value="Veda Seva &amp; Sankalpam">
+
+              <!-- Elaborated Live Description Box (Mobile & Desktop) -->
+              <div class="seva-live-desc" id="sevaLiveDescription">
+                <div class="seva-live-desc-title" id="liveDescTitle">
+                  <i class="fas fa-om" style="color: var(--saffron-warm);"></i> Book Veda Parayana Seva &mdash; ₹ 1,008 / day
+                </div>
+                <div id="liveDescText" style="color: var(--text-secondary); font-size: 0.82rem;">
+                  Sacred continuous daily recitation of the Krishna Yajur Veda (Taittiriya Samhita, Padam, Krama, and Ghana chanting) by learned Vedic scholars at the Kanaka Sabha before Lord Nataraja. Morning Sankalpam is performed in your family's Gothram and Janma Nakshatram for Ayush, Arogya, and Aiswaryam.
+                </div>
+              </div>
+
+              <!-- Moksha Deepam 4-Gopuram Selection Grid (Appears when Moksha Deepam selected) -->
+              <div id="gopuramSelectionContainer" class="gopuram-selection-container" style="display: none;">
+                <div class="gopuram-selection-header">
+                  <h4><i class="fas fa-gopuram" style="color: var(--crimson-main);"></i> Select Temple Gopurams for Moksha Deepam:</h4>
+                  <span class="gopuram-rate-tag">₹ 5,000 per Gopuram</span>
+                </div>
+                <div class="gopuram-grid">
+                  <label class="gopuram-item">
+                    <input type="checkbox" class="gopuram-checkbox" id="gopuramNorth" value="North Gopuram (Atharvana Veda)" checked>
+                    <div class="gopuram-label-info">
+                      <strong>North Gopuram</strong>
+                      <span>Atharvana Veda &bull; ₹ 5,000</span>
+                    </div>
+                  </label>
+                  <label class="gopuram-item">
+                    <input type="checkbox" class="gopuram-checkbox" id="gopuramSouth" value="South Gopuram (Krishna Yajur Veda)">
+                    <div class="gopuram-label-info">
+                      <strong>South Gopuram</strong>
+                      <span>Krishna Yajur Veda &bull; ₹ 5,000</span>
+                    </div>
+                  </label>
+                  <label class="gopuram-item">
+                    <input type="checkbox" class="gopuram-checkbox" id="gopuramEast" value="East Gopuram (Rig Veda)">
+                    <div class="gopuram-label-info">
+                      <strong>East Gopuram</strong>
+                      <span>Rig Veda &bull; ₹ 5,000</span>
+                    </div>
+                  </label>
+                  <label class="gopuram-item">
+                    <input type="checkbox" class="gopuram-checkbox" id="gopuramWest" value="West Gopuram (Sama Veda)">
+                    <div class="gopuram-label-info">
+                      <strong>West Gopuram</strong>
+                      <span>Sama Veda &bull; ₹ 5,000</span>
+                    </div>
+                  </label>
+                </div>
+                <div class="gopuram-total-bar">
+                  <span>Calculated Moksha Deepam Total:</span>
+                  <strong id="gopuramTotalDisplay">₹ 5,000 (1 Gopuram)</strong>
+                </div>
+              </div>
+
+              <!-- Parayanam Details Action Link directly below Seva Selection -->
+              <div class="parayanam-details-action">
+                <a href="veda-parayana.html" class="parayanam-details-link">
+                  <span><i class="fas fa-book-open"></i> <strong>Parayanam Details &amp; Vidhanam:</strong> Learn more about Krishna Yajur Veda chanting procedures</span>
+                  <i class="fas fa-arrow-right"></i>
+                </a>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="devoteeName" class="form-label">Devotee / Kartha Name *</label>
+              <input type="text" id="devoteeName" class="form-control" placeholder="Enter Full Name" required value="S. Ramaswamy">
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+              <div class="form-group">
+                <label for="devoteeGothram" class="form-label">Gothram *</label>
+                <input type="text" id="devoteeGothram" class="form-control" placeholder="e.g. Bharadwaja / Kasyapa" required value="Kasyapa">
+              </div>
+              <div class="form-group">
+                <label for="devoteeNakshatram" class="form-label">Nakshatram / Rasi *</label>
+                <input type="text" id="devoteeNakshatram" class="form-control" placeholder="e.g. Rohini / Rishabham" required value="Rohini">
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+              <div class="form-group">
+                <label for="devoteePhone" class="form-label">WhatsApp Mobile No *</label>
+                <input type="tel" id="devoteePhone" class="form-control" placeholder="10-digit number" required value="9840123456">
+              </div>
+              <div class="form-group">
+                <label for="devoteeEmail" class="form-label">Email Address (Optional)</label>
+                <input type="email" id="devoteeEmail" class="form-control" placeholder="name@domain.com">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="sevaDate" class="form-label">Preferred Date of Seva / Sankalpam *</label>
+              <input type="date" id="sevaDate" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+              <label for="donationAmount" class="form-label">Offering / Contribution Amount (INR ₹) *</label>
+              <input type="number" id="donationAmount" class="form-control" value="1008" min="500" required style="font-size: 1.2rem; font-weight: 700; color: var(--crimson-main);">
+              <small class="form-hint" id="minAmountDisplay">Minimum donation for this Seva is ₹ 1,008</small>
+            </div>
+
+            <div class="form-group">
+              <label for="devoteeAddress" class="form-label">Postal Address (For Blessed Prasatham Courier)</label>
+              <textarea id="devoteeAddress" class="form-control" rows="2" placeholder="House No, Street, City, State, PIN Code"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="devoteeSankalpamNotes" class="form-label">Special Prayers / Family Names for Sankalpam</label>
+              <textarea id="devoteeSankalpamNotes" class="form-control" rows="2" placeholder="List names, stars, or special prayers (Marriage, Health, Education, Pitru Shanti)"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; padding: 14px 24px; font-size: 1.05rem;" id="submitDonationBtn">
+              <i class="fas fa-lock"></i> Proceed to Online Payment (₹ <span id="btnPayAmount">1,008</span>)
+            </button>
+            <p style="text-align: center; margin-top: 10px; font-size: 0.78rem; color: var(--text-muted);">
+              <i class="fas fa-shield-alt" style="color: #27ae60;"></i> Instant 80G e-Receipt &bull; Bank-grade 256-bit SSL Encrypted &bull; Direct Temple Account
+            </p>
+          </form>
+        </div>
+
+        <!-- Right Column: Trust Transparency, Bank Details & QR -->
+        <div class="donation-sidebar-card">
+          <div class="bank-details-box">
+            <h4><i class="fas fa-university" style="color: var(--primary-gold);"></i> Official Trust Bank Account</h4>
+            <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 12px;">Devotees may also transfer directly via NEFT / RTGS / IMPS:</p>
+            
+            <div class="bank-meta-row">
+              <span class="meta-label">Account Name:</span>
+              <strong class="meta-val">Sri Krishna Yajur Veda Parayana Trust</strong>
+            </div>
+            <div class="bank-meta-row">
+              <span class="meta-label">Bank:</span>
+              <strong class="meta-val">Indian Bank</strong>
+            </div>
+            <div class="bank-meta-row">
+              <span class="meta-label">Branch:</span>
+              <strong class="meta-val">Chidambaram Main Branch</strong>
+            </div>
+            <div class="bank-meta-row">
+              <span class="meta-label">Account No:</span>
+              <strong class="meta-val" style="letter-spacing: 1px; color: var(--crimson-main);">6543210987</strong>
+            </div>
+            <div class="bank-meta-row">
+              <span class="meta-label">IFSC Code:</span>
+              <strong class="meta-val" style="letter-spacing: 1px;">IDIB000C025</strong>
+            </div>
+            <div class="bank-meta-row">
+              <span class="meta-label">Account Type:</span>
+              <strong class="meta-val">Current Account</strong>
+            </div>
+          </div>
+
+          <!-- Direct UPI QR Box -->
+          <div class="upi-direct-box" style="margin-top: 16px;">
+            <h4><i class="fas fa-qrcode" style="color: var(--primary-gold);"></i> Scan &amp; Pay via Any UPI App</h4>
+            <p style="font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 10px;">GPay &bull; PhonePe &bull; Paytm &bull; BHIM</p>
+            <div class="upi-qr-wrapper" style="text-align: center; background: #fff; padding: 12px; border-radius: 8px; border: 1px solid var(--border-color); display: inline-block;">
+              <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&amp;data=upi://pay?pa=vedatrust@indianbank&amp;pn=Sri%20Krishna%20Yajur%20Veda%20Trust&amp;cu=INR" alt="Temple UPI QR Code" style="width: 140px; height: 140px; display: block; margin: 0 auto;">
+              <span style="display: block; font-family: monospace; font-size: 0.8rem; font-weight: 700; color: #333; margin-top: 6px;">vedatrust@indianbank</span>
+            </div>
+            <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 8px;">After UPI transfer, please WhatsApp screenshot &amp; Gothram to <strong>+91 98401 23456</strong> for Sankalpam.</p>
+          </div>
+
+          <!-- Tax Benefit 80G Highlight -->
+          <div class="tax-80g-highlight" style="margin-top: 16px; background: rgba(184, 134, 11, 0.08); border-left: 3px solid var(--primary-gold); padding: 10px 14px; border-radius: 0 6px 6px 0;">
+            <div style="font-weight: 600; font-size: 0.88rem; color: var(--crimson-main);"><i class="fas fa-award"></i> 50% Income Tax Exemption</div>
+            <p style="font-size: 0.8rem; color: var(--text-secondary); margin: 4px 0 0 0;">Donations qualify under Section 80G of the Indian Income Tax Act. Official 80G certificate dispatched along with Prasatham.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
        SPECIALITY OF CHIDAMBARAM TEMPLE (Pancha Bhoota & Architecture)
        ========================================================================== -->
   <section class="section speciality-section">
@@ -759,294 +1047,6 @@
   </section>
 
   <!-- ==========================================================================
-       ONLINE SEVA & E-HUNDI INTERACTIVE SECTION (Devotee Contribution)
-       ========================================================================== -->
-  <section class="donation-interactive-section section" id="donate">
-    <div class="container">
-      <div class="section-title-wrap">
-        <span class="section-subtitle">Devotee E-Services Portal</span>
-        <h2 class="section-title">Participate in Sacred Chidambaram Sevas</h2>
-        <div class="title-ornament"><i class="fas fa-hand-holding-heart"></i></div>
-        <p class="section-desc">
-          Sponsor the continuous chanting of Krishna Yajur Veda, Nitya Annadhanam, and Goshala maintenance. All contributions are 50% income tax exempt under Section 80G.
-        </p>
-      </div>
-
-      <div class="donation-grid-layout">
-        
-        <!-- Left Column: Interactive Booking Form Card -->
-        <div class="donation-form-card">
-          <div class="form-header">
-            <h3><i class="fas fa-scroll" style="color: var(--primary-gold);"></i> Book Veda Seva &amp; Sankalpam</h3>
-            <p style="font-size: 0.85rem; color: var(--text-secondary);">Enter your family Gothra, Nakshatram, and Sankalpam prayers.</p>
-          </div>
-
-          <!-- Top Category Tabs: Veda Seva & Sankalpam vs Annadhanam Seva -->
-          <div class="seva-category-tabs">
-            <button type="button" class="seva-category-tab active" id="tabVedaSeva" data-category="veda-seva">
-              <i class="fas fa-om"></i> Veda Seva &amp; Sankalpam
-            </button>
-            <button type="button" class="seva-category-tab" id="tabAnnadhanamSeva" data-category="annadhanam-seva">
-              <i class="fas fa-utensils"></i> Annadhanam Seva
-            </button>
-          </div>
-
-          <form id="onlineSevaForm">
-            <div class="form-group">
-              <label class="form-label" id="sevaOfferingsLabel">Select Seva / Pooja Offering:</label>
-              
-              <!-- Category 1: Veda Seva & Sankalpam (5 options) -->
-              <div class="seva-options-grid" id="vedaSevaGrid">
-                <!-- 1. Book Veda Parayana Seva -->
-                <button type="button" class="seva-option-btn selected" data-amount="1008" data-name="Book Veda Parayana Seva">
-                  <span class="seva-option-name">Book Veda Parayana Seva</span>
-                  <span class="seva-option-price">₹ 1,008 / day</span>
-                  <div class="seva-tooltip">
-                    <span class="seva-tooltip-title"><i class="fas fa-om"></i> Book Veda Parayana Seva</span>
-                    Sacred continuous daily recitation of Krishna Yajur Veda (Taittiriya Samhita, Padam, Krama &amp; Ghana chanting) at Kanaka Sabha. Morning Sankalpam performed with family Gothram and Nakshatram for Ayush, Arogya, and Aiswaryam.
-                  </div>
-                </button>
-
-                <!-- 2. Monthly Prasatham -->
-                <button type="button" class="seva-option-btn" data-amount="5000" data-name="Monthly Prasatham - Personal Sankalpam &amp; Home Delivery">
-                  <span class="seva-option-name">Monthly Prasatham</span>
-                  <span class="seva-option-price">₹ 5,000</span>
-                  <div class="seva-tooltip">
-                    <span class="seva-tooltip-title"><i class="fas fa-box-open"></i> Monthly Prasatham &amp; Sankalpam</span>
-                    Personal Sankalpam Archanai performed each month on your Janma Nakshatram or Pradosham at sanctum of Lord Nataraja. Blessed Thiruneeru (holy ash), Kungumam, and sacred temple Rakshai are sent directly to your home.
-                  </div>
-                </button>
-
-                <!-- 3. Moksha Deepam -->
-                <button type="button" class="seva-option-btn" data-amount="5000" data-name="Moksha Deepam - Lamp Lighting on Gopuram for Pitru Tithi">
-                  <span class="seva-option-name">Moksha Deepam</span>
-                  <span class="seva-option-price">₹ 5,000 per Gopuram</span>
-                  <div class="seva-tooltip">
-                    <span class="seva-tooltip-title"><i class="fas fa-fire"></i> Moksha Deepam (Pitru Shanti)</span>
-                    Auspicious ghee lamp lit atop temple Gopuram for ancestral peace on Pitru Tithi. Choose 1, 2, 3, or all 4 Gopurams (North, South, East, West @ ₹ 5,000 each; ₹ 20,000 for all 4).
-                  </div>
-                </button>
-
-                <!-- 4. Runavimochana Lingam -->
-                <button type="button" class="seva-option-btn" data-amount="10000" data-name="Runavimochana Lingam Abhishekam (Debt Relief)">
-                  <span class="seva-option-name">Runavimochana Lingam</span>
-                  <span class="seva-option-price">₹ 10,000</span>
-                  <div class="seva-tooltip">
-                    <span class="seva-tooltip-title"><i class="fas fa-water"></i> Runavimochana Lingam Abhishekam</span>
-                    Special 11-dravya Maha Abhishekam to Lord Runavimochana Lingeswara to dissolve financial burdens, karmic debts, ancestral obligations, and bestow financial freedom and peace of mind.
-                  </div>
-                </button>
-
-                <!-- 5. Chandramouleeswarar -->
-                <button type="button" class="seva-option-btn" data-amount="25000" data-name="Chandramouleeswarar Abhishekam (Kanaka Sabha 6-Kaala)">
-                  <span class="seva-option-name">Chandramouleeswarar</span>
-                  <span class="seva-option-price">₹ 25,000</span>
-                  <div class="seva-tooltip">
-                    <span class="seva-tooltip-title"><i class="fas fa-gem"></i> Chandramouleeswarar 6-Kaala Abhishekam</span>
-                    Exclusive 6-Kaala sacred Abhishekam to the legendary Sphatika (quartz crystal) Lingam of Lord Chandramouleeswarar at Kanaka Sabha with milk, honey, sandalwood, and rosewater.
-                  </div>
-                </button>
-              </div>
-
-              <!-- Category 2: Annadhanam Seva (2 options) -->
-              <div class="seva-options-grid" id="annadhanamSevaGrid" style="display: none;">
-                <!-- 1. Annadhanam Seva (Custom amount) -->
-                <button type="button" class="seva-option-btn" data-amount="500" data-name="Annadhanam Seva (Custom amount)">
-                  <span class="seva-option-name">Annadhanam Seva (Custom amount)</span>
-                  <span class="seva-option-price">Custom Amount (Min ₹ 500)</span>
-                  <div class="seva-tooltip">
-                    <span class="seva-tooltip-title"><i class="fas fa-utensils"></i> Annadhanam Seva (Custom Contribution)</span>
-                    Offer any custom donation towards sacred daily Annadhanam at Chidambaram. Wholesome sanctified meals provided to devotees, sadhus, and Vedic vidyarthies. 80G tax exemption receipt provided.
-                  </div>
-                </button>
-
-                <!-- 2. Special Annadhanam Seva 30000/day -->
-                <button type="button" class="seva-option-btn" data-amount="30000" data-name="Special Annadhanam Seva - 30,000 / day">
-                  <span class="seva-option-name">Special Annadhanam Seva</span>
-                  <span class="seva-option-price">₹ 30,000 / day</span>
-                  <div class="seva-tooltip">
-                    <span class="seva-tooltip-title"><i class="fas fa-crown"></i> Special Annadhanam Seva (Full Day Meal Sponsor)</span>
-                    Sponsor an entire day of free Annadhanam feeding thousands of visiting pilgrims, sadhus, and Vedic students. In return, donor receives sacred Pattu Thundu, Kovil Malai, and blessed Maha Prasatham.
-                  </div>
-                </button>
-              </div>
-
-              <input type="hidden" id="selectedSevaName" value="Book Veda Parayana Seva">
-              <input type="hidden" id="selectedCategory" value="Veda Seva &amp; Sankalpam">
-
-              <!-- Elaborated Live Description Box (Mobile & Desktop) -->
-              <div class="seva-live-desc" id="sevaLiveDescription">
-                <div class="seva-live-desc-title" id="liveDescTitle">
-                  <i class="fas fa-om" style="color: var(--saffron-warm);"></i> Book Veda Parayana Seva &mdash; ₹ 1,008 / day
-                </div>
-                <div id="liveDescText" style="color: var(--text-secondary); font-size: 0.82rem;">
-                  Sacred continuous daily recitation of the Krishna Yajur Veda (Taittiriya Samhita, Padam, Krama, and Ghana chanting) by learned Vedic scholars at the Kanaka Sabha before Lord Nataraja. Morning Sankalpam is performed in your family's Gothram and Janma Nakshatram for Ayush, Arogya, and Aiswaryam.
-                </div>
-              </div>
-
-              <!-- Moksha Deepam 4-Gopuram Selection Grid (Appears when Moksha Deepam selected) -->
-              <div id="gopuramSelectionContainer" class="gopuram-selection-container" style="display: none;">
-                <div class="gopuram-selection-header">
-                  <h4><i class="fas fa-gopuram" style="color: var(--crimson-main);"></i> Select Temple Gopurams for Moksha Deepam:</h4>
-                  <span class="gopuram-rate-tag">₹ 5,000 per Gopuram</span>
-                </div>
-                <div class="gopuram-grid">
-                  <label class="gopuram-item">
-                    <input type="checkbox" class="gopuram-checkbox" id="gopuramNorth" value="North Gopuram (Atharvana Veda)" checked>
-                    <div class="gopuram-label-info">
-                      <strong>North Gopuram</strong>
-                      <span>Atharvana Veda &bull; ₹ 5,000</span>
-                    </div>
-                  </label>
-                  <label class="gopuram-item">
-                    <input type="checkbox" class="gopuram-checkbox" id="gopuramSouth" value="South Gopuram (Krishna Yajur Veda)">
-                    <div class="gopuram-label-info">
-                      <strong>South Gopuram</strong>
-                      <span>Krishna Yajur Veda &bull; ₹ 5,000</span>
-                    </div>
-                  </label>
-                  <label class="gopuram-item">
-                    <input type="checkbox" class="gopuram-checkbox" id="gopuramEast" value="East Gopuram (Rig Veda)">
-                    <div class="gopuram-label-info">
-                      <strong>East Gopuram</strong>
-                      <span>Rig Veda &bull; ₹ 5,000</span>
-                    </div>
-                  </label>
-                  <label class="gopuram-item">
-                    <input type="checkbox" class="gopuram-checkbox" id="gopuramWest" value="West Gopuram (Sama Veda)">
-                    <div class="gopuram-label-info">
-                      <strong>West Gopuram</strong>
-                      <span>Sama Veda &bull; ₹ 5,000</span>
-                    </div>
-                  </label>
-                </div>
-                <div class="gopuram-total-bar">
-                  <span>Calculated Moksha Deepam Total:</span>
-                  <strong id="gopuramTotalDisplay">₹ 5,000 (1 Gopuram)</strong>
-                </div>
-              </div>
-
-              <!-- Parayanam Details Action Link directly below Seva Selection -->
-              <div class="parayanam-details-action">
-                <a href="veda-parayana.html" class="parayanam-details-link">
-                  <span><i class="fas fa-book-open"></i> <strong>Parayanam Details &amp; Vidhanam:</strong> Learn more about Krishna Yajur Veda chanting procedures</span>
-                  <i class="fas fa-arrow-right"></i>
-                </a>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="devoteeName" class="form-label">Devotee / Kartha Name *</label>
-              <input type="text" id="devoteeName" class="form-control" placeholder="Enter Full Name" required value="S. Ramaswamy">
-            </div>
-
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
-              <div class="form-group">
-                <label for="devoteeGothram" class="form-label">Gothram *</label>
-                <input type="text" id="devoteeGothram" class="form-control" placeholder="e.g. Bharadwaja / Kasyapa" required value="Kasyapa">
-              </div>
-              <div class="form-group">
-                <label for="devoteeNakshatram" class="form-label">Nakshatram / Rasi *</label>
-                <input type="text" id="devoteeNakshatram" class="form-control" placeholder="e.g. Rohini / Rishabham" required value="Rohini">
-              </div>
-            </div>
-
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
-              <div class="form-group">
-                <label for="devoteePhone" class="form-label">WhatsApp Mobile No *</label>
-                <input type="tel" id="devoteePhone" class="form-control" placeholder="10-digit number" required value="9840123456">
-              </div>
-              <div class="form-group">
-                <label for="devoteeEmail" class="form-label">Email Address (Optional)</label>
-                <input type="email" id="devoteeEmail" class="form-control" placeholder="name@domain.com">
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="sevaDate" class="form-label">Preferred Date of Seva / Sankalpam *</label>
-              <input type="date" id="sevaDate" class="form-control" required>
-            </div>
-
-            <div class="form-group">
-              <label for="donationAmount" class="form-label">Offering / Contribution Amount (INR ₹) *</label>
-              <input type="number" id="donationAmount" class="form-control" value="1008" min="500" required style="font-size: 1.2rem; font-weight: 700; color: var(--crimson-main);">
-              <small class="form-hint" id="minAmountDisplay">Minimum donation for this Seva is ₹ 1,008</small>
-            </div>
-
-            <div class="form-group">
-              <label for="devoteeAddress" class="form-label">Postal Address (For Blessed Prasatham Courier)</label>
-              <textarea id="devoteeAddress" class="form-control" rows="2" placeholder="House No, Street, City, State, PIN Code"></textarea>
-            </div>
-
-            <div class="form-group">
-              <label for="devoteeSankalpamNotes" class="form-label">Special Prayers / Family Names for Sankalpam</label>
-              <textarea id="devoteeSankalpamNotes" class="form-control" rows="2" placeholder="List names, stars, or special prayers (Marriage, Health, Education, Pitru Shanti)"></textarea>
-            </div>
-
-            <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; padding: 14px 24px; font-size: 1.05rem;" id="submitDonationBtn">
-              <i class="fas fa-lock"></i> Proceed to Online Payment (₹ <span id="btnPayAmount">1,008</span>)
-            </button>
-            <p style="text-align: center; margin-top: 10px; font-size: 0.78rem; color: var(--text-muted);">
-              <i class="fas fa-shield-alt" style="color: #27ae60;"></i> Instant 80G e-Receipt &bull; Bank-grade 256-bit SSL Encrypted &bull; Direct Temple Account
-            </p>
-          </form>
-        </div>
-
-        <!-- Right Column: Trust Transparency, Bank Details & QR -->
-        <div class="donation-sidebar-card">
-          <div class="bank-details-box">
-            <h4><i class="fas fa-university" style="color: var(--primary-gold);"></i> Official Trust Bank Account</h4>
-            <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 12px;">Devotees may also transfer directly via NEFT / RTGS / IMPS:</p>
-            
-            <div class="bank-meta-row">
-              <span class="meta-label">Account Name:</span>
-              <strong class="meta-val">Sri Krishna Yajur Veda Parayana Trust</strong>
-            </div>
-            <div class="bank-meta-row">
-              <span class="meta-label">Bank:</span>
-              <strong class="meta-val">Indian Bank</strong>
-            </div>
-            <div class="bank-meta-row">
-              <span class="meta-label">Branch:</span>
-              <strong class="meta-val">Chidambaram Main Branch</strong>
-            </div>
-            <div class="bank-meta-row">
-              <span class="meta-label">Account No:</span>
-              <strong class="meta-val" style="letter-spacing: 1px; color: var(--crimson-main);">6543210987</strong>
-            </div>
-            <div class="bank-meta-row">
-              <span class="meta-label">IFSC Code:</span>
-              <strong class="meta-val" style="letter-spacing: 1px;">IDIB000C025</strong>
-            </div>
-            <div class="bank-meta-row">
-              <span class="meta-label">Account Type:</span>
-              <strong class="meta-val">Current Account</strong>
-            </div>
-          </div>
-
-          <!-- Direct UPI QR Box -->
-          <div class="upi-direct-box" style="margin-top: 16px;">
-            <h4><i class="fas fa-qrcode" style="color: var(--primary-gold);"></i> Scan &amp; Pay via Any UPI App</h4>
-            <p style="font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 10px;">GPay &bull; PhonePe &bull; Paytm &bull; BHIM</p>
-            <div class="upi-qr-wrapper" style="text-align: center; background: #fff; padding: 12px; border-radius: 8px; border: 1px solid var(--border-color); display: inline-block;">
-              <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&amp;data=upi://pay?pa=vedatrust@indianbank&amp;pn=Sri%20Krishna%20Yajur%20Veda%20Trust&amp;cu=INR" alt="Temple UPI QR Code" style="width: 140px; height: 140px; display: block; margin: 0 auto;">
-              <span style="display: block; font-family: monospace; font-size: 0.8rem; font-weight: 700; color: #333; margin-top: 6px;">vedatrust@indianbank</span>
-            </div>
-            <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 8px;">After UPI transfer, please WhatsApp screenshot &amp; Gothram to <strong>+91 98401 23456</strong> for Sankalpam.</p>
-          </div>
-
-          <!-- Tax Benefit 80G Highlight -->
-          <div class="tax-80g-highlight" style="margin-top: 16px; background: rgba(184, 134, 11, 0.08); border-left: 3px solid var(--primary-gold); padding: 10px 14px; border-radius: 0 6px 6px 0;">
-            <div style="font-weight: 600; font-size: 0.88rem; color: var(--crimson-main);"><i class="fas fa-award"></i> 50% Income Tax Exemption</div>
-            <p style="font-size: 0.8rem; color: var(--text-secondary); margin: 4px 0 0 0;">Donations qualify under Section 80G of the Indian Income Tax Act. Official 80G certificate dispatched along with Prasatham.</p>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ==========================================================================
        PHOTO GALLERY PREVIEW (Sacred Visuals)
        ========================================================================== -->
   <section class="section" style="background: var(--bg-ivory);">
@@ -1340,7 +1340,7 @@
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="assets/js/supabase-config.js"></script>
-  <script src="assets/js/main.js"></script>
+  <script src="assets/js/supabase-config.js?v=3"></script>
+  <script src="assets/js/main.js?v=3"></script>
 </body>
 </html>
