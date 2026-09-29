@@ -395,6 +395,27 @@ const SEVA_DETAILS_DICTIONARY = {
     rateLabel: "Starting ₹ 30,000 / day",
     elaborated: "Sponsor a complete day of sacred Annadanam feeding hundreds of visiting devotees, pilgrims, sadhus, and Vedic vidyarthies at Chidambaram. Donors receive sacred Kovil Malai (temple garland), Pattu Thundu (sacred silk angavastram), and special Maha Prasatham."
   },
+  "Special Annadhanam Seva - Full Day Free Meals for Pilgrims": {
+    name: "Special Annadhanam Seva - Full Day Free Meals for Pilgrims",
+    shortName: "Special Annadhanam Seva",
+    baseAmount: 30000,
+    rateLabel: "Starting ₹ 30,000 / day",
+    elaborated: "Sponsor a complete day of sacred Annadanam feeding thousands of visiting devotees, pilgrims, sadhus, and Vedic vidyarthies at Chidambaram. Donors receive sacred Kovil Malai (temple garland), Pattu Thundu (sacred silk angavastram), and special Maha Prasatham."
+  },
+  "Annadhanam Seva (Custom amount)": {
+    name: "Annadhanam Seva (Custom amount)",
+    shortName: "Annadhanam Seva",
+    baseAmount: 500,
+    rateLabel: "Custom Amount (Min ₹ 500)",
+    elaborated: "Offer your loving contribution towards the continuous daily Annadhanam at Chidambaram temple. Every rupee helps feed visiting pilgrims, sadhus, and young Vedic students. 80G tax exemption certificate issued."
+  },
+  "மஹா ருத்ர அபிஷேகம் (Maha Rudra Abhishekam)": {
+    name: "மஹா ருத்ர அபிஷேகம் (Maha Rudra Abhishekam)",
+    shortName: "மஹா ருத்ர அபிஷேகம்",
+    baseAmount: 150000,
+    rateLabel: "₹ 1,50,000",
+    elaborated: "The most sacred and grand Maha Rudra Parayanam & Ekadasa Rudra Abhishekam chanted by learned Vedic scholars before Lord Nataraja and the Kanaka Sabha Sphatika Lingam. Bestows supreme health, prosperity, longevity, and removes all planetary afflictions."
+  },
   "Moksha Deepam - Lamp Lighting on Gopuram for Pitru Tithi": {
     name: "Moksha Deepam - Lamp Lighting on Gopuram for Pitru Tithi",
     shortName: "Moksha Deepam",
@@ -430,6 +451,13 @@ function initDonationModal() {
   const liveDescText = document.getElementById('liveDescText');
   const minAmountDisplay = document.getElementById('minAmountDisplay');
 
+  // Category Tabs
+  const categoryTabs = document.querySelectorAll('.seva-category-tab');
+  const vedaSevaGrid = document.getElementById('vedaSevaGrid');
+  const annadhanamSevaGrid = document.getElementById('annadhanamSevaGrid');
+  const selectedCategoryInput = document.getElementById('selectedCategory');
+  const sevaOfferingsLabel = document.getElementById('sevaOfferingsLabel');
+
   let currentMinAmount = 1008;
   let activeSelectedSeva = "Nitya Krishna Yajur Veda Parayanam";
 
@@ -440,6 +468,43 @@ function initDonationModal() {
       liveDescTitle.innerHTML = `<i class="fas fa-om" style="color: var(--saffron-warm);"></i> ${details.name} &mdash; ${details.rateLabel}`;
       liveDescText.textContent = details.elaborated;
     }
+  }
+
+  // Bind Category Tabs (Veda Seva & Sankalpam vs Annadhanam Seva)
+  if (categoryTabs.length) {
+    categoryTabs.forEach(tab => {
+      tab.addEventListener('click', (e) => {
+        e.preventDefault();
+        categoryTabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+
+        const cat = tab.getAttribute('data-category');
+        if (selectedCategoryInput) {
+          selectedCategoryInput.value = cat === 'annadhanam-seva' ? 'Annadhanam Seva' : 'Veda Seva & Sankalpam';
+        }
+
+        if (cat === 'annadhanam-seva') {
+          if (vedaSevaGrid) vedaSevaGrid.style.display = 'none';
+          if (annadhanamSevaGrid) annadhanamSevaGrid.style.display = 'grid';
+          if (gopuramContainer) gopuramContainer.style.display = 'none';
+          if (sevaOfferingsLabel) sevaOfferingsLabel.textContent = 'Select Annadhanam Seva Offering:';
+
+          const firstAnnadhanamBtn = annadhanamSevaGrid ? annadhanamSevaGrid.querySelector('.seva-option-btn') : null;
+          if (firstAnnadhanamBtn) {
+            firstAnnadhanamBtn.click();
+          }
+        } else {
+          if (annadhanamSevaGrid) annadhanamSevaGrid.style.display = 'none';
+          if (vedaSevaGrid) vedaSevaGrid.style.display = 'grid';
+          if (sevaOfferingsLabel) sevaOfferingsLabel.textContent = 'Select Divine Seva:';
+
+          const firstVedaBtn = vedaSevaGrid ? vedaSevaGrid.querySelector('.seva-option-btn') : null;
+          if (firstVedaBtn) {
+            firstVedaBtn.click();
+          }
+        }
+      });
+    });
   }
 
   // Function to calculate Gopuram selection total
