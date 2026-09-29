@@ -412,23 +412,23 @@
         <div class="panchang-items">
           <div class="panchang-item">
             <span class="label">Tamil Month</span>
-            <span class="value">Purattasi / Margazhi</span>
+            <span class="value" id="panchangTamilMonth">Purattasi</span>
           </div>
           <div class="panchang-item">
             <span class="label">Thithi</span>
-            <span class="value">Shukla Paksha Trayodashi</span>
+            <span class="value" id="panchangThithi">Krishna Tritiya</span>
           </div>
           <div class="panchang-item">
             <span class="label">Nakshatram</span>
-            <span class="value">Thiruvaadhirai (Arudra)</span>
+            <span class="value" id="panchangNakshatram">Ashwini / Bharani</span>
           </div>
           <div class="panchang-item">
             <span class="label">Rahu Kalam</span>
-            <span class="value">07:30 AM - 09:00 AM</span>
+            <span class="value" id="panchangRahuKalam">03:00 PM – 04:30 PM</span>
           </div>
           <div class="panchang-item">
             <span class="label">Next Special Darshan</span>
-            <span class="value" style="color: var(--crimson-main);">Uchikala Pooja (12:00 PM)</span>
+            <span class="value" id="panchangNextDarshan" style="color: var(--crimson-main);">Uchikala Pooja & Ruby Nataraja (11:30 AM)</span>
           </div>
         </div>
 
@@ -479,7 +479,7 @@
         <!-- Card 2: Chidambara Rahasyam -->
         <div class="feature-card">
           <div class="feature-card-img-wrap">
-            <img src="assets/images/golden_roof.jpg" alt="Chidambara Rahasyam Sanctum">
+            <img src="assets/images/chidambara_rahasyam.jpg" alt="Chidambara Rahasyam Swarna Vilva Mala">
             <span class="feature-tag">Divine Mystery</span>
           </div>
           <div class="feature-body">
@@ -498,7 +498,7 @@
         <!-- Card 3: Kanaka Sabha & Architectural Wonders -->
         <div class="feature-card">
           <div class="feature-card-img-wrap">
-            <img src="assets/images/chidambaram_gopuram.jpg" alt="Kanaka Sabha Architecture Chidambaram">
+            <img src="assets/images/kanaka_sabha_golden_roof.jpg" alt="Kanaka Sabha Golden Roof Chidambaram">
             <span class="feature-tag">Sacred Architecture</span>
           </div>
           <div class="feature-body">
@@ -830,11 +830,10 @@
           <div style="background: #fff; padding: 20px; border-radius: var(--radius-sm); border: 1px solid var(--border-gold); margin-bottom: 20px;">
             <div style="font-size: 0.9rem; line-height: 1.8;">
               <p><strong>Account Name:</strong> SRI KRISHNA YAJUR VEDA PARAYANA TRUST</p>
-              <p><strong>Bank:</strong> State Bank of India (SBI)</p>
-              <p><strong>Branch:</strong> Chidambaram Main Branch (Code: 000823)</p>
-              <p><strong>Account No:</strong> 39820194821</p>
-              <p><strong>IFSC Code:</strong> SBIN0000823</p>
-              <p><strong>MICR Code:</strong> 608002002</p>
+              <p><strong>Bank:</strong> KARUR VYSYA BANK</p>
+              <p><strong>Branch:</strong> CHIDAMBARAM</p>
+              <p><strong>Account No:</strong> 1116135000006414</p>
+              <p><strong>IFSC Code:</strong> KVBL0001116</p>
             </div>
           </div>
 
@@ -846,10 +845,11 @@
           </div>
 
           <div style="text-align: center;">
-            <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 12px;">Instant UPI Donation QR (Scan with GPay / PhonePe / Paytm):</p>
-            <div style="display: inline-block; background: #fff; padding: 12px; border: 2px solid var(--primary-gold); border-radius: 8px;">
-              <i class="fas fa-qrcode" style="font-size: 110px; color: var(--crimson-dark);"></i>
-              <div style="font-size: 0.75rem; font-weight: bold; margin-top: 4px; color: var(--crimson-main);">UPI ID: skyvpt@sbi</div>
+            <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 12px;">Instant UPI Donation QR (Scan with GPay / PhonePe / Paytm / BHIM):</p>
+            <div style="display: inline-block; background: #fff; padding: 12px; border: 2px solid var(--primary-gold); border-radius: 8px; box-shadow: var(--shadow-sm);">
+              <img src="assets/images/trust_upi_qr.jpg" alt="Sri Krishna Yajur Veda Parayana Trust UPI QR Code" style="width: 190px; height: auto; display: block; margin: 0 auto; border-radius: 4px;">
+              <div style="font-size: 0.78rem; font-weight: bold; margin-top: 8px; color: var(--crimson-main); word-break: break-all;">UPI ID: kvbupiqr.105000000004156@kvb</div>
+              <div style="font-size: 0.72rem; color: var(--text-secondary); margin-top: 2px;">Merchant: SRI KRISHNA YAJURVED</div>
             </div>
           </div>
         </div>
@@ -890,10 +890,18 @@
         </div>
 
         <div class="gallery-item">
-          <img src="assets/images/chidambaram_gopuram.jpg" alt="Chidambaram Temple Raja Gopuram & Sivaganga Tank">
+          <img src="assets/images/sivaganga_kulam.jpg" alt="சிவகங்கை குளம் Chidambaram Sivaganga Tank">
           <div class="gallery-overlay">
-            <h4 class="gallery-title">Raja Gopuram & Sacred Tank</h4>
+            <h4 class="gallery-title">சிவகங்கை குளம்</h4>
             <p style="font-size: 0.8rem;">Sivaganga Theertham</p>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <img src="assets/images/vedic_homa_deekshidhar.jpg" alt="Vedic Homa Fire Ritual by K Sivasubramanya Deekshidhar">
+          <div class="gallery-overlay">
+            <h4 class="gallery-title">வைதீக ஹோமம்</h4>
+            <p style="font-size: 0.8rem;">K. Sivasubramanya Deekshidhar</p>
           </div>
         </div>
 
@@ -910,6 +918,14 @@
           <div class="gallery-overlay">
             <h4 class="gallery-title">Natyanjali Festival</h4>
             <p style="font-size: 0.8rem;">1000-Pillar Hall Classical Dance</p>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <img src="assets/images/aayiram_kaal_mandapam.jpg" alt="ஆயிரம் கால் மண்டபம் Chidambaram Raja Sabha">
+          <div class="gallery-overlay">
+            <h4 class="gallery-title">ஆயிரம் கால் மண்டபம்</h4>
+            <p style="font-size: 0.8rem;">Raja Sabha 1000 Pillar Hall</p>
           </div>
         </div>
 

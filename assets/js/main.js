@@ -203,25 +203,168 @@ function initFestivalTabs() {
    ========================================================================== */
 function initPanchangamClock() {
   const clockEl = document.getElementById('liveClock');
-  if (!clockEl) return;
+  const tamilMonthEl = document.getElementById('panchangTamilMonth');
+  const thithiEl = document.getElementById('panchangThithi');
+  const nakshatramEl = document.getElementById('panchangNakshatram');
+  const rahuKalamEl = document.getElementById('panchangRahuKalam');
+  const nextDarshanEl = document.getElementById('panchangNextDarshan');
 
-  function updateTime() {
-    const now = new Date();
-    const options = { 
-      weekday: 'short', 
-      year: 'numeric', 
-      month: 'short', 
-      day: 'numeric',
-      hour: '2-digit', 
-      minute: '2-digit', 
-      second: '2-digit',
-      hour12: true 
+  function calculatePanchangam(now) {
+    const year = now.getFullYear();
+    const month = now.getMonth() + 1;
+    const day = now.getDate();
+    const hour = now.getHours() + now.getMinutes() / 60.0 + now.getSeconds() / 3600.0;
+    
+    // Julian Day Calculation
+    const a = Math.floor((14 - month) / 12);
+    const y = year + 4800 - a;
+    const m = month + 12 * a - 3;
+    const jdn = day + Math.floor((153 * m + 2) / 5) + 365 * y + Math.floor(y / 4) - Math.floor(y / 100) + Math.floor(y / 400) - 32045;
+    const jd = jdn + (hour - 12.0) / 24.0;
+    const d = jd - 2451545.0; // days since J2000.0
+
+    const rad = Math.PI / 180.0;
+
+    // Solar Ephemeris
+    const L0 = 280.46646 + 0.98564736 * d;
+    const M_sun = 357.52911 + 0.98560028 * d;
+    const C_sun = 1.914602 * Math.sin(M_sun * rad) + 0.019993 * Math.sin(2 * M_sun * rad);
+    const sun_true_lon = (L0 + C_sun) % 360;
+
+    // Lunar Ephemeris
+    const L_moon = 218.3165 + 13.176396 * d;
+    const M_moon = 134.9634 + 13.064993 * d;
+    const D_moon = 297.8502 + 12.190749 * d;
+
+    const moon_true_lon = (L_moon
+      + 6.289 * Math.sin(M_moon * rad)
+      - 1.274 * Math.sin((M_moon - 2 * D_moon) * rad)
+      + 0.658 * Math.sin(2 * D_moon * rad)
+      - 0.186 * Math.sin(M_sun * rad)
+      - 0.059 * Math.sin((2 * M_moon - 2 * D_moon) * rad)
+    ) % 360;
+
+    // Ayanamsha (Lahiri ~24.12 deg)
+    const ayanamsha = 23.85 + (year - 2000) * 0.01397 + (month / 12.0) * 0.01397;
+    const sun_sidereal = ((sun_true_lon - ayanamsha) % 360 + 360) % 360;
+    const moon_sidereal = ((moon_true_lon - ayanamsha) % 360 + 360) % 360;
+
+    // Tithi
+    const elongation = ((moon_true_lon - sun_true_lon) % 360 + 360) % 360;
+    const tithi_index = Math.floor(elongation / 12.0) % 30;
+
+    const tithi_names = [
+      'Shukla Prathama', 'Shukla Dwitiya', 'Shukla Tritiya', 'Shukla Chaturthi', 'Shukla Panchami',
+      'Shukla Sashti', 'Shukla Saptami', 'Shukla Ashtami', 'Shukla Navami', 'Shukla Dashami',
+      'Shukla Ekadashi', 'Shukla Dwadashi', 'Shukla Trayodashi', 'Shukla Chaturdashi', 'Pournami (Full Moon)',
+      'Krishna Prathama', 'Krishna Dwitiya', 'Krishna Tritiya', 'Krishna Chaturthi (Sankashti)', 'Krishna Panchami',
+      'Krishna Sashti', 'Krishna Saptami', 'Krishna Ashtami', 'Krishna Navami', 'Krishna Dashami',
+      'Krishna Ekadashi', 'Krishna Dwadashi', 'Krishna Trayodashi', 'Krishna Chaturdashi', 'Amavasya (New Moon)'
+    ];
+
+    // Nakshatram
+    const nakshatra_index = Math.floor(moon_sidereal / (360.0 / 27.0)) % 27;
+    const nakshatra_names = [
+      'Ashwini (அசுவினி)', 'Bharani (பரணி)', 'Krittika (கார்த்திகை)', 'Rohini (ரோகிணி)', 'Mrigashirsha (மிருகசீரிடம்)',
+      'Thiruvathirai (திருவாதிரை - Arudra)', 'Punarvasu (புனர்பூசம்)', 'Pushya (பூசம்)', 'Ashlesha (ஆயில்யம்)', 'Magha (மகம்)',
+      'Purva Phalguni (பூரம்)', 'Uttara Phalguni (உத்திரம்)', 'Hasta (அஸ்தம்)', 'Chitra (சித்திரை)', 'Swati (சுவாதி)',
+      'Vishakha (விசாகம்)', 'Anuradha (அனுஷம்)', 'Jyeshtha (கேட்டை)', 'Mula (மூலம்)', 'Purva Ashadha (பூராடம்)',
+      'Uttara Ashadha (உத்திராடம்)', 'Shravana (திருவோணம்)', 'Dhanishta (அவிட்டம்)', 'Shatabhisha (சதயம்)',
+      'Purva Bhadrapada (பூரட்டாதி)', 'Uttara Bhadrapada (உத்திரட்டாதி)', 'Revati (ரேவதி)'
+    ];
+
+    // Tamil Month
+    const tamil_months = [
+      'Chithirai (சித்திரை)', 'Vaikasi (வைகாசி)', 'Aani (ஆனி)', 'Aadi (ஆடி)',
+      'Avani (ஆவணி)', 'Purattasi (புரட்டாசி)', 'Aippasi (ஐப்பசி)', 'Karthigai (கார்த்திகை)',
+      'Margazhi (மார்கழி)', 'Thai (தை)', 'Maasi (மாசி)', 'Panguni (பங்குனி)'
+    ];
+    const tamil_month_index = Math.floor(sun_sidereal / 30.0) % 12;
+    const tamil_day = Math.floor(sun_sidereal % 30.0) + 1;
+
+    // Rahu Kalam by day of week
+    const rahu_kalam_schedule = [
+      '04:30 PM – 06:00 PM', // Sun
+      '07:30 AM – 09:00 AM', // Mon
+      '03:00 PM – 04:30 PM', // Tue
+      '12:00 PM – 01:30 PM', // Wed
+      '01:30 PM – 03:00 PM', // Thu
+      '10:30 AM – 12:00 PM', // Fri
+      '09:00 AM – 10:30 AM'  // Sat
+    ];
+    const rahuKalam = rahu_kalam_schedule[now.getDay()];
+
+    // Next Special Darshan tracker (Chidambaram Aru Kaala Pooja Timings)
+    const currentMinutes = now.getHours() * 60 + now.getMinutes();
+    let nextDarshan = 'Kala Santhi Pooja (06:00 AM)';
+    if (currentMinutes < 6 * 60) {
+      nextDarshan = 'Kala Santhi Pooja (06:00 AM)';
+    } else if (currentMinutes < 7 * 60 + 30) {
+      nextDarshan = 'Kala Santhi & Sphatika Lingam (Ongoing)';
+    } else if (currentMinutes < 8 * 60 + 30) {
+      nextDarshan = 'Irandam Kalam Pooja (08:30 AM)';
+    } else if (currentMinutes < 9 * 60 + 30) {
+      nextDarshan = 'Irandam Kalam & Veda Parayana (Ongoing)';
+    } else if (currentMinutes < 11 * 60 + 30) {
+      nextDarshan = 'Uchikala Pooja & Ruby Nataraja (11:30 AM)';
+    } else if (currentMinutes < 12 * 60 + 30) {
+      nextDarshan = 'Ratnasabhapati Ruby Abhishekam (Ongoing)';
+    } else if (currentMinutes < 16 * 60 + 30) {
+      nextDarshan = 'Evening Reopening (04:30 PM) / Sayaratchai (05:30 PM)';
+    } else if (currentMinutes < 17 * 60 + 30) {
+      nextDarshan = 'Sayaratchai Pooja (05:30 PM)';
+    } else if (currentMinutes < 18 * 60 + 30) {
+      nextDarshan = 'Sayaratchai & Rahasyam Darshan (Ongoing)';
+    } else if (currentMinutes < 19 * 60 + 30) {
+      nextDarshan = 'Night Irandam Kalam (07:30 PM)';
+    } else if (currentMinutes < 20 * 60 + 30) {
+      nextDarshan = 'Night Irandam Kalam Pooja (Ongoing)';
+    } else if (currentMinutes < 21 * 60 + 30) {
+      nextDarshan = 'Ardha Jamam Pooja (09:30 PM)';
+    } else if (currentMinutes < 22 * 60) {
+      nextDarshan = 'Ardha Jamam Paduka Procession (Ongoing)';
+    } else {
+      nextDarshan = 'Kala Santhi Pooja (Tomorrow 06:00 AM)';
+    }
+
+    return {
+      tamilMonth: `${tamil_months[tamil_month_index]} - Day ${tamil_day}`,
+      thithi: tithi_names[tithi_index],
+      nakshatram: nakshatra_names[nakshatra_index],
+      rahuKalam: rahuKalam,
+      nextDarshan: nextDarshan
     };
-    clockEl.textContent = now.toLocaleDateString('en-IN', options);
   }
 
-  updateTime();
-  setInterval(updateTime, 1000);
+  function updateLivePanchangam() {
+    const now = new Date();
+
+    // Update Top Utility Bar Live Clock
+    if (clockEl) {
+      const options = { 
+        weekday: 'short', 
+        year: 'numeric', 
+        month: 'short', 
+        day: 'numeric',
+        hour: '2-digit', 
+        minute: '2-digit', 
+        second: '2-digit',
+        hour12: true 
+      };
+      clockEl.textContent = now.toLocaleDateString('en-IN', options);
+    }
+
+    // Update Panchangam ticker items
+    const panchang = calculatePanchangam(now);
+    if (tamilMonthEl) tamilMonthEl.textContent = panchang.tamilMonth;
+    if (thithiEl) thithiEl.textContent = panchang.thithi;
+    if (nakshatramEl) nakshatramEl.textContent = panchang.nakshatram;
+    if (rahuKalamEl) rahuKalamEl.textContent = panchang.rahuKalam;
+    if (nextDarshanEl) nextDarshanEl.textContent = panchang.nextDarshan;
+  }
+
+  updateLivePanchangam();
+  setInterval(updateLivePanchangam, 1000);
 }
 
 /* ==========================================================================
