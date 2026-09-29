@@ -374,6 +374,13 @@ function initPanchangamClock() {
    ONLINE SEVA, GOPURAM SELECTION & PAYMENT GATEWAY INTEGRATION
    ========================================================================== */
 const SEVA_DETAILS_DICTIONARY = {
+  "Book Veda Parayana Seva": {
+    name: "Book Veda Parayana Seva (Nitya Krishna Yajur Veda)",
+    shortName: "Book Veda Parayana Seva",
+    baseAmount: 1008,
+    rateLabel: "₹ 1,008 / day",
+    elaborated: "Sacred continuous daily recitation of the Krishna Yajur Veda (Taittiriya Samhita, Padam, Krama, and Ghana chanting) by learned Vedic scholars at the Kanaka Sabha before Lord Nataraja. Morning Sankalpam is performed in your family's Gothram and Janma Nakshatram for Ayush, Arogya, and Aiswaryam."
+  },
   "Nitya Krishna Yajur Veda Parayanam": {
     name: "Nitya Krishna Yajur Veda Parayanam",
     shortName: "Nitya Veda Parayanam",
@@ -381,12 +388,12 @@ const SEVA_DETAILS_DICTIONARY = {
     rateLabel: "₹ 1,008 / day",
     elaborated: "Sacred continuous daily recitation of the Krishna Yajur Veda (Taittiriya Samhita, Padam, Krama, and Ghana chanting) by learned Vedic scholars at the Kanaka Sabha before Lord Nataraja. Morning Sankalpam is performed in your family's Gothram and Janma Nakshatram for Ayush, Arogya, and Aiswaryam."
   },
-  "Monthly Prasatham - Personal Sankalpam & Home Delivery": {
-    name: "Monthly Prasatham - Personal Sankalpam & Home Delivery",
-    shortName: "Monthly Prasatham",
-    baseAmount: 5000,
-    rateLabel: "₹ 5,000",
-    elaborated: "Personal Sankalpam Archanai performed each month on your Janma Nakshatram or monthly Pradosham at the sacred sanctum of Lord Nataraja. Blessed Thiruneeru (holy ash), Kungumam, and sacred temple Rakshai consecrated at Chit Sabha are dispatched directly to your registered residence."
+  "Annadhanam Seva - Full Day Free Meals for Pilgrims": {
+    name: "Annadhanam Seva - Full Day Free Meals for Pilgrims",
+    shortName: "Annadhanam Seva",
+    baseAmount: 30000,
+    rateLabel: "Starting ₹ 30,000 / day",
+    elaborated: "Sponsor a complete day of sacred Annadhanam feeding hundreds of visiting devotees, pilgrims, sadhus, and Vedic vidyarthies at Chidambaram. Donors receive sacred Kovil Malai (temple garland), Pattu Thundu (sacred silk angavastram), and special Maha Prasatham."
   },
   "Annadanam Seva - Full Day Free Meals for Pilgrims": {
     name: "Annadanam Seva - Full Day Free Meals for Pilgrims",
@@ -394,6 +401,13 @@ const SEVA_DETAILS_DICTIONARY = {
     baseAmount: 30000,
     rateLabel: "Starting ₹ 30,000 / day",
     elaborated: "Sponsor a complete day of sacred Annadanam feeding hundreds of visiting devotees, pilgrims, sadhus, and Vedic vidyarthies at Chidambaram. Donors receive sacred Kovil Malai (temple garland), Pattu Thundu (sacred silk angavastram), and special Maha Prasatham."
+  },
+  "Monthly Prasatham - Personal Sankalpam & Home Delivery": {
+    name: "Monthly Prasatham - Personal Sankalpam & Home Delivery",
+    shortName: "Monthly Prasatham",
+    baseAmount: 5000,
+    rateLabel: "₹ 5,000",
+    elaborated: "Personal Sankalpam Archanai performed each month on your Janma Nakshatram or monthly Pradosham at the sacred sanctum of Lord Nataraja. Blessed Thiruneeru (holy ash), Kungumam, and sacred temple Rakshai consecrated at Chit Sabha are dispatched directly to your registered residence."
   },
   "Moksha Deepam - Lamp Lighting on Gopuram for Pitru Tithi": {
     name: "Moksha Deepam - Lamp Lighting on Gopuram for Pitru Tithi",
@@ -431,7 +445,7 @@ function initDonationModal() {
   const minAmountDisplay = document.getElementById('minAmountDisplay');
 
   let currentMinAmount = 1008;
-  let activeSelectedSeva = "Nitya Krishna Yajur Veda Parayanam";
+  let activeSelectedSeva = "Book Veda Parayana Seva";
 
   // Function to update the live description box
   function updateLiveDescription(sevaKey) {
