@@ -16,7 +16,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Marcellus&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
-  <link rel="stylesheet" href="assets/css/style.css?v=3">
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 
@@ -109,33 +109,21 @@
       <!-- Left: Booking Form -->
       <div class="donation-form-card">
         <div class="form-header">
-          <h3><i class="fas fa-scroll" style="color: var(--primary-gold);"></i> Book Veda Seva &amp; Sankalpam</h3>
+          <h3><i class="fas fa-scroll" style="color: var(--primary-gold);"></i> Book Veda Seva & Sankalpam</h3>
           <p style="font-size: 0.85rem; color: var(--text-secondary);">Enter your family Gothra, Nakshatram, and Sankalpam prayers.</p>
-        </div>
-
-        <!-- Top Category Tabs: Veda Seva & Sankalpam vs Annadhanam Seva -->
-        <div class="seva-category-tabs">
-          <button type="button" class="seva-category-tab active" id="tabVedaSeva" data-category="veda-seva">
-            <i class="fas fa-om"></i> Veda Seva &amp; Sankalpam
-          </button>
-          <button type="button" class="seva-category-tab" id="tabAnnadhanamSeva" data-category="annadhanam-seva">
-            <i class="fas fa-utensils"></i> Annadhanam Seva
-          </button>
         </div>
 
         <form id="onlineSevaForm">
           <div class="form-group">
-            <label class="form-label" id="sevaOfferingsLabel">Select Seva / Pooja Offering:</label>
-            
-            <!-- Category 1: Veda Seva & Sankalpam (5 options) -->
-            <div class="seva-options-grid" id="vedaSevaGrid">
-              <!-- 1. Book Veda Parayana Seva -->
-              <button type="button" class="seva-option-btn selected" data-amount="1008" data-name="Book Veda Parayana Seva">
-                <span class="seva-option-name">Book Veda Parayana Seva</span>
+            <label class="form-label">Select Seva / Pooja Offering:</label>
+            <div class="seva-options-grid">
+              <!-- 1. Nitya Veda Parayanam -->
+              <button type="button" class="seva-option-btn selected" data-amount="1008" data-name="Nitya Krishna Yajur Veda Parayanam">
+                <span class="seva-option-name">Nitya Veda Parayanam</span>
                 <span class="seva-option-price">₹ 1,008 / day</span>
                 <div class="seva-tooltip">
-                  <span class="seva-tooltip-title"><i class="fas fa-om"></i> Book Veda Parayana Seva</span>
-                  Sacred continuous daily recitation of Krishna Yajur Veda (Taittiriya Samhita, Padam, Krama &amp; Ghana chanting) at Kanaka Sabha. Morning Sankalpam performed with family Gothram and Nakshatram for Ayush, Arogya, and Aiswaryam.
+                  <span class="seva-tooltip-title"><i class="fas fa-om"></i> Nitya Krishna Yajur Veda Parayanam</span>
+                  Sacred continuous daily recitation of Krishna Yajur Veda (Taittiriya Samhita, Padam, Krama & Ghana chanting) at Kanaka Sabha. Morning Sankalpam performed with family Gothram and Nakshatram for Ayush, Arogya, and Aiswaryam.
                 </div>
               </button>
 
@@ -149,7 +137,17 @@
                 </div>
               </button>
 
-              <!-- 3. Moksha Deepam -->
+              <!-- 3. Annadanam Seva -->
+              <button type="button" class="seva-option-btn" data-amount="30000" data-name="Annadanam Seva - Full Day Free Meals for Pilgrims">
+                <span class="seva-option-name">Annadanam Seva</span>
+                <span class="seva-option-price">Starting ₹ 30,000 / day</span>
+                <div class="seva-tooltip">
+                  <span class="seva-tooltip-title"><i class="fas fa-utensils"></i> Annadanam Seva (Full Day Meal Sponsor)</span>
+                  Sponsor full day of free Annadanam feeding thousands of visiting pilgrims, sadhus, and Vedic students. In return, sponsor receives sacred Pattu Thundu (silk cloth), Kovil Malai (temple garland), and blessed Maha Prasatham.
+                </div>
+              </button>
+
+              <!-- 4. Moksha Deepam -->
               <button type="button" class="seva-option-btn" data-amount="5000" data-name="Moksha Deepam - Lamp Lighting on Gopuram for Pitru Tithi">
                 <span class="seva-option-name">Moksha Deepam</span>
                 <span class="seva-option-price">₹ 5,000 per Gopuram</span>
@@ -159,7 +157,7 @@
                 </div>
               </button>
 
-              <!-- 4. Runavimochana Lingam -->
+              <!-- 5. Runavimochana Lingam -->
               <button type="button" class="seva-option-btn" data-amount="10000" data-name="Runavimochana Lingam Abhishekam (Debt Relief)">
                 <span class="seva-option-name">Runavimochana Lingam</span>
                 <span class="seva-option-price">₹ 10,000</span>
@@ -169,7 +167,7 @@
                 </div>
               </button>
 
-              <!-- 5. Chandramouleeswarar -->
+              <!-- 6. Chandramouleeswarar -->
               <button type="button" class="seva-option-btn" data-amount="25000" data-name="Chandramouleeswarar Abhishekam (Kanaka Sabha 6-Kaala)">
                 <span class="seva-option-name">Chandramouleeswarar</span>
                 <span class="seva-option-price">₹ 25,000</span>
@@ -179,37 +177,12 @@
                 </div>
               </button>
             </div>
-
-            <!-- Category 2: Annadhanam Seva (2 options) -->
-            <div class="seva-options-grid" id="annadhanamSevaGrid" style="display: none;">
-              <!-- 1. Annadhanam Seva (Custom amount) -->
-              <button type="button" class="seva-option-btn" data-amount="500" data-name="Annadhanam Seva (Custom amount)">
-                <span class="seva-option-name">Annadhanam Seva (Custom amount)</span>
-                <span class="seva-option-price">Custom Amount (Min ₹ 500)</span>
-                <div class="seva-tooltip">
-                  <span class="seva-tooltip-title"><i class="fas fa-utensils"></i> Annadhanam Seva (Custom Contribution)</span>
-                  Offer any custom donation towards sacred daily Annadhanam at Chidambaram. Wholesome sanctified meals provided to devotees, sadhus, and Vedic vidyarthies. 80G tax exemption receipt provided.
-                </div>
-              </button>
-
-              <!-- 2. Special Annadhanam Seva 30000/day -->
-              <button type="button" class="seva-option-btn" data-amount="30000" data-name="Special Annadhanam Seva - 30,000 / day">
-                <span class="seva-option-name">Special Annadhanam Seva</span>
-                <span class="seva-option-price">₹ 30,000 / day</span>
-                <div class="seva-tooltip">
-                  <span class="seva-tooltip-title"><i class="fas fa-crown"></i> Special Annadhanam Seva (Full Day Meal Sponsor)</span>
-                  Sponsor an entire day of free Annadhanam feeding thousands of visiting pilgrims, sadhus, and Vedic students. In return, donor receives sacred Pattu Thundu, Kovil Malai, and blessed Maha Prasatham.
-                </div>
-              </button>
-            </div>
-
-            <input type="hidden" id="selectedSevaName" value="Book Veda Parayana Seva">
-            <input type="hidden" id="selectedCategory" value="Veda Seva &amp; Sankalpam">
+            <input type="hidden" id="selectedSevaName" value="Nitya Krishna Yajur Veda Parayanam">
 
             <!-- Elaborated Live Description Box (Mobile & Desktop) -->
             <div class="seva-live-desc" id="sevaLiveDescription">
               <div class="seva-live-desc-title" id="liveDescTitle">
-                <i class="fas fa-om" style="color: var(--saffron-warm);"></i> Book Veda Parayana Seva &mdash; ₹ 1,008 / day
+                <i class="fas fa-om" style="color: var(--saffron-warm);"></i> Nitya Krishna Yajur Veda Parayanam &mdash; ₹ 1,008 / day
               </div>
               <div id="liveDescText" style="color: var(--text-secondary); font-size: 0.82rem;">
                 Sacred continuous daily recitation of the Krishna Yajur Veda (Taittiriya Samhita, Padam, Krama, and Ghana chanting) by learned Vedic scholars at the Kanaka Sabha before Lord Nataraja. Morning Sankalpam is performed in your family's Gothram and Janma Nakshatram for Ayush, Arogya, and Aiswaryam.
@@ -529,7 +502,7 @@
   <div id="google_translate_element" style="display:none;"></div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="assets/js/supabase-config.js?v=3"></script>
-  <script src="assets/js/main.js?v=3"></script>
+  <script src="assets/js/supabase-config.js"></script>
+  <script src="assets/js/main.js"></script>
 </body>
 </html>

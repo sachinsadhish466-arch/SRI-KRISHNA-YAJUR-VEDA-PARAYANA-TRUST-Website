@@ -1226,57 +1226,6 @@ ul {
   box-shadow: 0 0 0 3px rgba(197, 155, 39, 0.2);
 }
 
-.seva-category-tabs {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 16px;
-  background: rgba(184, 134, 11, 0.08);
-  padding: 6px;
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--border-gold);
-}
-
-.seva-category-tab {
-  flex: 1;
-  padding: 12px 14px;
-  border-radius: var(--radius-sm);
-  border: 1px solid transparent;
-  background: transparent;
-  font-family: inherit;
-  font-weight: 700;
-  font-size: 0.94rem;
-  color: var(--crimson-dark);
-  cursor: pointer;
-  transition: all 0.25s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-}
-
-.seva-category-tab:hover {
-  background: rgba(255, 255, 255, 0.7);
-  color: var(--crimson-main);
-}
-
-.seva-category-tab.active {
-  background: linear-gradient(135deg, var(--crimson-main), var(--crimson-dark));
-  color: #fff !important;
-  border-color: var(--primary-gold);
-  box-shadow: 0 4px 12px rgba(128, 0, 32, 0.25);
-}
-
-.seva-category-tab.active i {
-  color: #ffd700 !important;
-}
-
-@media (max-width: 600px) {
-  .seva-category-tabs {
-    flex-direction: column;
-    gap: 6px;
-  }
-}
-
 .seva-options-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
