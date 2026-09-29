@@ -402,6 +402,20 @@ const SEVA_DETAILS_DICTIONARY = {
     rateLabel: "₹ 30,000 / day",
     elaborated: "Sponsor a complete day of sacred Annadanam feeding thousands of visiting devotees, pilgrims, sadhus, and Vedic vidyarthies at Chidambaram. Donors receive sacred Kovil Malai (temple garland), Pattu Thundu (sacred silk angavastram), and special Maha Prasatham."
   },
+  "Annadhanam Seva (Custom Amount)": {
+    name: "Annadhanam Seva (Devotee's Offering)",
+    shortName: "Annadhanam Seva",
+    baseAmount: 1,
+    rateLabel: "Any Amount (Devotee's Wish)",
+    elaborated: "Sacred Annadhanam donation at Chidambaram. Devotees are welcome to contribute any amount of their choice with no minimum limit — pay how much ever you wish towards feeding visiting pilgrims, sadhus, and Vedic vidyarthies."
+  },
+  "Annadhanam Seva": {
+    name: "Annadhanam Seva (Devotee's Offering)",
+    shortName: "Annadhanam Seva",
+    baseAmount: 1,
+    rateLabel: "Any Amount (Devotee's Wish)",
+    elaborated: "Sacred Annadhanam donation at Chidambaram. Devotees are welcome to contribute any amount of their choice with no minimum limit — pay how much ever you wish towards feeding visiting pilgrims, sadhus, and Vedic vidyarthies."
+  },
   "மஹா ருத்ர அபிஷேகம் (Maha Rudra Abhishekam)": {
     name: "மஹா ருத்ர அபிஷேகம் (Maha Rudra Abhishekam)",
     shortName: "மஹா ருத்ர அபிஷேகம்",
@@ -571,11 +585,33 @@ function initDonationModal() {
         if (sevaName.includes('Moksha Deepam')) {
           if (gopuramContainer) gopuramContainer.style.display = 'block';
           calculateGopuramTotal();
+          const amountNotice = document.getElementById('amountNoticeContent');
+          if (amountNotice) {
+            amountNotice.innerHTML = `<i class="fas fa-info-circle"></i> The amount shown is calculated for selected Gopurams. (Minimum: ₹ <span id="minAmountDisplay">${currentMinAmount.toLocaleString('en-IN')}</span>)`;
+          }
+        } else if (baseAmount === 1 || sevaName.includes('Custom Amount') || sevaName === 'Annadhanam Seva') {
+          // Annadhanam Seva: NO minimum restriction — devotees can pay how much ever they want
+          if (gopuramContainer) gopuramContainer.style.display = 'none';
+          currentMinAmount = 1;
+          sevaAmountInput.min = 1;
+          const defaultVal = parseInt(btn.getAttribute('data-default'), 10) || 500;
+          sevaAmountInput.value = defaultVal;
+          const amountNotice = document.getElementById('amountNoticeContent');
+          if (amountNotice) {
+            amountNotice.innerHTML = `<i class="fas fa-hand-holding-heart" style="color: var(--crimson-main);"></i> Devotees can pay <strong>how much ever they want</strong> &mdash; <strong>no minimum amount restriction</strong>.`;
+          }
+          if (minAmountDisplay) {
+            minAmountDisplay.textContent = '1';
+          }
         } else {
           if (gopuramContainer) gopuramContainer.style.display = 'none';
           currentMinAmount = baseAmount;
           sevaAmountInput.min = currentMinAmount;
           sevaAmountInput.value = baseAmount;
+          const amountNotice = document.getElementById('amountNoticeContent');
+          if (amountNotice) {
+            amountNotice.innerHTML = `<i class="fas fa-info-circle"></i> The amount shown in this section is default but you can choose more amount as well. (Minimum: ₹ <span id="minAmountDisplay">${currentMinAmount.toLocaleString('en-IN')}</span>)`;
+          }
           if (minAmountDisplay) {
             minAmountDisplay.textContent = currentMinAmount.toLocaleString('en-IN');
           }
@@ -583,11 +619,13 @@ function initDonationModal() {
       });
     });
 
-    // Enforce Non-reducing amount rule: amount can be increased, but CANNOT go less than default minimum
+    // Enforce Non-reducing amount rule: amount can be increased, but CANNOT go less than default minimum (unless Annadhanam custom amount)
     sevaAmountInput.addEventListener('input', () => {
       const val = parseFloat(sevaAmountInput.value);
-      if (val < currentMinAmount) {
-        // User typed below minimum; warn and allow correction on blur
+      if (currentMinAmount > 1 && val < currentMinAmount) {
+        // User typed below minimum for fixed sevas; warn with red border
+        sevaAmountInput.style.borderColor = 'red';
+      } else if (val < 1 || isNaN(val)) {
         sevaAmountInput.style.borderColor = 'red';
       } else {
         sevaAmountInput.style.borderColor = 'var(--primary-gold)';
@@ -596,10 +634,21 @@ function initDonationModal() {
 
     sevaAmountInput.addEventListener('change', () => {
       const val = parseFloat(sevaAmountInput.value);
-      if (isNaN(val) || val < currentMinAmount) {
-        sevaAmountInput.value = currentMinAmount;
-        sevaAmountInput.style.borderColor = 'var(--primary-gold)';
-        alert(`The amount shown in this section is default but you can choose more amount as well. The amount cannot be reduced below the default minimum of ₹ ${currentMinAmount.toLocaleString('en-IN')}.`);
+      if (currentMinAmount === 1) {
+        // Devotee can pay how much ever they want
+        if (isNaN(val) || val < 1) {
+          sevaAmountInput.value = 100;
+          sevaAmountInput.style.borderColor = 'var(--primary-gold)';
+          alert('Please enter a valid offering amount (at least ₹ 1). Devotees can contribute any amount of their choice.');
+        } else {
+          sevaAmountInput.style.borderColor = 'var(--primary-gold)';
+        }
+      } else {
+        if (isNaN(val) || val < currentMinAmount) {
+          sevaAmountInput.value = currentMinAmount;
+          sevaAmountInput.style.borderColor = 'var(--primary-gold)';
+          alert(`The amount shown in this section is default but you can choose more amount as well. The amount cannot be reduced below the default minimum of ₹ ${currentMinAmount.toLocaleString('en-IN')}.`);
+        }
       }
     });
   }
@@ -617,9 +666,16 @@ function initDonationModal() {
       const sevaName = selectedSevaInput?.value || activeSelectedSeva;
       
       let amount = parseFloat(sevaAmountInput?.value);
-      if (isNaN(amount) || amount < currentMinAmount) {
-        amount = currentMinAmount;
-        if (sevaAmountInput) sevaAmountInput.value = currentMinAmount;
+      if (currentMinAmount === 1) {
+        if (isNaN(amount) || amount < 1) {
+          amount = 100;
+          if (sevaAmountInput) sevaAmountInput.value = amount;
+        }
+      } else {
+        if (isNaN(amount) || amount < currentMinAmount) {
+          amount = currentMinAmount;
+          if (sevaAmountInput) sevaAmountInput.value = currentMinAmount;
+        }
       }
 
       // Collect selected Gopurams if Moksha Deepam
