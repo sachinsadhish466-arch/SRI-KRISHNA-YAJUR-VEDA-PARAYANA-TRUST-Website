@@ -399,15 +399,8 @@ const SEVA_DETAILS_DICTIONARY = {
     name: "Special Annadhanam Seva - Full Day Free Meals for Pilgrims",
     shortName: "Special Annadhanam Seva",
     baseAmount: 30000,
-    rateLabel: "Starting ₹ 30,000 / day",
+    rateLabel: "₹ 30,000 / day",
     elaborated: "Sponsor a complete day of sacred Annadanam feeding thousands of visiting devotees, pilgrims, sadhus, and Vedic vidyarthies at Chidambaram. Donors receive sacred Kovil Malai (temple garland), Pattu Thundu (sacred silk angavastram), and special Maha Prasatham."
-  },
-  "Annadhanam Seva (Custom amount)": {
-    name: "Annadhanam Seva (Custom amount)",
-    shortName: "Annadhanam Seva",
-    baseAmount: 500,
-    rateLabel: "Custom Amount (Min ₹ 500)",
-    elaborated: "Offer your loving contribution towards the continuous daily Annadhanam at Chidambaram temple. Every rupee helps feed visiting pilgrims, sadhus, and young Vedic students. 80G tax exemption certificate issued."
   },
   "மஹா ருத்ர அபிஷேகம் (Maha Rudra Abhishekam)": {
     name: "மஹா ருத்ர அபிஷேகம் (Maha Rudra Abhishekam)",
