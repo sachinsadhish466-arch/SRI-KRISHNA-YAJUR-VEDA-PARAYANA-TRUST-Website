@@ -674,7 +674,13 @@
               </div>
             </div>
 
-            <button type="submit" id="makePaymentBtn" class="btn-primary" style="width: 100%; justify-content: center; font-size: 1.05rem;">
+            <!-- Postal Address Section (Included for all options except Nitya Veda Parayanam) -->
+            <div class="form-group" id="addressSection" style="display: none; margin-top: 14px;">
+              <label for="devoteeAddress" class="form-label">Postal Address (For Blessed Prasad &amp; Receipt Dispatch) *</label>
+              <textarea id="devoteeAddress" rows="2" class="form-control" placeholder="Door No, Street Name, City, State, PIN Code"></textarea>
+            </div>
+
+            <button type="submit" id="makePaymentBtn" class="btn-primary" style="width: 100%; justify-content: center; font-size: 1.05rem; margin-top: 10px;">
               <i class="fas fa-lock"></i> Make Payment &rarr;
             </button>
           </form>

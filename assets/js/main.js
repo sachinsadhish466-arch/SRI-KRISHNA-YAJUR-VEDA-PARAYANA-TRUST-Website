@@ -464,9 +464,28 @@ function initDonationModal() {
   const annadhanamSevaGrid = document.getElementById('annadhanamSevaGrid');
   const selectedCategoryInput = document.getElementById('selectedCategory');
   const sevaOfferingsLabel = document.getElementById('sevaOfferingsLabel');
+  const addressSection = document.getElementById('addressSection');
+  const devoteeAddressInput = document.getElementById('devoteeAddress');
 
   let currentMinAmount = 1008;
   let activeSelectedSeva = "Nitya Krishna Yajur Veda Parayanam";
+
+  // Function to toggle Postal Address section (hidden for Nitya Veda Parayanam, included for all other options)
+  function updateAddressVisibility(sevaName) {
+    if (!addressSection) return;
+    const isNitya = (sevaName || '').toLowerCase().includes('nitya');
+    if (isNitya) {
+      addressSection.style.display = 'none';
+      if (devoteeAddressInput) {
+        devoteeAddressInput.required = false;
+      }
+    } else {
+      addressSection.style.display = 'block';
+      if (devoteeAddressInput) {
+        devoteeAddressInput.required = true;
+      }
+    }
+  }
 
   // Function to update the live description box
   function updateLiveDescription(sevaKey) {
@@ -616,6 +635,9 @@ function initDonationModal() {
             minAmountDisplay.textContent = currentMinAmount.toLocaleString('en-IN');
           }
         }
+
+        // Toggle address section (hidden for Nitya, included for all other options)
+        updateAddressVisibility(sevaName);
       });
     });
 
@@ -720,9 +742,19 @@ function initDonationModal() {
         receipt: bookingOrder.receiptNo
       });
 
+      const isNitya = (sevaName || '').toLowerCase().includes('nitya');
+      if (!isNitya && !devoteeAddress) {
+        alert('Please enter your Postal Address for blessed Prasad and receipt dispatch.');
+        document.getElementById('devoteeAddress')?.focus();
+        return;
+      }
+
       window.location.href = 'payment.html?' + params.toString();
     });
   }
+
+  // Initial check for address section visibility on page load
+  updateAddressVisibility(activeSelectedSeva);
 }
 
 
