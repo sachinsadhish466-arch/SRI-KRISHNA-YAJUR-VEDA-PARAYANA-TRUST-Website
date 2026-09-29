@@ -34,10 +34,10 @@
  */
 
 const SUPABASE_CONFIG = {
-  // Replace with your project URL, e.g. 'https://xyzcompany.supabase.co'
-  url: window.__SUPABASE_URL || 'https://vugvquqjwhovxirzpkgh.supabase.co',
-  // Replace with your project anon public key
-  anonKey: window.__SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.dummy_anon_key_for_client_fallback'
+  // Live Supabase Project URL
+  url: window.__SUPABASE_URL || 'https://pmpwrvbceudajdkkdvfs.supabase.co',
+  // Live Supabase Publishable / Anon API Key
+  anonKey: window.__SUPABASE_ANON_KEY || 'sb_publishable_35vybrSitrOX8XhqnvPd6w_DjSgftva'
 };
 
 let supabaseClient = null;
@@ -46,11 +46,10 @@ let supabaseClient = null;
 function initSupabase() {
   if (window.supabase && typeof window.supabase.createClient === 'function') {
     try {
-      if (SUPABASE_CONFIG.url && SUPABASE_CONFIG.anonKey && !SUPABASE_CONFIG.anonKey.includes('dummy')) {
-        supabaseClient = window.supabase.createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
-        console.log('✅ Supabase Client initialized successfully.');
-      } else {
-        console.info('ℹ️ Supabase config ready. Using local storage fallback until live keys are configured.');
+      const cleanUrl = (SUPABASE_CONFIG.url || '').replace(/\/rest\/v1\/?$/, '');
+      if (cleanUrl && SUPABASE_CONFIG.anonKey) {
+        supabaseClient = window.supabase.createClient(cleanUrl, SUPABASE_CONFIG.anonKey);
+        console.log('✅ Supabase Client initialized with live project:', cleanUrl);
       }
     } catch (err) {
       console.warn('⚠️ Supabase initialization warning:', err.message);
