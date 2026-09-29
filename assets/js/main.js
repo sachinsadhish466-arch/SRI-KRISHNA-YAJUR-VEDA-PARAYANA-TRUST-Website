@@ -659,7 +659,7 @@ function initDonationModal() {
       e.preventDefault();
       
       const devoteeName = document.getElementById('devoteeName')?.value?.trim() || 'Devotee';
-      const devoteeGothram = document.getElementById('devoteeGothram')?.value?.trim() || 'Bharadwaja';
+      const devoteeGothram = document.getElementById('devoteeGothram')?.value?.trim() || '';
       const devoteeNakshatram = document.getElementById('devoteeNakshatram')?.value?.trim() || 'Thiruvathirai';
       const devoteePhone = document.getElementById('devoteePhone')?.value?.trim() || '';
       const devoteeAddress = document.getElementById('devoteeAddress')?.value?.trim() || '';

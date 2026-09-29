@@ -423,7 +423,7 @@
       currentBooking = {
         name: sessionData?.name || urlParams.get('name') || 'S. Ramaswamy',
         phone: sessionData?.phone || urlParams.get('phone') || '+91 9444012345',
-        gothram: sessionData?.gothram || urlParams.get('gothram') || 'Bharadwaja',
+        gothram: sessionData?.gothram !== undefined ? sessionData.gothram : (urlParams.get('gothram') || ''),
         nakshatram: sessionData?.nakshatram || urlParams.get('nakshatram') || 'Thiruvathirai',
         address: sessionData?.address || '',
         sevaName: sessionData?.sevaName || urlParams.get('seva') || 'Nitya Krishna Yajur Veda Parayanam',
@@ -436,7 +436,8 @@
       // 2. Populate UI Order Summary
       document.getElementById('summaryDevoteeName').textContent = currentBooking.name;
       document.getElementById('summaryDevoteePhone').textContent = currentBooking.phone;
-      document.getElementById('summaryGothramNakshatram').textContent = currentBooking.gothram + ' / ' + currentBooking.nakshatram;
+      const displayGothram = currentBooking.gothram ? currentBooking.gothram : '';
+      document.getElementById('summaryGothramNakshatram').textContent = displayGothram ? (displayGothram + ' / ' + currentBooking.nakshatram) : (currentBooking.nakshatram || '—');
       document.getElementById('summarySevaName').textContent = currentBooking.sevaName;
       document.getElementById('summaryReceiptNo').textContent = currentBooking.receiptNo;
       document.getElementById('summaryAmountDisplay').textContent = '₹ ' + currentBooking.amount.toLocaleString('en-IN');
@@ -511,7 +512,7 @@
 
           // Populate Official Receipt Modal data
           document.getElementById('receiptDevoteeName').textContent = currentBooking.name;
-          document.getElementById('receiptGothram').textContent = currentBooking.gothram;
+          document.getElementById('receiptGothram').textContent = currentBooking.gothram || '—';
           document.getElementById('receiptNakshatram').textContent = currentBooking.nakshatram;
           document.getElementById('receiptSevaName').textContent = currentBooking.sevaName + (currentBooking.gopurams ? ` (${currentBooking.gopurams})` : '');
           document.getElementById('receiptAmount').textContent = '₹ ' + paidAmount.toLocaleString('en-IN');
