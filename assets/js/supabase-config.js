@@ -140,10 +140,50 @@ async function getDevoteeDonations() {
   }
 }
 
+/**
+ * Update payment status for a devotee record (VERIFIED, REJECTED, etc.)
+ * @param {string} receiptNumber
+ * @param {string} status
+ */
+async function updateDevoteeStatus(receiptNumber, status) {
+  // Update in LocalStorage
+  try {
+    const list = JSON.parse(localStorage.getItem('skyvpt_donations') || '[]');
+    const item = list.find(r => r.receipt_number === receiptNumber);
+    if (item) {
+      item.payment_status = status;
+      localStorage.setItem('skyvpt_donations', JSON.stringify(list));
+    }
+  } catch (e) {
+    console.warn('LocalStorage update error:', e);
+  }
+
+  // Update in Supabase if client active
+  if (supabaseClient) {
+    try {
+      const { data, error } = await supabaseClient
+        .from('devotee_donations')
+        .update({ payment_status: status })
+        .eq('receipt_number', receiptNumber);
+
+      if (error) {
+        console.warn('Supabase status update error:', error);
+        return { success: false, error: error.message };
+      }
+      return { success: true, data };
+    } catch (err) {
+      console.warn('Supabase status update exception:', err);
+    }
+  }
+
+  return { success: true };
+}
+
 // Auto-run initialization on load
 if (typeof window !== 'undefined') {
   window.saveDevoteeDonation = saveDevoteeDonation;
   window.getDevoteeDonations = getDevoteeDonations;
+  window.updateDevoteeStatus = updateDevoteeStatus;
   window.initSupabase = initSupabase;
   window.addEventListener('DOMContentLoaded', initSupabase);
 }

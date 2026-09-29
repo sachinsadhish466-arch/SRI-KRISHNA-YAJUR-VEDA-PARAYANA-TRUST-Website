@@ -204,16 +204,19 @@
 
           <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
             <div style="background: var(--crimson-main); color: #fff; width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: bold;">2</div>
-            <h4 style="margin: 0; color: var(--crimson-dark); font-size: 1rem;">Confirm UPI Transaction &amp; Unlock Receipt</h4>
+            <h4 style="margin: 0; color: var(--crimson-dark); font-size: 1rem;">Confirm UPI Transaction &amp; Submit UTR</h4>
           </div>
           <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 14px;">
-            Once you make the payment on your UPI app, enter the <strong>12-digit UPI Reference Number / UTR / Transaction ID</strong> below:
+            Once you make the payment on your UPI app, enter the <strong>12-digit UPI Reference Number / UTR</strong> below:
           </p>
 
           <form id="upiVerificationForm">
             <div class="form-group" style="margin-bottom: 12px;">
               <label for="upiUtrNumber" class="form-label" style="font-size: 0.85rem;">12-Digit UPI Reference No / UTR *</label>
-              <input type="text" id="upiUtrNumber" class="form-control" placeholder="e.g. 427189104823" required minlength="6" maxlength="25">
+              <input type="text" id="upiUtrNumber" class="form-control" placeholder="Enter 12-digit UTR (e.g. 427189104823)" required pattern="[0-9]{12}" minlength="12" maxlength="12" inputmode="numeric" title="Please enter the exact 12-digit numeric UPI reference number from your payment app">
+              <small style="font-size: 0.74rem; color: #b45309; display: block; margin-top: 4px;">
+                <i class="fas fa-info-circle"></i> NPCI UPI UTR numbers are strictly 12 digits (found under payment details in GPay, PhonePe, or Paytm).
+              </small>
             </div>
 
             <div class="form-group" style="margin-bottom: 16px;">
@@ -223,36 +226,49 @@
             </div>
 
             <button type="submit" id="verifyPaymentBtn" class="btn-primary" style="width: 100%; justify-content: center; font-size: 1rem; padding: 12px;">
-              <i class="fas fa-check-circle"></i> Confirm Payment &amp; Unlock Receipt
+              <i class="fas fa-paper-plane"></i> Submit UTR for Trustee Bank Verification
             </button>
           </form>
         </div>
 
-        <!-- Step 3: Receipt Area (STRICTLY LOCKED UNTIL VERIFICATION) -->
+        <!-- Step 3: Receipt Area (LOCKED UNTIL UTR SUBMISSION) -->
         <div id="receiptLockedBox" class="receipt-locked-box">
-          <i class="fas fa-lock" style="font-size: 1.8rem; color: var(--crimson-main); margin-bottom: 8px;"></i>
-          <h4 style="margin: 0 0 6px; color: var(--crimson-dark); font-size: 1rem;">Official Receipt Locked</h4>
+          <i class="fas fa-shield-alt" style="font-size: 1.8rem; color: var(--crimson-main); margin-bottom: 8px;"></i>
+          <h4 style="margin: 0 0 6px; color: var(--crimson-dark); font-size: 1rem;">Official 80G Receipt Verification Gate</h4>
           <p style="margin: 0; font-size: 0.82rem; color: var(--text-secondary);">
-            To download your official 80G receipt, please complete the UPI payment and enter your 12-digit UPI reference ID in Step 2 above.
+            To prevent fraudulent submissions, official 80G tax exemption receipts with Authorized Trust Seal are generated after bank credit verification by Managing Trustee <strong>K. Sivasubramaniya Deekshithar</strong>. Please submit your 12-digit UTR in Step 2 above to initiate verification.
           </p>
         </div>
 
-        <!-- Unlocked Receipt Box (Appears after successful verification) -->
-        <div id="receiptUnlockedBox" class="receipt-unlocked-box" style="display: none;">
-          <div style="font-size: 1.8rem; color: #2e7d32; margin-bottom: 6px;"><i class="fas fa-badge-check"></i></div>
-          <h3 style="color: #2e7d32; font-size: 1.2rem; margin: 0 0 6px;">Payment Verified Successfully!</h3>
-          <p style="font-size: 0.85rem; color: #333; margin-bottom: 12px;">
-            Thank you, <strong id="verifiedDevoteeName">Devotee</strong>! Your sacred offering of <strong id="verifiedAmount">₹ 1,008</strong> has been recorded in the Trust Registry &amp; Supabase database with UPI Ref: <strong id="verifiedUtr">UTR</strong>.
+        <!-- Provisional Acknowledgment Box (Appears after UTR submission) -->
+        <div id="receiptUnlockedBox" class="receipt-unlocked-box" style="display: none; background: #fffcf0; border: 2px solid #d4af37; border-radius: 8px; padding: 22px; text-align: center;">
+          <div style="font-size: 2.2rem; color: #b45309; margin-bottom: 6px;"><i class="fas fa-hourglass-half"></i></div>
+          <h3 style="color: #6b0f24; font-size: 1.25rem; margin: 0 0 6px; font-family: var(--font-heading);">
+            Seva Booking Submitted — Awaiting Bank Credit Reconciliation
+          </h3>
+          <p style="font-size: 0.88rem; color: #333; margin-bottom: 14px; line-height: 1.6;">
+            Namaskaram, <strong id="verifiedDevoteeName">Devotee</strong>! Your sacred offering of <strong id="verifiedAmount" style="color: #6b0f24;">₹ 1,008</strong> for <strong id="verifiedSevaName">Veda Parayanam</strong> has been recorded with UPI Reference: <strong id="verifiedUtr" style="background: #fff; padding: 2px 6px; border: 1px solid #d4af37; border-radius: 4px; color: #800020;">UTR</strong>.
           </p>
 
-          <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-            <button type="button" onclick="openOfficialReceiptModal()" class="btn-primary" style="padding: 10px 20px; font-size: 0.95rem;">
-              <i class="fas fa-download"></i> View &amp; Download 80G Receipt
+          <div style="background: #fdf5e6; border: 1px dashed #b45309; padding: 14px 18px; border-radius: 6px; margin-bottom: 18px; font-size: 0.84rem; line-height: 1.6; text-align: left; color: #5a2e0b;">
+            <div style="font-weight: 700; color: #800020; margin-bottom: 4px;">
+              <i class="fas fa-shield-alt"></i> Trust Bank Verification Notice:
+            </div>
+            In compliance with Section 80G and Government Trust Audit regulations, our Managing Trustee (<strong>K. SIVASUBRAMANIYA DEEKSHITHAR</strong>) verifies all UTR credits directly in our Karur Vysya Bank account before issuing the final stamped receipt.
+          </div>
+
+          <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+            <button type="button" onclick="openOfficialReceiptModal()" class="btn-primary" style="padding: 11px 22px; font-size: 0.92rem; background: #6b0f24; border-color: #500816;">
+              <i class="fas fa-file-invoice"></i> View Provisional Booking Slip
             </button>
-            <button type="button" onclick="printReceiptDirectly()" class="btn-secondary" style="background: #2e7d32; color: #fff; padding: 10px 18px; font-size: 0.95rem;">
-              <i class="fas fa-print"></i> Print Receipt
+            <button type="button" onclick="sendUtrToTrusteeWhatsApp()" class="btn-primary" style="background: #25D366; border-color: #20ba5a; padding: 11px 22px; font-size: 0.92rem; font-weight: 600;">
+              <i class="fab fa-whatsapp"></i> Send UTR on WhatsApp to Trustee
             </button>
           </div>
+          
+          <p style="font-size: 0.78rem; color: #777; margin-top: 14px; margin-bottom: 0;">
+            Need urgent confirmation? Contact Trustee Office, Chidambaram directly at: <a href="tel:8760912130" style="color: #b45309; font-weight: bold;">+91 8760912130</a>.
+          </p>
         </div>
 
       </div>
@@ -262,23 +278,26 @@
   </div>
 
   <!-- ==========================================================================
-       MODAL: OFFICIAL SEVA RECEIPT GENERATOR (Download & Print)
+       MODAL: PROVISIONAL SEVA BOOKING SLIP (Awaiting Bank Reconciliation)
        ========================================================================== -->
   <div class="modal-overlay" id="receiptModal">
-    <div class="receipt-modal-content">
+    <div class="receipt-modal-content" style="max-width: 620px;">
       <button class="receipt-close-btn" onclick="document.getElementById('receiptModal').classList.remove('active')">&times;</button>
       
       <div class="receipt-header">
-        <img src="assets/images/trust_logo.jpg" alt="Trust Logo" style="width: 75px; height: 75px; margin: 0 auto 10px; border-radius: 50%; border: 2px solid var(--primary-gold);">
-        <h3 style="font-family: var(--font-heading); color: var(--crimson-dark); font-size: 1.25rem;">SRI KRISHNA YAJUR VEDA PARAYANA TRUST</h3>
-        <p style="font-size: 0.78rem; color: var(--text-secondary);">No. 30, ARN Apartment, Chidambaram H.O, Cuddalore Dist, Tamil Nadu - 608001</p>
-        <p style="font-size: 0.75rem; color: var(--saffron-warm); font-weight: bold; margin-top: 2px;">PAN: ABFTS8847M | 80G URN: ABFTS8847MF20241 | Form 10AC</p>
-        <h4 style="margin-top: 10px; color: var(--crimson-main); letter-spacing: 1px;">OFFICIAL SEVA &amp; SANKALPAM RECEIPT</h4>
+        <img src="assets/images/trust_logo.jpg" alt="Trust Logo" style="width: 70px; height: 70px; margin: 0 auto 10px; border-radius: 50%; border: 2px solid var(--primary-gold);">
+        <h3 style="font-family: var(--font-heading); color: var(--crimson-dark); font-size: 1.2rem; margin-bottom: 2px;">SRI KRISHNA YAJUR VEDA PARAYANA TRUST</h3>
+        <p style="font-size: 0.76rem; color: var(--text-secondary); margin-bottom: 2px;">No. 30, ARN Apartment, Chidambaram H.O, Cuddalore Dist, Tamil Nadu - 608001</p>
+        <p style="font-size: 0.74rem; color: #92400e; font-weight: bold; background: #fef3c7; display: inline-block; padding: 2px 8px; border-radius: 4px; border: 1px solid #f59e0b; margin-top: 4px;">TRUST PAN: AAETS7593D</p>
+        <h4 style="margin-top: 10px; color: #b45309; letter-spacing: 1px; font-size: 0.95rem;">PROVISIONAL SANKALPAM BOOKING ACKNOWLEDGMENT</h4>
+        <div style="display: inline-block; background: #fff3e0; color: #b45309; border: 1px solid #f59e0b; font-size: 0.72rem; font-weight: 700; padding: 2px 8px; border-radius: 12px; margin-top: 3px;">
+          <i class="fas fa-clock"></i> STATUS: PENDING TRUSTEE BANK RECONCILIATION
+        </div>
       </div>
 
       <div class="receipt-body">
         <div class="receipt-body-row">
-          <span>Receipt No:</span>
+          <span>Booking Slip No:</span>
           <strong id="receiptNumber">SKYVPT-782194</strong>
         </div>
         <div class="receipt-body-row">
@@ -290,35 +309,29 @@
           <strong id="receiptDevoteeName">S. Ramaswamy</strong>
         </div>
         <div class="receipt-body-row">
-          <span>Gothram:</span>
-          <span id="receiptGothram">Bharadwaja</span>
+          <span>WhatsApp / Phone:</span>
+          <span id="receiptPhone">+91 9444012345</span>
         </div>
         <div class="receipt-body-row">
-          <span>Janma Nakshatram:</span>
-          <span id="receiptNakshatram">Thiruvathirai</span>
+          <span>Gothram &amp; Nakshatram:</span>
+          <span><span id="receiptGothram">Bharadwaja</span> / <span id="receiptNakshatram">Thiruvathirai</span></span>
         </div>
         <div class="receipt-body-row">
           <span>Seva / Pooja Name:</span>
           <span id="receiptSevaName">Nitya Krishna Yajur Veda Parayanam</span>
         </div>
         <div class="receipt-body-row">
-          <span>Payment Mode:</span>
-          <span id="receiptPaymentMode">UPI Verified (UTR: Pending)</span>
-        </div>
-        <div class="receipt-body-row">
-          <span>Verification Status:</span>
-          <span style="color: #2e7d32; font-weight: bold;"><i class="fas fa-check-circle"></i> VERIFIED &amp; RECEIVED</span>
+          <span>Submitted UPI Reference (UTR):</span>
+          <strong id="receiptPaymentMode" style="color: #6b0f24; font-family: monospace;">UTR: Pending</strong>
         </div>
         <div class="receipt-body-row total">
-          <span>Total Seva Contribution:</span>
+          <span>Contribution Amount:</span>
           <span id="receiptAmount">₹ 1,008</span>
         </div>
       </div>
 
-      <div style="margin-top: 18px; text-align: center; font-size: 0.76rem; color: var(--text-secondary); line-height: 1.5;">
-        <p><em>"Blessed by the grace of Lord Thillai Nataraja &amp; Goddess Sivakami Sundari."</em></p>
-        <p>Vedic chanting will be performed with your Sankalpam at the Kanaka Sabha.</p>
-        <p style="font-size: 0.72rem; color: #666; margin-top: 4px;">Donation is eligible for Tax Exemption under Section 80G(5)(iv) of Income Tax Act 1961 (Approval URN: ABFTS8847MF20241 | AY 2024-25 to 2026-27). <a href="assets/docs/form_10ac_80g_approval.pdf" target="_blank" style="color: var(--crimson-main); font-weight: 600; text-decoration: underline;"><i class="fas fa-file-pdf"></i> View Form 10AC</a></p>
+      <div style="margin-top: 14px; background: #fdfaf2; border: 1px dashed #d4af37; padding: 10px 14px; border-radius: 6px; text-align: center; font-size: 0.75rem; color: #78350f; line-height: 1.5;">
+        <strong>Notice:</strong> This is an initial acknowledgment slip confirming receipt of your Sankalpam request. The official 80G tax exemption receipt with Authorized Trustee Seal is generated once the UPI payment is verified in Karur Vysya Bank by Managing Trustee K. Sivasubramaniya Deekshithar.
       </div>
 
       <div class="receipt-sign-block">
@@ -327,22 +340,25 @@
           <div>
             <div style="font-size: 0.78rem; font-weight: 700; color: var(--crimson-dark);">K. SIVASUBRAMANIYA DEEKSHITHAR</div>
             <div style="font-size: 0.68rem; color: #666;">Sri Sabanayagar Koil Trustee &amp; Pooja</div>
-            <div style="font-size: 0.65rem; color: var(--saffron-warm); font-weight: 600;">Authorized Signatory &amp; Hereditary Poojakar</div>
+            <div style="font-size: 0.65rem; color: var(--saffron-warm); font-weight: 600;">Managing Trustee, Chidambaram</div>
           </div>
         </div>
         <div style="text-align: right;">
           <div style="font-family: serif; font-size: 1.1rem; color: var(--crimson-main); font-weight: bold; letter-spacing: 1px;">சிவாயநம</div>
-          <span style="font-size: 0.65rem; color: #2e7d32; font-weight: bold; border: 1px solid #2e7d32; padding: 2px 6px; border-radius: 4px; display: inline-block; margin-top: 2px;">
-            <i class="fas fa-stamp"></i> TRUST SEAL VERIFIED
+          <span style="font-size: 0.65rem; color: #b45309; font-weight: bold; border: 1px solid #b45309; padding: 2px 6px; border-radius: 4px; display: inline-block; margin-top: 2px;">
+            <i class="fas fa-clock"></i> PENDING BANK CHECK
           </span>
         </div>
       </div>
 
-      <div style="margin-top: 20px; display: flex; gap: 12px; justify-content: center;">
-        <button onclick="window.print()" class="btn-primary" style="padding: 9px 20px; font-size: 0.88rem;">
-          <i class="fas fa-print"></i> Print / Download PDF
+      <div style="margin-top: 18px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+        <button onclick="window.print()" class="btn-primary" style="padding: 9px 20px; font-size: 0.88rem; background: #6b0f24; border-color: #500816;">
+          <i class="fas fa-print"></i> Print Slip
         </button>
-        <button onclick="document.getElementById('receiptModal').classList.remove('active')" class="btn-secondary" style="color: var(--crimson-dark); background: #eee; padding: 9px 20px; font-size: 0.88rem;">
+        <button onclick="sendUtrToTrusteeWhatsApp()" class="btn-primary" style="background: #25D366; border-color: #20ba5a; padding: 9px 20px; font-size: 0.88rem; font-weight: 600;">
+          <i class="fab fa-whatsapp"></i> WhatsApp to Trustee
+        </button>
+        <button onclick="document.getElementById('receiptModal').classList.remove('active')" class="btn-secondary" style="color: #333; background: #eee; padding: 9px 18px; font-size: 0.88rem;">
           Close
         </button>
       </div>
@@ -500,22 +516,25 @@
           e.preventDefault();
 
           const utr = document.getElementById('upiUtrNumber').value.trim();
+          const utrClean = utr.replace(/[^0-9]/g, '');
           const paidAmount = parseFloat(document.getElementById('upiPaidAmount').value) || currentBooking.amount;
 
-          if (!utr || utr.length < 6) {
-            alert('Please enter a valid 12-digit UPI Reference Number / UTR.');
+          // Strict 12-digit numeric validation
+          if (!/^\d{12}$/.test(utrClean)) {
+            alert('⚠️ Invalid UPI Reference (UTR)!\n\nNPCI UPI Reference Numbers must be strictly 12 numeric digits (e.g. 427189104823).\n\nPlease check your Google Pay, PhonePe, or banking app payment history.');
             return;
           }
 
           const verifyBtn = document.getElementById('verifyPaymentBtn');
           verifyBtn.disabled = true;
-          verifyBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifying Payment & Recording...';
+          verifyBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting to Trust Registry...';
 
-          // Prepare full record for Supabase
+          // Prepare full record for Supabase & LocalStorage marked PENDING_VERIFICATION
           const recordToSave = {
             ...currentBooking,
             amount: paidAmount,
-            upiRef: utr
+            upiRef: utrClean,
+            payment_status: 'PENDING_VERIFICATION'
           };
 
           // Save to Supabase (and LocalStorage)
@@ -523,32 +542,36 @@
             await window.saveDevoteeDonation(recordToSave);
           }
 
-          // Mark payment as verified
+          // Mark payment submission done
           isPaymentVerified = true;
 
-          // Update UI: Hide Locked Box, Show Unlocked Box
+          // Update UI: Hide Locked Box, Show Provisional Acknowledgment Box
           document.getElementById('receiptLockedBox').style.display = 'none';
           document.getElementById('receiptUnlockedBox').style.display = 'block';
           
           document.getElementById('verifiedDevoteeName').textContent = currentBooking.name;
+          document.getElementById('verifiedSevaName').textContent = currentBooking.sevaName;
           document.getElementById('verifiedAmount').textContent = '₹ ' + paidAmount.toLocaleString('en-IN');
-          document.getElementById('verifiedUtr').textContent = utr;
+          document.getElementById('verifiedUtr').textContent = utrClean;
 
-          // Populate Official Receipt Modal data
+          // Populate Provisional Slip Modal data
           document.getElementById('receiptDevoteeName').textContent = currentBooking.name;
+          if (document.getElementById('receiptPhone')) {
+            document.getElementById('receiptPhone').textContent = currentBooking.phone;
+          }
           document.getElementById('receiptGothram').textContent = currentBooking.gothram || '—';
-          document.getElementById('receiptNakshatram').textContent = currentBooking.nakshatram;
+          document.getElementById('receiptNakshatram').textContent = currentBooking.nakshatram || '—';
           document.getElementById('receiptSevaName').textContent = currentBooking.sevaName + (currentBooking.gopurams ? ` (${currentBooking.gopurams})` : '');
           document.getElementById('receiptAmount').textContent = '₹ ' + paidAmount.toLocaleString('en-IN');
           document.getElementById('receiptNumber').textContent = currentBooking.receiptNo;
           document.getElementById('receiptDate').textContent = currentBooking.bookingDate;
-          document.getElementById('receiptPaymentMode').textContent = `UPI Verified (UTR: ${utr})`;
+          document.getElementById('receiptPaymentMode').textContent = `UTR: ${utrClean} (Awaiting Bank Reconciliation)`;
 
-          // Scroll to unlocked receipt section
+          // Scroll to provisional acknowledgment section
           document.getElementById('receiptUnlockedBox').scrollIntoView({ behavior: 'smooth' });
 
-          verifyBtn.innerHTML = '<i class="fas fa-check-circle"></i> Payment Confirmed';
-          verifyBtn.style.background = '#2e7d32';
+          verifyBtn.innerHTML = '<i class="fas fa-check-circle"></i> UTR Submitted for Verification';
+          verifyBtn.style.background = '#b45309';
         });
       }
     });
@@ -571,21 +594,31 @@
 
     function openOfficialReceiptModal() {
       if (!isPaymentVerified) {
-        alert('Please complete and verify your UPI payment first to unlock your official receipt.');
+        alert('Please enter and submit your 12-digit UPI UTR number first.');
         return;
       }
       document.getElementById('receiptModal').classList.add('active');
     }
 
-    function printReceiptDirectly() {
-      if (!isPaymentVerified) {
-        alert('Please complete and verify your UPI payment first to unlock your official receipt.');
-        return;
-      }
-      document.getElementById('receiptModal').classList.add('active');
-      setTimeout(() => {
-        window.print();
-      }, 300);
+    function sendUtrToTrusteeWhatsApp() {
+      if (!currentBooking) return;
+      const utrEl = document.getElementById('upiUtrNumber');
+      const utrVal = utrEl ? utrEl.value.trim() : '';
+      
+      const text = `॥ ॐ நமஃ சிவாய ॥%0A%0A` +
+        `*SRI KRISHNA YAJUR VEDA PARAYANA TRUST*%0A` +
+        `*Vanakkam K. Sivasubramaniya Deekshithar Ayya,*%0A` +
+        `I have registered a Seva booking on the Trust website and completed the UPI transfer to Karur Vysya Bank.%0A%0A` +
+        `*Booking Slip No:* ${currentBooking.receiptNo}%0A` +
+        `*Devotee Name:* ${currentBooking.name}%0A` +
+        `*Phone:* ${currentBooking.phone}%0A` +
+        `*Gothram & Nakshatram:* ${(currentBooking.gothram || '—')} / ${(currentBooking.nakshatram || '—')}%0A` +
+        `*Seva:* ${currentBooking.sevaName}${currentBooking.gopurams ? ' (' + currentBooking.gopurams + ')' : ''}%0A` +
+        `*Amount Paid:* ₹ ${Number(currentBooking.amount).toLocaleString('en-IN')}%0A` +
+        `*12-Digit UPI UTR:* ${utrVal}%0A%0A` +
+        `Kindly reconcile with Karur Vysya Bank and issue my official 80G stamped receipt. Nandri!`;
+
+      window.open(`https://wa.me/918760912130?text=${text}`, '_blank');
     }
   </script>
 </body>

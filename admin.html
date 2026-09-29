@@ -884,16 +884,70 @@
               <span style="font-size: 0.75rem; font-weight: 600; color: #555; display: block;">${pMethod}</span>
               <code style="background: #f7eedb; padding: 2px 5px; border-radius: 4px; font-size: 0.78rem; color: #3b0512;">${r.upi_reference || 'N/A'}</code>
             </td>
-            <td>
-              <span style="background: #e8f5e9; color: #2e7d32; padding: 3px 8px; border-radius: 12px; font-size: 0.74rem; font-weight: bold; white-space: nowrap;">
-                <i class="fas fa-check-circle"></i> ${r.payment_status || 'PAID'}
-              </span>
-            </td>
-            <td style="white-space: nowrap;">
-              <button type="button" onclick="viewReceipt('${r.receipt_number}')" style="background: #fff8e1; border: 1px solid #d4af37; color: #800020; padding: 5px 11px; border-radius: 4px; font-size: 0.78rem; font-weight: 600; cursor: pointer; transition: all 0.2s;" title="Print or view official receipt">
-                <i class="fas fa-file-invoice"></i> Receipt
+        let statusBadge = '';
+        let actionButtons = '';
+
+        if (r.payment_status === 'PENDING_VERIFICATION') {
+          statusBadge = `
+            <span style="background: #fff3e0; color: #b45309; border: 1px solid #f59e0b; padding: 3px 8px; border-radius: 12px; font-size: 0.72rem; font-weight: 700; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">
+              <i class="fas fa-clock"></i> PENDING BANK CHECK
+            </span>
+          `;
+          actionButtons = `
+            <div style="display: flex; gap: 5px; align-items: center;">
+              <button type="button" onclick="verifyAndApproveDonation('${r.receipt_number}')" style="background: #2e7d32; border: 1px solid #1b5e20; color: #fff; padding: 5px 9px; border-radius: 4px; font-size: 0.75rem; font-weight: 700; cursor: pointer; white-space: nowrap;" title="Confirm Karur Vysya Bank credit and generate official 80G receipt">
+                <i class="fas fa-check-circle"></i> Verify &amp; Issue
               </button>
+              <button type="button" onclick="rejectDonation('${r.receipt_number}')" style="background: #ffebee; border: 1px solid #ef5350; color: #c62828; padding: 5px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 700; cursor: pointer;" title="Reject fake/invalid UTR">
+                <i class="fas fa-times"></i> Reject
+              </button>
+            </div>
+          `;
+        } else if (r.payment_status === 'REJECTED') {
+          statusBadge = `
+            <span style="background: #ffebee; color: #c62828; border: 1px solid #ef9a9a; padding: 3px 8px; border-radius: 12px; font-size: 0.72rem; font-weight: 700; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">
+              <i class="fas fa-ban"></i> FAKE / REJECTED
+            </span>
+          `;
+          actionButtons = `<small style="color: #999; font-style: italic;">No Receipt</small>`;
+        } else {
+          // COMPLETED or VERIFIED
+          statusBadge = `
+            <span style="background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; padding: 3px 8px; border-radius: 12px; font-size: 0.72rem; font-weight: 700; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">
+              <i class="fas fa-check-double"></i> VERIFIED &amp; PAID
+            </span>
+          `;
+          actionButtons = `
+            <button type="button" onclick="viewReceipt('${r.receipt_number}')" style="background: #fff8e1; border: 1px solid #d4af37; color: #800020; padding: 5px 11px; border-radius: 4px; font-size: 0.78rem; font-weight: 600; cursor: pointer; transition: all 0.2s;" title="Print or view official 80G receipt">
+              <i class="fas fa-file-invoice"></i> Receipt
+            </button>
+          `;
+        }
+
+        html += `
+          <tr>
+            <td><strong>${idx + 1}</strong></td>
+            <td>
+              <span style="font-weight: 700; color: var(--crimson-dark);">${r.receipt_number || 'N/A'}</span><br>
+              <small style="color: var(--text-secondary);">${dateStr}</small>
             </td>
+            <td>
+              <strong>${r.devotee_name || 'Devotee'}</strong><br>
+              <a href="tel:${r.devotee_phone}" style="color: var(--text-secondary); font-size: 0.8rem;"><i class="fas fa-phone-alt" style="font-size: 0.75rem;"></i> ${r.devotee_phone || 'N/A'}</a>
+            </td>
+            <td>
+              <span>${r.devotee_gothram || '—'}</span> / <br>
+              <small style="color: var(--saffron-warm); font-weight: bold;">${r.devotee_nakshatram || '—'}</small>
+            </td>
+            <td>${addressSnippet}</td>
+            <td>${sevaDetail}</td>
+            <td><strong style="color: var(--crimson-main); font-size: 0.95rem;">₹ ${Number(r.amount || 0).toLocaleString('en-IN')}</strong></td>
+            <td>
+              <span style="font-size: 0.75rem; font-weight: 600; color: #555; display: block;">${pMethod}</span>
+              <code style="background: #f7eedb; padding: 2px 5px; border-radius: 4px; font-size: 0.78rem; color: #3b0512;">${r.upi_reference || 'N/A'}</code>
+            </td>
+            <td>${statusBadge}</td>
+            <td style="white-space: nowrap;">${actionButtons}</td>
           </tr>
         `;
       });
@@ -903,12 +957,69 @@
 
     // Update Stats Summary
     function updateStats(records) {
-      document.getElementById('statTotalDevotees').textContent = records.length.toLocaleString('en-IN');
-      const totalAmount = records.reduce((acc, r) => acc + (parseFloat(r.amount) || 0), 0);
+      const validDevotees = records.filter(r => r.payment_status !== 'REJECTED');
+      document.getElementById('statTotalDevotees').textContent = validDevotees.length.toLocaleString('en-IN');
+      
+      const totalAmount = records
+        .filter(r => r.payment_status === 'COMPLETED' || r.payment_status === 'VERIFIED')
+        .reduce((acc, r) => acc + (parseFloat(r.amount) || 0), 0);
       document.getElementById('statTotalAmount').textContent = '₹ ' + totalAmount.toLocaleString('en-IN');
       
-      const mokshaCount = records.filter(r => (r.seva_name || '').toLowerCase().includes('moksha deepam')).length;
+      const mokshaCount = records.filter(r => (r.seva_name || '').toLowerCase().includes('moksha deepam') && r.payment_status !== 'REJECTED').length;
       document.getElementById('statMokshaDeepam').textContent = mokshaCount;
+    }
+
+    async function verifyAndApproveDonation(receiptNo) {
+      const record = allRecords.find(r => r.receipt_number === receiptNo);
+      if (!record) return;
+
+      const confirmed = confirm(
+        `Confirm Bank Credit Verification:\n\n` +
+        `Devotee: ${record.devotee_name}\n` +
+        `Amount: ₹${Number(record.amount).toLocaleString('en-IN')}\n` +
+        `UTR: ${record.upi_reference}\n` +
+        `Seva: ${record.seva_name}\n\n` +
+        `Have you confirmed this credit in Karur Vysya Bank?\n\nClick OK to mark as VERIFIED and issue official 80G receipt.`
+      );
+
+      if (!confirmed) return;
+
+      record.payment_status = 'VERIFIED';
+
+      if (window.updateDevoteeStatus) {
+        await window.updateDevoteeStatus(receiptNo, 'VERIFIED');
+      }
+
+      renderTable(allRecords);
+      updateStats(allRecords);
+
+      // Open official receipt modal immediately so Trustee can send via WhatsApp or Print
+      viewReceipt(receiptNo);
+    }
+
+    async function rejectDonation(receiptNo) {
+      const record = allRecords.find(r => r.receipt_number === receiptNo);
+      if (!record) return;
+
+      const confirmed = confirm(
+        `Reject Fake / Unverified UTR:\n\n` +
+        `Devotee: ${record.devotee_name}\n` +
+        `UTR: ${record.upi_reference}\n` +
+        `Amount: ₹${Number(record.amount).toLocaleString('en-IN')}\n\n` +
+        `Are you sure? This booking will be marked REJECTED and no official receipt can be generated.`
+      );
+
+      if (!confirmed) return;
+
+      record.payment_status = 'REJECTED';
+
+      if (window.updateDevoteeStatus) {
+        await window.updateDevoteeStatus(receiptNo, 'REJECTED');
+      }
+
+      renderTable(allRecords);
+      updateStats(allRecords);
+      alert('Record marked as REJECTED / FAKE UTR.');
     }
 
     // Filter Devotees
