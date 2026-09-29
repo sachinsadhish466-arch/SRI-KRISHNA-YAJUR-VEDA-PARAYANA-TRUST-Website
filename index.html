@@ -785,32 +785,127 @@
             <div class="form-group">
               <label class="form-label">Select Divine Seva:</label>
               <div class="seva-options-grid">
+                <!-- 1. Nitya Veda Parayanam -->
                 <button type="button" class="seva-option-btn selected" data-amount="1008" data-name="Nitya Krishna Yajur Veda Parayanam">
                   <span class="seva-option-name">Nitya Veda Parayanam</span>
                   <span class="seva-option-price">₹ 1,008 / day</span>
+                  <div class="seva-tooltip">
+                    <span class="seva-tooltip-title"><i class="fas fa-om"></i> Nitya Krishna Yajur Veda Parayanam</span>
+                    Sacred continuous daily recitation of Krishna Yajur Veda (Taittiriya Samhita, Padam, Krama & Ghana chanting) at Kanaka Sabha. Morning Sankalpam performed with family Gothram and Nakshatram for Ayush, Arogya, and Aiswaryam.
+                  </div>
                 </button>
+
+                <!-- 2. Monthly Prasatham -->
                 <button type="button" class="seva-option-btn" data-amount="5000" data-name="Monthly Prasatham - Personal Sankalpam &amp; Home Delivery">
                   <span class="seva-option-name">Monthly Prasatham</span>
                   <span class="seva-option-price">₹ 5,000</span>
+                  <div class="seva-tooltip">
+                    <span class="seva-tooltip-title"><i class="fas fa-box-open"></i> Monthly Prasatham &amp; Sankalpam</span>
+                    Personal Sankalpam Archanai performed each month on your Janma Nakshatram or Pradosham at sanctum of Lord Nataraja. Blessed Thiruneeru (holy ash), Kungumam, and sacred temple Rakshai are sent directly to your home.
+                  </div>
                 </button>
+
+                <!-- 3. Annadanam Seva -->
                 <button type="button" class="seva-option-btn" data-amount="30000" data-name="Annadanam Seva - Full Day Free Meals for Pilgrims">
                   <span class="seva-option-name">Annadanam Seva</span>
                   <span class="seva-option-price">Starting ₹ 30,000 / day</span>
+                  <div class="seva-tooltip">
+                    <span class="seva-tooltip-title"><i class="fas fa-utensils"></i> Annadanam Seva (Full Day Meal Sponsor)</span>
+                    Sponsor full day of free Annadanam feeding thousands of visiting pilgrims, sadhus, and Vedic students. In return, sponsor receives sacred Pattu Thundu (silk cloth), Kovil Malai (temple garland), and blessed Maha Prasatham.
+                  </div>
                 </button>
+
+                <!-- 4. Moksha Deepam -->
                 <button type="button" class="seva-option-btn" data-amount="5000" data-name="Moksha Deepam - Lamp Lighting on Gopuram for Pitru Tithi">
                   <span class="seva-option-name">Moksha Deepam</span>
-                  <span class="seva-option-price">₹ 5,000</span>
+                  <span class="seva-option-price">₹ 5,000 per Gopuram</span>
+                  <div class="seva-tooltip">
+                    <span class="seva-tooltip-title"><i class="fas fa-fire"></i> Moksha Deepam (Pitru Shanti)</span>
+                    Auspicious ghee lamp lit atop temple Gopuram for ancestral peace on Pitru Tithi. Choose 1, 2, 3, or all 4 Gopurams (North, South, East, West @ ₹ 5,000 each; ₹ 20,000 for all 4).
+                  </div>
                 </button>
+
+                <!-- 5. Runavimochana Lingam -->
                 <button type="button" class="seva-option-btn" data-amount="10000" data-name="Runavimochana Lingam Abhishekam (Debt Relief)">
                   <span class="seva-option-name">Runavimochana Lingam</span>
                   <span class="seva-option-price">₹ 10,000</span>
+                  <div class="seva-tooltip">
+                    <span class="seva-tooltip-title"><i class="fas fa-water"></i> Runavimochana Lingam Abhishekam</span>
+                    Special 11-dravya Maha Abhishekam to Lord Runavimochana Lingeswara to dissolve financial burdens, karmic debts, ancestral obligations, and bestow financial freedom and peace of mind.
+                  </div>
                 </button>
+
+                <!-- 6. Chandramouleeswarar -->
                 <button type="button" class="seva-option-btn" data-amount="25000" data-name="Chandramouleeswarar Abhishekam (Kanaka Sabha 6-Kaala)">
                   <span class="seva-option-name">Chandramouleeswarar</span>
                   <span class="seva-option-price">₹ 25,000</span>
+                  <div class="seva-tooltip">
+                    <span class="seva-tooltip-title"><i class="fas fa-gem"></i> Chandramouleeswarar 6-Kaala Abhishekam</span>
+                    Exclusive 6-Kaala sacred Abhishekam to the legendary Sphatika (quartz crystal) Lingam of Lord Chandramouleeswarar at Kanaka Sabha with milk, honey, sandalwood, and rosewater.
+                  </div>
                 </button>
               </div>
               <input type="hidden" id="selectedSevaName" value="Nitya Krishna Yajur Veda Parayanam">
+
+              <!-- Elaborated Live Description Box (Mobile & Desktop) -->
+              <div class="seva-live-desc" id="sevaLiveDescription">
+                <div class="seva-live-desc-title" id="liveDescTitle">
+                  <i class="fas fa-om" style="color: var(--saffron-warm);"></i> Nitya Krishna Yajur Veda Parayanam &mdash; ₹ 1,008 / day
+                </div>
+                <div id="liveDescText" style="color: var(--text-secondary); font-size: 0.82rem;">
+                  Sacred continuous daily recitation of the Krishna Yajur Veda (Taittiriya Samhita, Padam, Krama, and Ghana chanting) by learned Vedic scholars at the Kanaka Sabha before Lord Nataraja. Morning Sankalpam is performed in your family's Gothram and Janma Nakshatram for Ayush, Arogya, and Aiswaryam.
+                </div>
+              </div>
+
+              <!-- Moksha Deepam 4-Gopuram Selection Grid (Appears when Moksha Deepam selected) -->
+              <div id="gopuramSelectionContainer" class="gopuram-selection-container" style="display: none;">
+                <div class="gopuram-selection-header">
+                  <h4><i class="fas fa-gopuram" style="color: var(--crimson-main);"></i> Select Temple Gopurams for Moksha Deepam:</h4>
+                  <span class="gopuram-rate-tag">₹ 5,000 per Gopuram</span>
+                </div>
+                <div class="gopuram-grid">
+                  <label class="gopuram-item">
+                    <input type="checkbox" class="gopuram-checkbox" id="gopuramNorth" value="North Gopuram (Atharvana Veda)" checked>
+                    <div class="gopuram-label-info">
+                      <strong>North Gopuram</strong>
+                      <span>Atharvana Veda &bull; ₹ 5,000</span>
+                    </div>
+                  </label>
+                  <label class="gopuram-item">
+                    <input type="checkbox" class="gopuram-checkbox" id="gopuramSouth" value="South Gopuram (Krishna Yajur Veda)">
+                    <div class="gopuram-label-info">
+                      <strong>South Gopuram</strong>
+                      <span>Krishna Yajur Veda &bull; ₹ 5,000</span>
+                    </div>
+                  </label>
+                  <label class="gopuram-item">
+                    <input type="checkbox" class="gopuram-checkbox" id="gopuramEast" value="East Gopuram (Rig Veda)">
+                    <div class="gopuram-label-info">
+                      <strong>East Gopuram</strong>
+                      <span>Rig Veda &bull; ₹ 5,000</span>
+                    </div>
+                  </label>
+                  <label class="gopuram-item">
+                    <input type="checkbox" class="gopuram-checkbox" id="gopuramWest" value="West Gopuram (Sama Veda)">
+                    <div class="gopuram-label-info">
+                      <strong>West Gopuram</strong>
+                      <span>Sama Veda &bull; ₹ 5,000</span>
+                    </div>
+                  </label>
+                </div>
+                <div class="gopuram-total-bar">
+                  <span>Calculated Moksha Deepam Total:</span>
+                  <strong id="gopuramTotalDisplay">₹ 5,000 (1 Gopuram)</strong>
+                </div>
+              </div>
+
+              <!-- Parayanam Details Action Link directly below Seva Selection -->
+              <div class="parayanam-details-action">
+                <a href="veda-parayana.html" class="parayanam-details-link">
+                  <span><i class="fas fa-book-open"></i> <strong>Parayanam Details &amp; Vidhanam:</strong> Learn more about Krishna Yajur Veda chanting procedures</span>
+                  <i class="fas fa-arrow-right"></i>
+                </a>
+              </div>
             </div>
 
             <div class="form-group">
@@ -832,7 +927,10 @@
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
               <div class="form-group">
                 <label for="donationAmount" class="form-label">Seva Amount (₹ INR) *</label>
-                <input type="number" id="donationAmount" class="form-control" value="1008" required>
+                <input type="number" id="donationAmount" class="form-control" value="1008" min="1008" required>
+                <small class="amount-notice-text">
+                  <i class="fas fa-info-circle"></i> The amount shown in this section is default but you can choose more amount as well. (Minimum: ₹ <span id="minAmountDisplay">1,008</span>)
+                </small>
               </div>
               <div class="form-group">
                 <label for="devoteePhone" class="form-label">WhatsApp Mobile No *</label>
@@ -840,8 +938,8 @@
               </div>
             </div>
 
-            <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; font-size: 1.05rem;">
-              <i class="fas fa-check-circle"></i> Generate Official Seva Receipt
+            <button type="submit" id="makePaymentBtn" class="btn-primary" style="width: 100%; justify-content: center; font-size: 1.05rem;">
+              <i class="fas fa-lock"></i> Make Payment &rarr;
             </button>
           </form>
         </div>
@@ -1177,6 +1275,8 @@
   <div id="google_translate_element" style="display: none;"></div>
 
   <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="assets/js/supabase-config.js"></script>
   <script src="assets/js/main.js"></script>
 </body>
 </html>

@@ -370,67 +370,247 @@ function initPanchangamClock() {
 /* ==========================================================================
    ONLINE SEVA & E-HUNDI INTERACTIVE MODAL & RECEIPT GENERATOR
    ========================================================================== */
+/* ==========================================================================
+   ONLINE SEVA, GOPURAM SELECTION & PAYMENT GATEWAY INTEGRATION
+   ========================================================================== */
+const SEVA_DETAILS_DICTIONARY = {
+  "Nitya Krishna Yajur Veda Parayanam": {
+    name: "Nitya Krishna Yajur Veda Parayanam",
+    shortName: "Nitya Veda Parayanam",
+    baseAmount: 1008,
+    rateLabel: "₹ 1,008 / day",
+    elaborated: "Sacred continuous daily recitation of the Krishna Yajur Veda (Taittiriya Samhita, Padam, Krama, and Ghana chanting) by learned Vedic scholars at the Kanaka Sabha before Lord Nataraja. Morning Sankalpam is performed in your family's Gothram and Janma Nakshatram for Ayush, Arogya, and Aiswaryam."
+  },
+  "Monthly Prasatham - Personal Sankalpam & Home Delivery": {
+    name: "Monthly Prasatham - Personal Sankalpam & Home Delivery",
+    shortName: "Monthly Prasatham",
+    baseAmount: 5000,
+    rateLabel: "₹ 5,000",
+    elaborated: "Personal Sankalpam Archanai performed each month on your Janma Nakshatram or monthly Pradosham at the sacred sanctum of Lord Nataraja. Blessed Thiruneeru (holy ash), Kungumam, and sacred temple Rakshai consecrated at Chit Sabha are dispatched directly to your registered residence."
+  },
+  "Annadanam Seva - Full Day Free Meals for Pilgrims": {
+    name: "Annadanam Seva - Full Day Free Meals for Pilgrims",
+    shortName: "Annadanam Seva",
+    baseAmount: 30000,
+    rateLabel: "Starting ₹ 30,000 / day",
+    elaborated: "Sponsor a complete day of sacred Annadanam feeding hundreds of visiting devotees, pilgrims, sadhus, and Vedic vidyarthies at Chidambaram. Donors receive sacred Kovil Malai (temple garland), Pattu Thundu (sacred silk angavastram), and special Maha Prasatham."
+  },
+  "Moksha Deepam - Lamp Lighting on Gopuram for Pitru Tithi": {
+    name: "Moksha Deepam - Lamp Lighting on Gopuram for Pitru Tithi",
+    shortName: "Moksha Deepam",
+    baseAmount: 5000,
+    rateLabel: "₹ 5,000 per Gopuram",
+    elaborated: "Auspicious ghee lamp (Akhanda Moksha Deepam) lit atop the sacred Raja Gopurams of Chidambaram on your ancestors' Pitru Tithi or Amavasya. Sponsoring brings eternal liberation and peace to ancestral souls. Choose North, South, East, or West Gopuram (₹ 5,000 each; ₹ 20,000 for all 4)."
+  },
+  "Runavimochana Lingam Abhishekam (Debt Relief)": {
+    name: "Runavimochana Lingam Abhishekam (Debt Relief)",
+    shortName: "Runavimochana Lingam",
+    baseAmount: 10000,
+    rateLabel: "₹ 10,000",
+    elaborated: "Special 11-dravya Maha Abhishekam to the sacred Runavimochana Lingam inside the temple complex. Specifically performed to dissolve financial burdens, karmic debts, past-life encumbrances, and bestow financial freedom and peace of mind."
+  },
+  "Chandramouleeswarar Abhishekam (Kanaka Sabha 6-Kaala)": {
+    name: "Chandramouleeswarar Abhishekam (Kanaka Sabha 6-Kaala)",
+    shortName: "Chandramouleeswarar",
+    baseAmount: 25000,
+    rateLabel: "₹ 25,000",
+    elaborated: "Exclusive 6-Kaala sacred Abhishekam to the legendary Sphatika (pure quartz crystal) Lingam of Lord Chandramouleeswarar consecrated by Adi Shankaracharya. Performed at the Kanaka Sabha before Lord Nataraja with milk, honey, sandalwood, and rosewater."
+  }
+};
+
 function initDonationModal() {
   const sevaButtons = document.querySelectorAll('.seva-option-btn');
   const sevaAmountInput = document.getElementById('donationAmount');
   const selectedSevaInput = document.getElementById('selectedSevaName');
   const donationForm = document.getElementById('onlineSevaForm');
-  const modal = document.getElementById('receiptModal');
-  const closeBtn = document.querySelector('.receipt-close-btn');
+  const gopuramContainer = document.getElementById('gopuramSelectionContainer');
+  const gopuramCheckboxes = document.querySelectorAll('.gopuram-checkbox');
+  const gopuramTotalDisplay = document.getElementById('gopuramTotalDisplay');
+  const liveDescTitle = document.getElementById('liveDescTitle');
+  const liveDescText = document.getElementById('liveDescText');
+  const minAmountDisplay = document.getElementById('minAmountDisplay');
 
+  let currentMinAmount = 1008;
+  let activeSelectedSeva = "Nitya Krishna Yajur Veda Parayanam";
+
+  // Function to update the live description box
+  function updateLiveDescription(sevaKey) {
+    const details = SEVA_DETAILS_DICTIONARY[sevaKey];
+    if (details && liveDescTitle && liveDescText) {
+      liveDescTitle.innerHTML = `<i class="fas fa-om" style="color: var(--saffron-warm);"></i> ${details.name} &mdash; ${details.rateLabel}`;
+      liveDescText.textContent = details.elaborated;
+    }
+  }
+
+  // Function to calculate Gopuram selection total
+  function calculateGopuramTotal() {
+    if (!gopuramCheckboxes.length) return 5000;
+    const checkedBoxes = Array.from(gopuramCheckboxes).filter(cb => cb.checked);
+    let count = checkedBoxes.length;
+    
+    // Ensure at least 1 Gopuram remains selected
+    if (count === 0) {
+      const defaultBox = document.getElementById('gopuramNorth') || gopuramCheckboxes[0];
+      if (defaultBox) defaultBox.checked = true;
+      count = 1;
+    }
+
+    const total = count * 5000;
+    currentMinAmount = total;
+
+    if (sevaAmountInput) {
+      sevaAmountInput.min = currentMinAmount;
+      sevaAmountInput.value = total;
+    }
+
+    if (minAmountDisplay) {
+      minAmountDisplay.textContent = currentMinAmount.toLocaleString('en-IN');
+    }
+
+    if (gopuramTotalDisplay) {
+      gopuramTotalDisplay.textContent = '₹ ' + total.toLocaleString('en-IN') + (count === 4 ? ' (All 4 Gopurams)' : ` (${count} Gopuram${count > 1 ? 's' : ''})`);
+    }
+
+    return total;
+  }
+
+  // Bind Gopuram Checkbox Changes
+  if (gopuramCheckboxes.length) {
+    gopuramCheckboxes.forEach(cb => {
+      cb.addEventListener('change', () => {
+        calculateGopuramTotal();
+      });
+    });
+  }
+
+  // Bind Seva Option Buttons
   if (sevaButtons.length && sevaAmountInput) {
     sevaButtons.forEach(btn => {
+      const sevaName = btn.getAttribute('data-name');
+      const baseAmount = parseInt(btn.getAttribute('data-amount'), 10) || 1008;
+
+      // Hover: show elaborated details on cursor arrow hover
+      btn.addEventListener('mouseenter', () => {
+        updateLiveDescription(sevaName);
+      });
+
+      // Mouse leave: restore selected seva details
+      btn.addEventListener('mouseleave', () => {
+        updateLiveDescription(activeSelectedSeva);
+      });
+
+      // Click: Select Seva
       btn.addEventListener('click', (e) => {
         e.preventDefault();
         sevaButtons.forEach(b => b.classList.remove('selected'));
         btn.classList.add('selected');
         
-        const amount = btn.getAttribute('data-amount');
-        const name = btn.getAttribute('data-name');
-        
-        sevaAmountInput.value = amount;
-        if (selectedSevaInput) selectedSevaInput.value = name;
+        activeSelectedSeva = sevaName;
+        if (selectedSevaInput) selectedSevaInput.value = sevaName;
+        updateLiveDescription(sevaName);
+
+        // Check if Moksha Deepam is chosen
+        if (sevaName.includes('Moksha Deepam')) {
+          if (gopuramContainer) gopuramContainer.style.display = 'block';
+          calculateGopuramTotal();
+        } else {
+          if (gopuramContainer) gopuramContainer.style.display = 'none';
+          currentMinAmount = baseAmount;
+          sevaAmountInput.min = currentMinAmount;
+          sevaAmountInput.value = baseAmount;
+          if (minAmountDisplay) {
+            minAmountDisplay.textContent = currentMinAmount.toLocaleString('en-IN');
+          }
+        }
       });
     });
-  }
 
-  if (donationForm && modal) {
-    donationForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      
-      const devoteeName = document.getElementById('devoteeName')?.value || 'Devotee';
-      const devoteeGothram = document.getElementById('devoteeGothram')?.value || 'Kashyapa';
-      const devoteeNakshatram = document.getElementById('devoteeNakshatram')?.value || 'Thiruvathirai';
-      const sevaName = selectedSevaInput?.value || 'Sri Krishna Yajur Veda Parayana Seva';
-      const amount = sevaAmountInput?.value || '1008';
-      const date = new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
-      const receiptNo = 'SKYVPT-' + Math.floor(100000 + Math.random() * 900000);
-
-      // Populate Receipt Details
-      document.getElementById('receiptDevoteeName').textContent = devoteeName;
-      document.getElementById('receiptGothram').textContent = devoteeGothram;
-      document.getElementById('receiptNakshatram').textContent = devoteeNakshatram;
-      document.getElementById('receiptSevaName').textContent = sevaName;
-      document.getElementById('receiptAmount').textContent = '₹ ' + parseInt(amount).toLocaleString('en-IN');
-      document.getElementById('receiptDate').textContent = date;
-      document.getElementById('receiptNumber').textContent = receiptNo;
-
-      modal.classList.add('active');
+    // Enforce Non-reducing amount rule: amount can be increased, but CANNOT go less than default minimum
+    sevaAmountInput.addEventListener('input', () => {
+      const val = parseFloat(sevaAmountInput.value);
+      if (val < currentMinAmount) {
+        // User typed below minimum; warn and allow correction on blur
+        sevaAmountInput.style.borderColor = 'red';
+      } else {
+        sevaAmountInput.style.borderColor = 'var(--primary-gold)';
+      }
     });
-  }
 
-  if (closeBtn && modal) {
-    closeBtn.addEventListener('click', () => {
-      modal.classList.remove('active');
-    });
-    
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) {
-        modal.classList.remove('active');
+    sevaAmountInput.addEventListener('change', () => {
+      const val = parseFloat(sevaAmountInput.value);
+      if (isNaN(val) || val < currentMinAmount) {
+        sevaAmountInput.value = currentMinAmount;
+        sevaAmountInput.style.borderColor = 'var(--primary-gold)';
+        alert(`The amount shown in this section is default but you can choose more amount as well. The amount cannot be reduced below the default minimum of ₹ ${currentMinAmount.toLocaleString('en-IN')}.`);
       }
     });
   }
+
+  // Handle Form Submission -> Redirect to Payment Gateway Page
+  if (donationForm) {
+    donationForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const devoteeName = document.getElementById('devoteeName')?.value?.trim() || 'Devotee';
+      const devoteeGothram = document.getElementById('devoteeGothram')?.value?.trim() || 'Bharadwaja';
+      const devoteeNakshatram = document.getElementById('devoteeNakshatram')?.value?.trim() || 'Thiruvathirai';
+      const devoteePhone = document.getElementById('devoteePhone')?.value?.trim() || '';
+      const devoteeAddress = document.getElementById('devoteeAddress')?.value?.trim() || '';
+      const sevaName = selectedSevaInput?.value || activeSelectedSeva;
+      
+      let amount = parseFloat(sevaAmountInput?.value);
+      if (isNaN(amount) || amount < currentMinAmount) {
+        amount = currentMinAmount;
+        if (sevaAmountInput) sevaAmountInput.value = currentMinAmount;
+      }
+
+      // Collect selected Gopurams if Moksha Deepam
+      let selectedGopuramsList = [];
+      if (sevaName.includes('Moksha Deepam') && gopuramCheckboxes.length) {
+        selectedGopuramsList = Array.from(gopuramCheckboxes)
+          .filter(cb => cb.checked)
+          .map(cb => cb.value);
+      }
+
+      const bookingOrder = {
+        name: devoteeName,
+        phone: devoteePhone,
+        gothram: devoteeGothram,
+        nakshatram: devoteeNakshatram,
+        address: devoteeAddress,
+        sevaName: sevaName,
+        gopurams: selectedGopuramsList.join(', '),
+        gopuramCount: selectedGopuramsList.length,
+        amount: amount,
+        minAmount: currentMinAmount,
+        receiptNo: 'SKYVPT-' + Math.floor(100000 + Math.random() * 900000),
+        bookingDate: new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' })
+      };
+
+      // Store in Session Storage for payment page retrieval
+      try {
+        sessionStorage.setItem('pendingSevaBooking', JSON.stringify(bookingOrder));
+      } catch (err) {
+        console.warn('sessionStorage error:', err);
+      }
+
+      // Construct redirect URL to Payment Page with query parameters as reliable backup
+      const params = new URLSearchParams({
+        name: devoteeName,
+        phone: devoteePhone,
+        gothram: devoteeGothram,
+        nakshatram: devoteeNakshatram,
+        seva: sevaName,
+        amount: amount,
+        gopurams: selectedGopuramsList.join(', '),
+        receipt: bookingOrder.receiptNo
+      });
+
+      window.location.href = 'payment.html?' + params.toString();
+    });
+  }
 }
+
 
 function printReceipt() {
   window.print();

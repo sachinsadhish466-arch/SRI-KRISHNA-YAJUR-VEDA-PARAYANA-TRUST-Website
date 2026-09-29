@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Payment Gateway & Receipt Verification | Sri Krishna Yajur Veda Parayana Trust Chidambaram</title>
+  <meta name="title" content="Payment Gateway & Receipt Verification | Sri Krishna Yajur Veda Parayana Trust Chidambaram">
+  <meta name="description" content="Secure payment gateway and instant 80G receipt download for Sri Krishna Yajur Veda Parayana Trust sevas at Chidambaram. Complete your UPI payment and verify reference number to download your receipt.">
+  <meta name="robots" content="noindex, follow">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Marcellus&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div class="container">
+      <div class="top-bar-left">
+        <span class="chant-mantra"><i class="fas fa-om"></i> ॐ नमः शिवाय | सुरक्षित भुगतान पोर्टल</span>
+        <span class="panchang-today"><i class="far fa-calendar-alt"></i> <span id="liveClock">Chidambaram, Tamil Nadu</span></span>
+      </div>
+      <div class="top-bar-right">
+        <a href="tel:9442090377" class="top-utility-btn" title="Call Trustee Office"><i class="fas fa-phone-alt"></i> 9442090377</a>
+        <a href="https://wa.me/919442090377" target="_blank" class="top-utility-btn whatsapp-btn" title="Chat on WhatsApp"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+        <a href="donate.html" class="top-utility-btn" style="background: var(--primary-gold); color: #4a0711; font-weight: bold;">E-Hundi</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="main-header">
+    <div class="container">
+      <div class="main-header-inner">
+        <a href="index.html" class="brand-wrapper">
+          <img src="assets/images/trust_logo.jpg" alt="Trust Logo" class="trust-logo-img">
+          <div class="brand-text">
+            <h1>SRI KRISHNA YAJUR VEDA PARAYANA TRUST</h1>
+            <div class="brand-sub-tamil">ஸ்ரீ கிருஷ்ண யஜுர் வேத பாராயண டிரஸ்ட் - சிதம்பரம்</div>
+            <div class="brand-sub-location"><i class="fas fa-map-marker-alt"></i> Thillai Nataraja Kshetram, Chidambaram</div>
+          </div>
+        </a>
+        <div class="header-right-emblem">
+          <div class="motto-box">
+            <div class="motto-sanskrit">॥ श्रद्धावान् लभते ज्ञानम् ॥</div>
+            <div class="motto-translation">Official Divine Seva Payment Portal</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <nav class="nav-bar">
+    <div class="container nav-container">
+      <button class="mobile-menu-toggle"><i class="fas fa-bars"></i></button>
+      <ul class="main-nav">
+        <li><a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="temple.html" class="nav-link"><i class="fas fa-gopuram"></i> Chidambaram Temple</a></li>
+        <li><a href="function-days.html" class="nav-link"><i class="fas fa-calendar-star"></i> Function Days</a></li>
+        <li><a href="veda-parayana.html" class="nav-link"><i class="fas fa-book-open"></i> Veda Parayanam</a></li>
+        <li><a href="about-trust.html" class="nav-link"><i class="fas fa-university"></i> About Trust</a></li>
+        <li><a href="gallery.html" class="nav-link"><i class="fas fa-images"></i> Photo Gallery</a></li>
+        <li><a href="contact.html" class="nav-link"><i class="fas fa-address-book"></i> Contact</a></li>
+      </ul>
+      <a href="donate.html" class="nav-btn-donate active"><i class="fas fa-donate"></i> Online Seva Booking</a>
+    </div>
+  </nav>
+
+  <!-- Page Banner -->
+  <div class="page-banner">
+    <div class="container">
+      <h1>Divine Seva Payment Gateway</h1>
+      <div class="breadcrumbs">
+        <a href="index.html">Home</a>
+        <i class="fas fa-chevron-right"></i>
+        <a href="donate.html">Seva Booking</a>
+        <i class="fas fa-chevron-right"></i>
+        <span>Secure Payment &amp; Receipt</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Payment Gateway Section -->
+  <div class="container section">
+    
+    <div class="payment-gateway-grid">
+      
+      <!-- Left Column: Devotee & Seva Order Summary -->
+      <div class="payment-summary-card">
+        <div class="payment-summary-header">
+          <h3><i class="fas fa-file-invoice-dollar" style="color: var(--primary-gold);"></i> Seva Order Summary</h3>
+          <span style="font-size: 0.78rem; background: var(--bg-ivory); border: 1px solid var(--border-gold); padding: 3px 8px; border-radius: 4px; color: var(--crimson-dark); font-weight: bold;">
+            Ref: <span id="summaryReceiptNo">SKYVPT-PENDING</span>
+          </span>
+        </div>
+
+        <div class="payment-amount-display">
+          <div style="font-size: 0.85rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Total Seva Contribution</div>
+          <div class="amount-val" id="summaryAmountDisplay">₹ 1,008</div>
+          <div style="font-size: 0.8rem; color: #2e7d32; font-weight: 600; margin-top: 4px;">
+            <i class="fas fa-shield-alt"></i> 100% Eligible for 80G Tax Exemption
+          </div>
+        </div>
+
+        <div style="background: var(--bg-ivory); border-radius: 6px; padding: 18px; border: 1px solid var(--border-gold); margin-bottom: 20px;">
+          <table style="width: 100%; font-size: 0.88rem; line-height: 2;">
+            <tr>
+              <td style="color: var(--text-secondary); width: 45%;"><strong>Devotee Name:</strong></td>
+              <td id="summaryDevoteeName" style="color: var(--crimson-dark); font-weight: bold;">S. Ramaswamy</td>
+            </tr>
+            <tr>
+              <td style="color: var(--text-secondary);"><strong>WhatsApp Mobile:</strong></td>
+              <td id="summaryDevoteePhone">+91 9444012345</td>
+            </tr>
+            <tr>
+              <td style="color: var(--text-secondary);"><strong>Gothram &amp; Nakshatram:</strong></td>
+              <td id="summaryGothramNakshatram">Bharadwaja / Thiruvathirai</td>
+            </tr>
+            <tr>
+              <td style="color: var(--text-secondary);"><strong>Selected Seva:</strong></td>
+              <td id="summarySevaName" style="color: var(--text-primary); font-weight: 600;">Nitya Krishna Yajur Veda Parayanam</td>
+            </tr>
+            <tr id="summaryGopuramRow" style="display: none;">
+              <td style="color: var(--text-secondary);"><strong>Moksha Deepam Gopurams:</strong></td>
+              <td id="summaryGopurams" style="color: var(--saffron-warm); font-weight: 600;">All 4 Gopurams</td>
+            </tr>
+            <tr>
+              <td style="color: var(--text-secondary);"><strong>Sanctum Kshetram:</strong></td>
+              <td>Kanaka Sabha, Chidambaram</td>
+            </tr>
+          </table>
+        </div>
+
+        <div style="background: #fff8e7; border-left: 4px solid var(--primary-gold); padding: 12px 14px; border-radius: 4px; font-size: 0.82rem; color: #5c3800; line-height: 1.5;">
+          <strong><i class="fas fa-info-circle"></i> Receipt Guarantee:</strong><br>
+          Your official 80G receipt with Trust seal and registration number will be unlocked below as soon as you complete payment and confirm your 12-digit UPI reference number.
+        </div>
+
+        <div style="margin-top: 18px; text-align: center;">
+          <a href="donate.html" style="font-size: 0.82rem; color: var(--crimson-main); text-decoration: underline;">
+            &larr; Need to change Seva or Devotee details?
+          </a>
+        </div>
+      </div>
+
+      <!-- Right Column: Interactive UPI Payment & Verification -->
+      <div class="payment-actions-card">
+        <div class="payment-summary-header">
+          <h3><i class="fas fa-qrcode" style="color: var(--crimson-main);"></i> Complete Payment via UPI</h3>
+          <span style="font-size: 0.78rem; background: #e8f5e9; color: #2e7d32; padding: 3px 8px; border-radius: 4px; font-weight: bold;">
+            <i class="fas fa-lock"></i> Bank Verified
+          </span>
+        </div>
+
+        <!-- Step 1: Scan Dynamic QR Code -->
+        <div class="upi-qr-card">
+          <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 12px;">
+            Scan with any UPI App (GPay, PhonePe, Paytm, BHIM, Cred, Mobile Banking):
+          </div>
+
+          <!-- Dynamic UPI QR Code Image Generated for Exact Amount -->
+          <img id="dynamicUpiQr" src="assets/images/trust_upi_qr.jpg" alt="Dynamic UPI QR Code" class="upi-qr-img">
+
+          <div style="margin-top: 10px;">
+            <div class="upi-id-pill">
+              <span>UPI ID: <strong>kvbupiqr.105000000004156@kvb</strong></span>
+              <button type="button" class="copy-btn" onclick="copyUpiId()" title="Copy UPI ID"><i class="fas fa-copy"></i> Copy</button>
+            </div>
+          </div>
+
+          <!-- Direct Intent Button for Mobile Devotees -->
+          <a id="upiIntentBtn" href="#" class="btn-primary" style="display: block; width: 100%; text-align: center; margin-top: 16px; padding: 12px; font-size: 0.95rem;">
+            <i class="fas fa-mobile-alt"></i> Pay directly via Mobile UPI App &rarr;
+          </a>
+
+          <!-- Direct Bank Option Toggle -->
+          <div style="margin-top: 14px; font-size: 0.78rem; color: var(--text-secondary);">
+            Transferring via Net Banking / NEFT? 
+            <a href="javascript:void(0)" onclick="toggleBankDetails()" style="color: var(--crimson-main); font-weight: bold;">View Trust Bank Details</a>
+          </div>
+
+          <!-- Collapsible Bank Details -->
+          <div id="collapsibleBankDetails" style="display: none; background: var(--bg-ivory); border: 1px solid var(--border-gold); padding: 12px; border-radius: 6px; margin-top: 10px; text-align: left; font-size: 0.82rem; line-height: 1.8;">
+            <p><strong>Account Name:</strong> SRI KRISHNA YAJUR VEDA PARAYANA TRUST</p>
+            <p><strong>Bank:</strong> KARUR VYSYA BANK &bull; <strong>Branch:</strong> CHIDAMBARAM</p>
+            <p><strong>Account No:</strong> 1116135000006414 &bull; <strong>IFSC:</strong> KVBL0001116</p>
+          </div>
+        </div>
+
+        <!-- Step 2: UPI Reference / UTR Verification Form -->
+        <div class="utr-verify-card">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+            <div style="background: var(--crimson-main); color: #fff; width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: bold;">2</div>
+            <h4 style="margin: 0; color: var(--crimson-dark); font-size: 1rem;">Confirm UPI Transaction &amp; Unlock Receipt</h4>
+          </div>
+          <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 14px;">
+            Once you make the payment on your UPI app, enter the <strong>12-digit UPI Reference Number / UTR / Transaction ID</strong> below:
+          </p>
+
+          <form id="upiVerificationForm">
+            <div class="form-group" style="margin-bottom: 12px;">
+              <label for="upiUtrNumber" class="form-label" style="font-size: 0.85rem;">12-Digit UPI Reference No / UTR *</label>
+              <input type="text" id="upiUtrNumber" class="form-control" placeholder="e.g. 427189104823" required minlength="6" maxlength="25">
+            </div>
+
+            <div class="form-group" style="margin-bottom: 16px;">
+              <label for="upiPaidAmount" class="form-label" style="font-size: 0.85rem;">Amount Paid (₹ INR) *</label>
+              <input type="number" id="upiPaidAmount" class="form-control" value="1008" required readonly>
+              <small style="font-size: 0.75rem; color: var(--text-secondary);">Exact amount recorded for your official 80G tax exemption receipt.</small>
+            </div>
+
+            <button type="submit" id="verifyPaymentBtn" class="btn-primary" style="width: 100%; justify-content: center; font-size: 1rem; padding: 12px;">
+              <i class="fas fa-check-circle"></i> Confirm Payment &amp; Unlock Receipt
+            </button>
+          </form>
+        </div>
+
+        <!-- Step 3: Receipt Area (STRICTLY LOCKED UNTIL VERIFICATION) -->
+        <div id="receiptLockedBox" class="receipt-locked-box">
+          <i class="fas fa-lock" style="font-size: 1.8rem; color: var(--crimson-main); margin-bottom: 8px;"></i>
+          <h4 style="margin: 0 0 6px; color: var(--crimson-dark); font-size: 1rem;">Official Receipt Locked</h4>
+          <p style="margin: 0; font-size: 0.82rem; color: var(--text-secondary);">
+            To download your official 80G receipt, please complete the UPI payment and enter your 12-digit UPI reference ID in Step 2 above.
+          </p>
+        </div>
+
+        <!-- Unlocked Receipt Box (Appears after successful verification) -->
+        <div id="receiptUnlockedBox" class="receipt-unlocked-box" style="display: none;">
+          <div style="font-size: 1.8rem; color: #2e7d32; margin-bottom: 6px;"><i class="fas fa-badge-check"></i></div>
+          <h3 style="color: #2e7d32; font-size: 1.2rem; margin: 0 0 6px;">Payment Verified Successfully!</h3>
+          <p style="font-size: 0.85rem; color: #333; margin-bottom: 12px;">
+            Thank you, <strong id="verifiedDevoteeName">Devotee</strong>! Your sacred offering of <strong id="verifiedAmount">₹ 1,008</strong> has been recorded in the Trust Registry &amp; Supabase database with UPI Ref: <strong id="verifiedUtr">UTR</strong>.
+          </p>
+
+          <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+            <button type="button" onclick="openOfficialReceiptModal()" class="btn-primary" style="padding: 10px 20px; font-size: 0.95rem;">
+              <i class="fas fa-download"></i> View &amp; Download 80G Receipt
+            </button>
+            <button type="button" onclick="printReceiptDirectly()" class="btn-secondary" style="background: #2e7d32; color: #fff; padding: 10px 18px; font-size: 0.95rem;">
+              <i class="fas fa-print"></i> Print Receipt
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- ==========================================================================
+       MODAL: OFFICIAL SEVA RECEIPT GENERATOR (Download & Print)
+       ========================================================================== -->
+  <div class="modal-overlay" id="receiptModal">
+    <div class="receipt-modal-content">
+      <button class="receipt-close-btn" onclick="document.getElementById('receiptModal').classList.remove('active')">&times;</button>
+      
+      <div class="receipt-header">
+        <img src="assets/images/trust_logo.jpg" alt="Trust Logo" style="width: 75px; height: 75px; margin: 0 auto 10px; border-radius: 50%; border: 2px solid var(--primary-gold);">
+        <h3 style="font-family: var(--font-heading); color: var(--crimson-dark); font-size: 1.25rem;">SRI KRISHNA YAJUR VEDA PARAYANA TRUST</h3>
+        <p style="font-size: 0.78rem; color: var(--text-secondary);">Thillai Nataraja Temple Complex, Chidambaram - 608001</p>
+        <p style="font-size: 0.75rem; color: var(--saffron-warm); font-weight: bold; margin-top: 2px;">Reg. Trust No: 412/2012 | 80G Exemption: CIT/TRICHY/80G/2021-22</p>
+        <h4 style="margin-top: 10px; color: var(--crimson-main); letter-spacing: 1px;">OFFICIAL SEVA &amp; SANKALPAM RECEIPT</h4>
+      </div>
+
+      <div class="receipt-body">
+        <div class="receipt-body-row">
+          <span>Receipt No:</span>
+          <strong id="receiptNumber">SKYVPT-782194</strong>
+        </div>
+        <div class="receipt-body-row">
+          <span>Date &amp; Time:</span>
+          <span id="receiptDate">29-Sep-2026</span>
+        </div>
+        <div class="receipt-body-row">
+          <span>Devotee / Kartha Name:</span>
+          <strong id="receiptDevoteeName">S. Ramaswamy</strong>
+        </div>
+        <div class="receipt-body-row">
+          <span>Gothram:</span>
+          <span id="receiptGothram">Bharadwaja</span>
+        </div>
+        <div class="receipt-body-row">
+          <span>Janma Nakshatram:</span>
+          <span id="receiptNakshatram">Thiruvathirai</span>
+        </div>
+        <div class="receipt-body-row">
+          <span>Seva / Pooja Name:</span>
+          <span id="receiptSevaName">Nitya Krishna Yajur Veda Parayanam</span>
+        </div>
+        <div class="receipt-body-row">
+          <span>Payment Mode:</span>
+          <span id="receiptPaymentMode">UPI Verified (UTR: Pending)</span>
+        </div>
+        <div class="receipt-body-row">
+          <span>Verification Status:</span>
+          <span style="color: #2e7d32; font-weight: bold;"><i class="fas fa-check-circle"></i> VERIFIED &amp; RECEIVED</span>
+        </div>
+        <div class="receipt-body-row total">
+          <span>Total Seva Contribution:</span>
+          <span id="receiptAmount">₹ 1,008</span>
+        </div>
+      </div>
+
+      <div style="margin-top: 18px; text-align: center; font-size: 0.76rem; color: var(--text-secondary); line-height: 1.5;">
+        <p><em>"Blessed by the grace of Lord Thillai Nataraja &amp; Goddess Sivakami Sundari."</em></p>
+        <p>Vedic chanting will be performed with your Sankalpam at the Kanaka Sabha.</p>
+        <p style="font-size: 0.72rem; color: #888; margin-top: 4px;">Donation is exempt under Section 80G of Income Tax Act 1961.</p>
+      </div>
+
+      <div style="margin-top: 20px; display: flex; gap: 12px; justify-content: center;">
+        <button onclick="window.print()" class="btn-primary" style="padding: 9px 20px; font-size: 0.88rem;">
+          <i class="fas fa-print"></i> Print / Download PDF
+        </button>
+        <button onclick="document.getElementById('receiptModal').classList.remove('active')" class="btn-secondary" style="color: var(--crimson-dark); background: #eee; padding: 9px 20px; font-size: 0.88rem;">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col footer-about">
+          <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 16px;">
+            <img src="assets/images/trust_logo.jpg" alt="Trust Logo" style="width: 55px; height: 55px; border-radius: 50%; border: 2px solid var(--primary-gold);">
+            <div>
+              <h4 style="margin: 0; padding: 0; font-size: 1rem;">Sri Krishna Yajur Veda Parayana Trust</h4>
+              <span style="font-size: 0.74rem; color: #f7d070;">Chidambaram, Tamil Nadu</span>
+            </div>
+          </div>
+          <p>Preserving sacred Krishna Yajur Veda recitation at Thillai Nataraja Kshetram, Chidambaram.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Temple Links</h4>
+          <ul class="footer-links">
+            <li><a href="temple.html"><i class="fas fa-chevron-right"></i> Temple Speciality</a></li>
+            <li><a href="function-days.html"><i class="fas fa-chevron-right"></i> Function Days</a></li>
+            <li><a href="veda-parayana.html"><i class="fas fa-chevron-right"></i> Veda Parayanam</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Devotee Sevas</h4>
+          <ul class="footer-links">
+            <li><a href="donate.html"><i class="fas fa-chevron-right"></i> Online Seva Booking</a></li>
+            <li><a href="donate.html#ehundi"><i class="fas fa-chevron-right"></i> E-Hundi Donation</a></li>
+            <li><a href="gallery.html"><i class="fas fa-chevron-right"></i> Photo Gallery</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Trust Administrative Office</h4>
+          <div class="footer-contact-item">
+            <i class="fas fa-user-tie"></i>
+            <div>
+              <strong style="color: #ffd700; font-size: 0.95rem;">K. SIVASUBRAMANIYA DEEKSHITHAR</strong><br>
+              <small style="color: #f7d070;">S/o. S.S. KUNCHITHASARANA DEEKSHITHAR</small><br>
+              <span style="font-size: 0.8rem; color: #e6c88b;">Sri Sabanayagar Koil Trustee & Pooja</span>
+            </div>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <div>
+              <strong>SRI KRISHNA-YAJURVEDHA PARAYANA TRUST</strong><br>
+              No. 30, A.R.N. Apartment, East Car Street, Chidambaram - 608 001.
+            </div>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fab fa-whatsapp" style="color: #25D366;"></i>
+            <div>
+              Cell & WhatsApp: <a href="https://wa.me/919442090377" target="_blank" style="color: #fff; font-weight: 600;">9442090377</a>
+            </div>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fab fa-google-pay" style="color: #4285F4; font-size: 1.15rem;"></i>
+            <div>
+              GPay / Payments: <a href="tel:8760912130" style="color: #ffd700; font-weight: bold;">8760912130</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copyright-text">
+          &copy; 2026 <strong>Sri Krishna Yajur Veda Parayana Trust, Chidambaram</strong>. All Rights Reserved.
+          <span class="credit-sep">|</span>
+          <span class="devotional-credit">Designed with devotion by <strong>SB Business Solutions</strong></span>
+        </div>
+        <div class="footer-visitor-wrap">
+          <span>Visitor Counter:</span>
+          <span class="visitor-counter">842,310</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="assets/js/supabase-config.js"></script>
+  <script src="assets/js/main.js"></script>
+
+  <script>
+    // Payment Gateway Logic
+    let currentBooking = null;
+    let isPaymentVerified = false;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Retrieve booking data from sessionStorage or URL query params
+      const urlParams = new URLSearchParams(window.location.search);
+      let sessionData = null;
+      try {
+        sessionData = JSON.parse(sessionStorage.getItem('pendingSevaBooking') || 'null');
+      } catch (e) {
+        console.warn('Session parse error:', e);
+      }
+
+      currentBooking = {
+        name: sessionData?.name || urlParams.get('name') || 'S. Ramaswamy',
+        phone: sessionData?.phone || urlParams.get('phone') || '+91 9444012345',
+        gothram: sessionData?.gothram || urlParams.get('gothram') || 'Bharadwaja',
+        nakshatram: sessionData?.nakshatram || urlParams.get('nakshatram') || 'Thiruvathirai',
+        address: sessionData?.address || '',
+        sevaName: sessionData?.sevaName || urlParams.get('seva') || 'Nitya Krishna Yajur Veda Parayanam',
+        gopurams: sessionData?.gopurams || urlParams.get('gopurams') || '',
+        amount: parseFloat(sessionData?.amount || urlParams.get('amount') || '1008'),
+        receiptNo: sessionData?.receiptNo || urlParams.get('receipt') || ('SKYVPT-' + Math.floor(100000 + Math.random() * 900000)),
+        bookingDate: new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' })
+      };
+
+      // 2. Populate UI Order Summary
+      document.getElementById('summaryDevoteeName').textContent = currentBooking.name;
+      document.getElementById('summaryDevoteePhone').textContent = currentBooking.phone;
+      document.getElementById('summaryGothramNakshatram').textContent = currentBooking.gothram + ' / ' + currentBooking.nakshatram;
+      document.getElementById('summarySevaName').textContent = currentBooking.sevaName;
+      document.getElementById('summaryReceiptNo').textContent = currentBooking.receiptNo;
+      document.getElementById('summaryAmountDisplay').textContent = '₹ ' + currentBooking.amount.toLocaleString('en-IN');
+      document.getElementById('upiPaidAmount').value = currentBooking.amount;
+
+      // Handle Gopuram row if Moksha Deepam
+      if (currentBooking.gopurams) {
+        const gopRow = document.getElementById('summaryGopuramRow');
+        const gopEl = document.getElementById('summaryGopurams');
+        if (gopRow && gopEl) {
+          gopRow.style.display = 'table-row';
+          gopEl.textContent = currentBooking.gopurams;
+        }
+      }
+
+      // 3. Build Dynamic UPI Deep-link & Dynamic QR Code
+      const cleanSeva = currentBooking.sevaName.replace(/[^a-zA-Z0-9 ]/g, '').substring(0, 30);
+      const upiUrl = `upi://pay?pa=kvbupiqr.105000000004156@kvb&pn=SRI+KRISHNA+YAJURVED&am=${currentBooking.amount}&cu=INR&tn=${encodeURIComponent(cleanSeva)}`;
+      
+      const upiIntentBtn = document.getElementById('upiIntentBtn');
+      if (upiIntentBtn) {
+        upiIntentBtn.href = upiUrl;
+      }
+
+      // Dynamic QR Code generation for Karur Vysya Bank UPI
+      const dynamicQrEl = document.getElementById('dynamicUpiQr');
+      if (dynamicQrEl) {
+        const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=${encodeURIComponent(upiUrl)}`;
+        dynamicQrEl.src = qrApiUrl;
+      }
+
+      // 4. Handle UPI Verification Form Submission
+      const upiForm = document.getElementById('upiVerificationForm');
+      if (upiForm) {
+        upiForm.addEventListener('submit', async (e) => {
+          e.preventDefault();
+
+          const utr = document.getElementById('upiUtrNumber').value.trim();
+          const paidAmount = parseFloat(document.getElementById('upiPaidAmount').value) || currentBooking.amount;
+
+          if (!utr || utr.length < 6) {
+            alert('Please enter a valid 12-digit UPI Reference Number / UTR.');
+            return;
+          }
+
+          const verifyBtn = document.getElementById('verifyPaymentBtn');
+          verifyBtn.disabled = true;
+          verifyBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifying Payment & Recording...';
+
+          // Prepare full record for Supabase
+          const recordToSave = {
+            ...currentBooking,
+            amount: paidAmount,
+            upiRef: utr
+          };
+
+          // Save to Supabase (and LocalStorage)
+          if (window.saveDevoteeDonation) {
+            await window.saveDevoteeDonation(recordToSave);
+          }
+
+          // Mark payment as verified
+          isPaymentVerified = true;
+
+          // Update UI: Hide Locked Box, Show Unlocked Box
+          document.getElementById('receiptLockedBox').style.display = 'none';
+          document.getElementById('receiptUnlockedBox').style.display = 'block';
+          
+          document.getElementById('verifiedDevoteeName').textContent = currentBooking.name;
+          document.getElementById('verifiedAmount').textContent = '₹ ' + paidAmount.toLocaleString('en-IN');
+          document.getElementById('verifiedUtr').textContent = utr;
+
+          // Populate Official Receipt Modal data
+          document.getElementById('receiptDevoteeName').textContent = currentBooking.name;
+          document.getElementById('receiptGothram').textContent = currentBooking.gothram;
+          document.getElementById('receiptNakshatram').textContent = currentBooking.nakshatram;
+          document.getElementById('receiptSevaName').textContent = currentBooking.sevaName + (currentBooking.gopurams ? ` (${currentBooking.gopurams})` : '');
+          document.getElementById('receiptAmount').textContent = '₹ ' + paidAmount.toLocaleString('en-IN');
+          document.getElementById('receiptNumber').textContent = currentBooking.receiptNo;
+          document.getElementById('receiptDate').textContent = currentBooking.bookingDate;
+          document.getElementById('receiptPaymentMode').textContent = `UPI Verified (UTR: ${utr})`;
+
+          // Scroll to unlocked receipt section
+          document.getElementById('receiptUnlockedBox').scrollIntoView({ behavior: 'smooth' });
+
+          verifyBtn.innerHTML = '<i class="fas fa-check-circle"></i> Payment Confirmed';
+          verifyBtn.style.background = '#2e7d32';
+        });
+      }
+    });
+
+    function copyUpiId() {
+      const upiId = 'kvbupiqr.105000000004156@kvb';
+      navigator.clipboard.writeText(upiId).then(() => {
+        alert('UPI ID copied to clipboard: ' + upiId);
+      }).catch(() => {
+        prompt('Copy UPI ID:', upiId);
+      });
+    }
+
+    function toggleBankDetails() {
+      const el = document.getElementById('collapsibleBankDetails');
+      if (el) {
+        el.style.display = el.style.display === 'none' ? 'block' : 'none';
+      }
+    }
+
+    function openOfficialReceiptModal() {
+      if (!isPaymentVerified) {
+        alert('Please complete and verify your UPI payment first to unlock your official receipt.');
+        return;
+      }
+      document.getElementById('receiptModal').classList.add('active');
+    }
+
+    function printReceiptDirectly() {
+      if (!isPaymentVerified) {
+        alert('Please complete and verify your UPI payment first to unlock your official receipt.');
+        return;
+      }
+      document.getElementById('receiptModal').classList.add('active');
+      setTimeout(() => {
+        window.print();
+      }, 300);
+    }
+  </script>
+</body>
+</html>
