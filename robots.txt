@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://srikrishnayajurvedaparayanatrustchidambaram.com/sitemap.xml
+Sitemap: https://www.srikrishnayajurvedaparayanatrustchidambaram.com/sitemap.xml
