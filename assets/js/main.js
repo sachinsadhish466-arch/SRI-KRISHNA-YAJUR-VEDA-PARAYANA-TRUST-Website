@@ -62,12 +62,19 @@ function initMobileMenu() {
   const nav = document.querySelector('.main-nav');
   if (!toggleBtn || !nav) return;
 
-  toggleBtn.addEventListener('click', () => {
-    nav.classList.toggle('show');
+  toggleBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isExpanded = nav.classList.toggle('show');
+    toggleBtn.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
     const icon = toggleBtn.querySelector('i');
     if (icon) {
-      icon.classList.toggle('fa-bars');
-      icon.classList.toggle('fa-times');
+      if (isExpanded) {
+        icon.classList.remove('fa-bars');
+        icon.classList.add('fa-times');
+      } else {
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
+      }
     }
   });
 
@@ -75,6 +82,7 @@ function initMobileMenu() {
   document.addEventListener('click', (e) => {
     if (!nav.contains(e.target) && !toggleBtn.contains(e.target) && nav.classList.contains('show')) {
       nav.classList.remove('show');
+      toggleBtn.setAttribute('aria-expanded', 'false');
       const icon = toggleBtn.querySelector('i');
       if (icon) {
         icon.classList.add('fa-bars');
@@ -83,16 +91,18 @@ function initMobileMenu() {
     }
   });
 
-  // Close when clicking any nav link (critical for smooth mobile navigation)
-  nav.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
+  // Close when clicking any nav link
+  nav.addEventListener('click', (e) => {
+    const link = e.target.closest('a');
+    if (link) {
       nav.classList.remove('show');
+      toggleBtn.setAttribute('aria-expanded', 'false');
       const icon = toggleBtn.querySelector('i');
       if (icon) {
         icon.classList.add('fa-bars');
         icon.classList.remove('fa-times');
       }
-    });
+    }
   });
 }
 
@@ -1038,7 +1048,7 @@ function applyLanguage(lang, triggerTranslate = false) {
       langToggleBtn.title = 'Switch to English / ஆங்கிலத்திற்கு மாறுக';
       langToggleBtn.classList.add('lang-active');
     }
-    translateDomToTamil();
+    updateNavLanguage('ta');
     if (triggerTranslate) {
       setGoogleTranslateLanguage('ta');
     }
@@ -1048,68 +1058,73 @@ function applyLanguage(lang, triggerTranslate = false) {
       langToggleBtn.title = 'Switch to Tamil / தமிழுக்கு மாறுக';
       langToggleBtn.classList.remove('lang-active');
     }
-    restoreDomToOriginal();
+    updateNavLanguage('en');
     if (triggerTranslate) {
       setGoogleTranslateLanguage('en');
     }
   }
 }
 
-function translateDomToTamil() {
-  const elements = document.querySelectorAll('a, button, span, h1, h2, h3, h4, strong, div, p, li');
-  elements.forEach(el => {
-    // Only translate elements without child tags or specific text nodes
-    if (el.children.length === 0 || (el.children.length === 1 && el.querySelector('i'))) {
-      const text = el.textContent.trim();
-      if (TAMIL_DICTIONARY[text]) {
-        if (!el.getAttribute('data-orig-en')) {
-          el.setAttribute('data-orig-en', text);
-        }
-        const icon = el.querySelector('i');
-        if (icon) {
-          el.innerHTML = icon.outerHTML + ' ' + TAMIL_DICTIONARY[text];
-        } else {
-          el.textContent = TAMIL_DICTIONARY[text];
-        }
-      }
-    }
-  });
-}
+const NAV_TRANSLATIONS = {
+  'Home': 'முகப்பு',
+  'Chidambaram Temple': 'சிதம்பரம் திருக்கோயில்',
+  'Function Days & Festivals': 'திருவிழா & விசேஷ நாட்கள்',
+  'Veda Parayanam': 'வேத பாராயணம்',
+  'About Trust': 'அறக்கட்டளை பற்றி',
+  'Photo Gallery': 'புகைப்பட தொகுப்பு',
+  'Contact & Travel': 'தொடர்பு & வழிகாட்டி',
+  'Online Seva Booking': 'ஆன்லைன் சேவை முன்பதிவு'
+};
 
-function restoreDomToOriginal() {
-  const elements = document.querySelectorAll('[data-orig-en]');
-  elements.forEach(el => {
-    const orig = el.getAttribute('data-orig-en');
-    if (orig) {
-      const icon = el.querySelector('i');
-      if (icon) {
-        el.innerHTML = icon.outerHTML + ' ' + orig;
-      } else {
-        el.textContent = orig;
-      }
+function updateNavLanguage(lang) {
+  const links = document.querySelectorAll('.nav-link, .nav-btn-donate');
+  links.forEach(a => {
+    // Preserve original English text on the anchor element
+    if (!a.getAttribute('data-nav-en')) {
+      const clone = a.cloneNode(true);
+      const icon = clone.querySelector('i');
+      if (icon) icon.remove();
+      a.setAttribute('data-nav-en', clone.textContent.trim());
+    }
+
+    const origEn = a.getAttribute('data-nav-en');
+    const icon = a.querySelector('i');
+    const iconHtml = icon ? icon.outerHTML + ' ' : '';
+
+    if (lang === 'ta' && NAV_TRANSLATIONS[origEn]) {
+      a.innerHTML = iconHtml + NAV_TRANSLATIONS[origEn];
+    } else if (origEn) {
+      a.innerHTML = iconHtml + origEn;
     }
   });
 }
 
 function setGoogleTranslateLanguage(targetLang) {
-  // Set Google Translate cookie
+  // Set Google Translate cookie across root and host
   const cookieVal = targetLang === 'en' ? '/en/en' : '/en/ta';
   document.cookie = 'googtrans=' + cookieVal + '; path=/;';
-  document.cookie = 'googtrans=' + cookieVal + '; domain=' + window.location.hostname + '; path=/;';
+  if (window.location.hostname) {
+    document.cookie = 'googtrans=' + cookieVal + '; domain=' + window.location.hostname + '; path=/;';
+  }
 
-  const select = document.querySelector('.goog-te-combo');
-  if (select) {
-    select.value = targetLang;
-    select.dispatchEvent(new Event('change'));
-  } else {
-    // If widget is loading, reload softly to apply cookie translation
-    setTimeout(() => {
-      const sel = document.querySelector('.goog-te-combo');
-      if (sel) {
-        sel.value = targetLang;
-        sel.dispatchEvent(new Event('change'));
+  function triggerCombo() {
+    const select = document.querySelector('.goog-te-combo');
+    if (select) {
+      select.value = targetLang;
+      select.dispatchEvent(new Event('change'));
+      return true;
+    }
+    return false;
+  }
+
+  if (!triggerCombo()) {
+    let retries = 0;
+    const interval = setInterval(() => {
+      retries++;
+      if (triggerCombo() || retries >= 15) {
+        clearInterval(interval);
       }
-    }, 400);
+    }, 250);
   }
 }
 
