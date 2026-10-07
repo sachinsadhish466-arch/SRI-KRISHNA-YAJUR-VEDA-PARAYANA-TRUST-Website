@@ -118,7 +118,7 @@ function initDevotionalAudio() {
   const statusLabel = document.getElementById('audioStatusLabel');
 
   if (!devotionalAudio) {
-    devotionalAudio = new Audio('assets/audio/sri-nataraja-sahasranamam.mp3');
+    devotionalAudio = new Audio('assets/audio/sri-nataraja-sahasranamam.mp3?v=2');
     devotionalAudio.preload = 'metadata';
 
     devotionalAudio.addEventListener('ended', () => {
