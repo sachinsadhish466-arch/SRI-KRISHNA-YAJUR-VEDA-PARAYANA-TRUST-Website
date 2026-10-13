@@ -614,36 +614,49 @@
           <div class="form-group">
             <label for="mSevaSelect"><i class="fas fa-hands-helping"></i> Select Seva Category *</label>
             <select id="mSevaSelect" required onchange="onManualSevaChange()">
-              <option value="Nitya Krishna Yajur Veda Parayanam" data-amount="1008">Nitya Krishna Yajur Veda Parayanam (₹ 1,008 / Month)</option>
-              <option value="Sri Rudra Ekadasini Maha Yagyam & Parayanam" data-amount="2500">Sri Rudra Ekadasini Maha Yagyam &amp; Parayanam (₹ 2,500)</option>
-              <option value="Chidambaram Gopura Moksha Deepam" data-amount="500">Chidambaram Gopura Moksha Deepam (₹ 500 per Gopuram)</option>
-              <option value="All 4 Gopurams Maha Moksha Deepam" data-amount="2000">All 4 Rajagopurams Maha Moksha Deepam (₹ 2,000)</option>
-              <option value="Dhanur Masa Margazhi Veda Parayanam" data-amount="1500">Dhanur Masa Margazhi Veda Parayanam (₹ 1,500)</option>
-              <option value="Chaturmasya Veda Parayanam" data-amount="5001">Chaturmasya Veda Parayanam (₹ 5,001)</option>
-              <option value="Veda Patashala Vidhyarthi Annadhanam" data-amount="5000">Veda Patashala Vidhyarthi Annadhanam &amp; Patron (₹ 5,000)</option>
-              <option value="General Veda Samrakshana Trust Donation" data-amount="1000">General Veda Samrakshana Trust Donation (Custom)</option>
+              <option value="Nitya Krishna Yajur Veda Parayanam" data-amount="1008">Nitya Krishna Yajur Veda Parayanam (₹ 1,008 / day)</option>
+              <option value="Moksha Deepam - Lamp Lighting on Gopuram for Pitru Tithi" data-amount="5000">Moksha Deepam - Lamp Lighting on Gopuram (₹ 5,000 per Gopuram)</option>
+              <option value="Monthly Prasatham - Personal Sankalpam & Home Delivery" data-amount="5000">Monthly Prasatham - Personal Sankalpam &amp; Home Delivery (₹ 5,000)</option>
+              <option value="Runavimochana Lingam Abhishekam (Debt Relief)" data-amount="10000">Runavimochana Lingam Abhishekam - Debt Relief (₹ 10,000)</option>
+              <option value="Chandramouleeswarar Abhishekam (Kanaka Sabha 6-Kaala)" data-amount="25000">Chandramouleeswarar Abhishekam - Kanaka Sabha 6-Kaala (₹ 25,000)</option>
+              <option value="Special Annadhanam Seva - Full Day Free Meals for Pilgrims" data-amount="30000">Special Annadhanam Seva - Full Day Free Meals (₹ 30,000)</option>
+              <option value="மஹா ருத்ர அபிஷேகம் (Maha Rudra Abhishekam)" data-amount="150000">மஹா ருத்ர அபிஷேகம் - Maha Rudra Abhishekam (₹ 1,50,000)</option>
+              <option value="Annadhanam Seva (Devotee's Offering)" data-amount="500">Annadhanam Seva - Custom Devotee Offering (₹ 500 / Custom)</option>
+              <option value="General Veda Samrakshana Trust Donation" data-amount="1000">General Veda Samrakshana Trust Donation (₹ 1,000 / Custom)</option>
             </select>
           </div>
 
-          <!-- Gopuram Selection (Auto-toggled or selectable) -->
-          <div class="form-group" id="mGopuramContainer" style="background: #fff8e7; padding: 12px 14px; border: 1px solid #d4af37; border-radius: 6px;">
-            <label style="margin-bottom: 8px; color: #800020; font-weight: 700;">
-              <i class="fas fa-gopuram"></i> Gopuram Offering (For Moksha Deepam):
-            </label>
-            <div style="display: flex; gap: 15px; flex-wrap: wrap; font-size: 0.85rem;">
-              <label style="display: inline-flex; align-items: center; gap: 5px; cursor: pointer;">
-                <input type="checkbox" name="mGopuram" value="East (Kizhakku) Gopuram"> East (Kizhakku)
+          <!-- Gopuram Selection (Auto-toggled when Moksha Deepam is chosen) -->
+          <div class="form-group" id="mGopuramContainer" style="display: none; background: #fff8e7; padding: 14px; border: 1px solid #d4af37; border-radius: 8px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 8px;">
+              <label style="margin: 0; color: #800020; font-weight: 700; font-size: 0.9rem;">
+                <i class="fas fa-gopuram"></i> Select Gopurams for Moksha Deepam:
               </label>
-              <label style="display: inline-flex; align-items: center; gap: 5px; cursor: pointer;">
-                <input type="checkbox" name="mGopuram" value="West (Merkku) Gopuram"> West (Merkku)
+              <span id="mGopuramCalculatedBadge" style="background: #800020; color: #ffd700; padding: 3px 10px; border-radius: 12px; font-size: 0.78rem; font-weight: 700;">
+                ₹ 5,000 per Gopuram
+              </span>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 10px; font-size: 0.85rem;">
+              <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; background: #fff; padding: 8px 10px; border-radius: 6px; border: 1px solid #e2d4b7;">
+                <input type="checkbox" name="mGopuram" value="North Gopuram (Atharvana Veda)" checked onchange="updateManualGopuramAmount()">
+                <span><strong>North (Vadakku)</strong><br><small style="color: #666;">Atharvana Veda &bull; ₹ 5,000</small></span>
               </label>
-              <label style="display: inline-flex; align-items: center; gap: 5px; cursor: pointer;">
-                <input type="checkbox" name="mGopuram" value="South (Therkku) Gopuram"> South (Therkku)
+              <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; background: #fff; padding: 8px 10px; border-radius: 6px; border: 1px solid #e2d4b7;">
+                <input type="checkbox" name="mGopuram" value="South Gopuram (Krishna Yajur Veda)" onchange="updateManualGopuramAmount()">
+                <span><strong>South (Therkku)</strong><br><small style="color: #666;">Krishna Yajur Veda &bull; ₹ 5,000</small></span>
               </label>
-              <label style="display: inline-flex; align-items: center; gap: 5px; cursor: pointer;">
-                <input type="checkbox" name="mGopuram" value="North (Vadakku) Gopuram"> North (Vadakku)
+              <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; background: #fff; padding: 8px 10px; border-radius: 6px; border: 1px solid #e2d4b7;">
+                <input type="checkbox" name="mGopuram" value="East Gopuram (Rig Veda)" onchange="updateManualGopuramAmount()">
+                <span><strong>East (Kizhakku)</strong><br><small style="color: #666;">Rig Veda &bull; ₹ 5,000</small></span>
+              </label>
+              <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; background: #fff; padding: 8px 10px; border-radius: 6px; border: 1px solid #e2d4b7;">
+                <input type="checkbox" name="mGopuram" value="West Gopuram (Sama Veda)" onchange="updateManualGopuramAmount()">
+                <span><strong>West (Merkku)</strong><br><small style="color: #666;">Sama Veda &bull; ₹ 5,000</small></span>
               </label>
             </div>
+            <small style="display: block; color: #78350f; margin-top: 8px; font-style: italic;">
+              * Total updates automatically: 1 Gopuram = ₹ 5,000 | 2 = ₹ 10,000 | 3 = ₹ 15,000 | All 4 = ₹ 20,000.
+            </small>
           </div>
 
           <div class="form-row">
@@ -1104,6 +1117,7 @@
       document.getElementById('mReceiptDate').value = new Date().toISOString().slice(0, 10);
       document.getElementById('manualReceiptModal').classList.add('active');
       document.getElementById('mDevoteeName').focus();
+      onManualSevaChange();
     }
 
     function closeManualReceiptModal() {
@@ -1115,8 +1129,35 @@
       const select = document.getElementById('mSevaSelect');
       const opt = select.options[select.selectedIndex];
       const defaultAmt = opt.getAttribute('data-amount');
-      if (defaultAmt) {
-        document.getElementById('mAmount').value = defaultAmt;
+      const sevaVal = select.value || '';
+      const gopuramBox = document.getElementById('mGopuramContainer');
+
+      if (sevaVal.includes('Moksha Deepam')) {
+        gopuramBox.style.display = 'block';
+        updateManualGopuramAmount();
+      } else {
+        gopuramBox.style.display = 'none';
+        if (defaultAmt) {
+          document.getElementById('mAmount').value = defaultAmt;
+        }
+      }
+    }
+
+    function updateManualGopuramAmount() {
+      const select = document.getElementById('mSevaSelect');
+      const sevaVal = select.value || '';
+      if (!sevaVal.includes('Moksha Deepam')) return;
+
+      const checked = document.querySelectorAll('input[name="mGopuram"]:checked');
+      const count = checked.length;
+      const totalAmt = count > 0 ? (count * 5000) : 5000;
+      document.getElementById('mAmount').value = totalAmt;
+
+      const badge = document.getElementById('mGopuramCalculatedBadge');
+      if (badge) {
+        badge.textContent = count > 0 
+          ? `₹ ${Number(totalAmt).toLocaleString('en-IN')} (${count} Gopuram${count > 1 ? 's' : ''})`
+          : '₹ 5,000 (1 Gopuram min)';
       }
     }
 
@@ -1135,9 +1176,11 @@
       const receiptDate = document.getElementById('mReceiptDate').value;
       const remarks = document.getElementById('mAdminRemarks').value.trim();
 
-      // Collect Gopurams
+      // Collect Gopurams (Only for Moksha Deepam)
       const gopuramChecks = document.querySelectorAll('input[name="mGopuram"]:checked');
-      const selectedGopurams = Array.from(gopuramChecks).map(c => c.value).join(', ');
+      const selectedGopurams = sevaName.includes('Moksha Deepam')
+        ? Array.from(gopuramChecks).map(c => c.value).join(', ')
+        : '';
 
       const receiptNo = 'SKYVPT-' + Math.floor(100000 + Math.random() * 900000);
       const createdAt = receiptDate ? new Date(receiptDate).toISOString() : new Date().toISOString();
