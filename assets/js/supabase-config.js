@@ -73,16 +73,22 @@ async function saveDevoteeDonation(donationData) {
     gopuram_selection: donationData.gopurams || '',
     amount: parseFloat(donationData.amount) || 0,
     upi_reference: donationData.upiRef || '',
-    payment_status: 'COMPLETED',
-    payment_method: 'UPI',
+    payment_status: donationData.paymentStatus || 'COMPLETED',
+    payment_method: donationData.paymentMethod || 'UPI',
     receipt_number: donationData.receiptNo || 'SKYVPT-' + Math.floor(100000 + Math.random() * 900000),
-    created_at: new Date().toISOString()
+    created_at: donationData.createdAt || new Date().toISOString()
   };
 
   // Always save to LocalStorage as resilient backup
   try {
     const existing = JSON.parse(localStorage.getItem('skyvpt_donations') || '[]');
-    existing.unshift(record);
+    // Avoid duplicate if same receipt_number exists
+    const idx = existing.findIndex(r => r.receipt_number === record.receipt_number);
+    if (idx >= 0) {
+      existing[idx] = record;
+    } else {
+      existing.unshift(record);
+    }
     localStorage.setItem('skyvpt_donations', JSON.stringify(existing));
     console.log('💾 Record saved to local backup cache:', record);
   } catch (e) {
@@ -117,6 +123,15 @@ async function saveDevoteeDonation(donationData) {
  * @returns {Promise<Array>}
  */
 async function getDevoteeDonations() {
+  let localRecords = [];
+  try {
+    localRecords = JSON.parse(localStorage.getItem('skyvpt_donations') || '[]');
+    if (!Array.isArray(localRecords)) localRecords = [];
+  } catch (e) {
+    localRecords = [];
+  }
+
+  let remoteRecords = [];
   if (supabaseClient) {
     try {
       const { data, error } = await supabaseClient
@@ -124,20 +139,32 @@ async function getDevoteeDonations() {
         .select('*')
         .order('created_at', { ascending: false });
 
-      if (!error && Array.isArray(data) && data.length > 0) {
-        return data;
+      if (!error && Array.isArray(data)) {
+        remoteRecords = data;
       }
     } catch (err) {
       console.warn('Supabase fetch error, falling back to local storage:', err);
     }
   }
 
-  // Fallback to local storage
-  try {
-    return JSON.parse(localStorage.getItem('skyvpt_donations') || '[]');
-  } catch (e) {
-    return [];
+  // Merge unique records by receipt_number
+  const map = new Map();
+  localRecords.forEach(r => {
+    if (r && r.receipt_number) map.set(r.receipt_number, r);
+  });
+  remoteRecords.forEach(r => {
+    if (r && r.receipt_number) {
+      map.set(r.receipt_number, { ...(map.get(r.receipt_number) || {}), ...r });
+    }
+  });
+
+  const merged = Array.from(map.values());
+  if (merged.length > 0) {
+    merged.sort((a, b) => new Date(b.created_at || 0) - new Date(a.created_at || 0));
+    return merged;
   }
+
+  return localRecords;
 }
 
 /**

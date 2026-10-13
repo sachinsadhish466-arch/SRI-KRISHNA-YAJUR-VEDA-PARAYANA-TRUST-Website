@@ -366,6 +366,11 @@
 
     /* Print Styles */
     @media print {
+      body {
+        background: #fff !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
       body * {
         visibility: hidden !important;
       }
@@ -373,7 +378,7 @@
         visibility: visible !important;
       }
       #receiptViewModal {
-        position: absolute !important;
+        position: fixed !important;
         left: 0 !important;
         top: 0 !important;
         width: 100% !important;
@@ -382,6 +387,12 @@
         background: #fff !important;
         padding: 0 !important;
         margin: 0 !important;
+        overflow: visible !important;
+        z-index: 999999 !important;
+      }
+      .admin-modal-overlay {
+        position: static !important;
+        background: transparent !important;
       }
       .admin-modal-box {
         box-shadow: none !important;
@@ -389,14 +400,19 @@
         max-width: 100% !important;
         width: 100% !important;
         padding: 0 !important;
+        margin: 0 auto !important;
+        overflow: visible !important;
+        max-height: none !important;
       }
-      .admin-modal-header, .receipt-action-buttons {
+      .admin-modal-header, .receipt-action-buttons, .admin-modal-close {
         display: none !important;
       }
       .receipt-paper {
         box-shadow: none !important;
-        border: 2px solid #000 !important;
+        border: 2px solid #b45309 !important;
         padding: 20px !important;
+        margin: 0 auto !important;
+        background: #fff !important;
       }
     }
   </style>
@@ -886,28 +902,6 @@
         const addressSnippet = r.devotee_address ? `<small style="color: #666; font-size: 0.78rem; display: block; max-width: 170px; word-break: break-word;">${r.devotee_address}</small>` : '<span style="color:#aaa;">—</span>';
         const pMethod = r.payment_method || 'UPI';
 
-        html += `
-          <tr>
-            <td><strong>${idx + 1}</strong></td>
-            <td>
-              <span style="font-weight: 700; color: var(--crimson-dark);">${r.receipt_number || 'N/A'}</span><br>
-              <small style="color: var(--text-secondary);">${dateStr}</small>
-            </td>
-            <td>
-              <strong>${r.devotee_name || 'Devotee'}</strong><br>
-              <a href="tel:${r.devotee_phone}" style="color: var(--text-secondary); font-size: 0.8rem;"><i class="fas fa-phone-alt" style="font-size: 0.75rem;"></i> ${r.devotee_phone || 'N/A'}</a>
-            </td>
-            <td>
-              <span>${r.devotee_gothram || '—'}</span> / <br>
-              <small style="color: var(--saffron-warm); font-weight: bold;">${r.devotee_nakshatram || '—'}</small>
-            </td>
-            <td>${addressSnippet}</td>
-            <td>${sevaDetail}</td>
-            <td><strong style="color: var(--crimson-main); font-size: 0.95rem;">₹ ${Number(r.amount || 0).toLocaleString('en-IN')}</strong></td>
-            <td>
-              <span style="font-size: 0.75rem; font-weight: 600; color: #555; display: block;">${pMethod}</span>
-              <code style="background: #f7eedb; padding: 2px 5px; border-radius: 4px; font-size: 0.78rem; color: #3b0512;">${r.upi_reference || 'N/A'}</code>
-            </td>
         let statusBadge = '';
         let actionButtons = '';
 
@@ -1167,19 +1161,36 @@
 
       // Save to Supabase / LocalStorage
       if (window.saveDevoteeDonation) {
-        await window.saveDevoteeDonation({
-          name: name,
-          phone: phone,
-          gothram: gothram,
-          nakshatram: nakshatram,
-          address: address,
-          sevaName: sevaName,
-          gopurams: selectedGopurams,
-          amount: amount,
-          upiRef: upiRef,
-          receiptNo: receiptNo,
-          paymentMethod: paymentMethod
-        });
+        try {
+          await window.saveDevoteeDonation({
+            name: name,
+            phone: phone,
+            gothram: gothram,
+            nakshatram: nakshatram,
+            address: address,
+            sevaName: sevaName,
+            gopurams: selectedGopurams,
+            amount: amount,
+            upiRef: upiRef,
+            receiptNo: receiptNo,
+            paymentMethod: paymentMethod,
+            paymentStatus: 'COMPLETED',
+            createdAt: createdAt
+          });
+        } catch (dbErr) {
+          console.warn('Database save notice:', dbErr);
+        }
+      }
+
+      // Ensure local storage backup
+      try {
+        const localList = JSON.parse(localStorage.getItem('skyvpt_donations') || '[]');
+        if (!localList.some(r => r.receipt_number === receiptNo)) {
+          localList.unshift(newRecord);
+          localStorage.setItem('skyvpt_donations', JSON.stringify(localList));
+        }
+      } catch (locErr) {
+        console.warn('LocalStorage backup notice:', locErr);
       }
 
       // Add to current in-memory records
@@ -1199,9 +1210,15 @@
     // ========================================================
 
     function viewReceipt(receiptNo) {
-      const record = allRecords.find(r => r.receipt_number === receiptNo);
+      let record = allRecords.find(r => r.receipt_number === receiptNo);
       if (!record) {
-        alert('Receipt not found: ' + receiptNo);
+        try {
+          const backupList = JSON.parse(localStorage.getItem('skyvpt_donations') || '[]');
+          record = backupList.find(r => r.receipt_number === receiptNo);
+        } catch (e) {}
+      }
+      if (!record) {
+        alert('Receipt record not found: ' + receiptNo);
         return;
       }
 
